@@ -13,7 +13,7 @@
   
         <mapping class="Entidade.Usuario"/>
         <mapping class="Tela.IfrUsuario"/>
-        <mapping class="Gerform.main"/>
+        <mapping class="gerform.main"/>
          
     </session-factory>
 </hibernate-configuration>
