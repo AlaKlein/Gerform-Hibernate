@@ -4,8 +4,8 @@
  */
 package Util;
 
-import java.util.Arrays;
 import javax.swing.JFormattedTextField;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  *
@@ -120,8 +120,15 @@ public class Validacao {
 
     public static boolean validarSenha(char[] senha) {
         if (new String(senha).isEmpty()) {
-                return false;
-            }
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validarEmail(String email) {
+        if (!EmailValidator.getInstance().isValid(email)) {
+            return false;
+        }
         return true;
     }
 }

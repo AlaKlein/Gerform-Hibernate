@@ -308,7 +308,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (!Validacao.validarDescricao(tfdEmail.getText())) {
+        if (/*!Validacao.validarDescricao(tfdEmail.getText()) &&*/ !Validacao.validarEmail(tfdEmail.getText())) {
             revisar();
             emailInvalido();
         } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
