@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.univates.gerformhibernate;
+package gerform;
+
+import Tela.IfrUsuario;
 
 /**
  *
@@ -15,7 +17,8 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("a");
+        IfrUsuario tela = new IfrUsuario();
+        tela.setVisible(true);
     }
-    
+
 }
