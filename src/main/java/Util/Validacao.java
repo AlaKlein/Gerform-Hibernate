@@ -4,6 +4,7 @@
  */
 package Util;
 
+import java.util.Arrays;
 import javax.swing.JFormattedTextField;
 
 /**
@@ -25,8 +26,7 @@ public class Validacao {
         return soma > 9 ? 0 : soma;
     }
 
-
-        public static boolean validarCPF(String cpf) {
+    public static boolean validarCPF(String cpf) {
         if ((cpf == null) || (cpf.length() != 11)) {
             return false;
         }
@@ -36,12 +36,12 @@ public class Validacao {
     }
 
     public static boolean validarCNPJ(String cnpj) {
-        if ((cnpj == null) || (cnpj.length() != 14) || 
-        cnpj.equals("00000000000000") || cnpj.equals("11111111111111") ||
-        cnpj.equals("22222222222222") || cnpj.equals("33333333333333") ||
-        cnpj.equals("44444444444444") || cnpj.equals("55555555555555") ||
-        cnpj.equals("66666666666666") || cnpj.equals("77777777777777") ||
-        cnpj.equals("88888888888888") || cnpj.equals("99999999999999")) {
+        if ((cnpj == null) || (cnpj.length() != 14)
+                || cnpj.equals("00000000000000") || cnpj.equals("11111111111111")
+                || cnpj.equals("22222222222222") || cnpj.equals("33333333333333")
+                || cnpj.equals("44444444444444") || cnpj.equals("55555555555555")
+                || cnpj.equals("66666666666666") || cnpj.equals("77777777777777")
+                || cnpj.equals("88888888888888") || cnpj.equals("99999999999999")) {
             return false;
         }
         Integer digito1 = calcularDigito(cnpj.substring(0, 12), pesoCNPJ);
@@ -103,19 +103,25 @@ public class Validacao {
         }
         return 0;
     }
-    
-    public static boolean validarDescricao (String Desc) {
+
+    public static boolean validarDescricao(String Desc) {
         if (Desc.isEmpty()) {
             return false;
         }
         return true;
     }
-    
-    public static boolean validarPreco (String Preco) {
+
+    public static boolean validarPreco(String Preco) {
         if (Preco.isEmpty()) {
             return false;
         }
         return true;
     }
-    
+
+    public static boolean validarSenha(char[] senha) {
+        if (new String(senha).isEmpty()) {
+                return false;
+            }
+        return true;
+    }
 }

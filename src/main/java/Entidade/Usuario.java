@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuario")
 
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,9 @@ public class Usuario implements Serializable{
 
     @Column(name = "permissao")
     private String permissao;
-    
+
     @Column(name = "senha")
-    private String senha;
+    private char[] senha;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class Usuario implements Serializable{
         this.permissao = permissao;
     }
 
-    public String getSenha() {
+    public char[] getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(char[] senha) {
         this.senha = senha;
     }
 }

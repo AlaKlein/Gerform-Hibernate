@@ -1,4 +1,4 @@
-package HibernateFiles;
+package Util;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,7 +7,6 @@ package HibernateFiles;
  */
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 

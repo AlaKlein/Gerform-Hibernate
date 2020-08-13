@@ -8,6 +8,7 @@ package Tela;
 import Util.Formatacao;
 import javax.swing.JOptionPane;
 import Entidade.Usuario;
+import Util.Validacao;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -20,8 +21,6 @@ import org.hibernate.Transaction;
  * @author Klein
  */
 public class IfrUsuario extends javax.swing.JInternalFrame {
-
-    int codigo = 0;
 
     /**
      * Creates new form IfrUsuario
@@ -309,25 +308,42 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-      Session sessao = null;
-        try {
-        sessao = HibernateFiles.HibernateUtil.getSessionFactory().openSession();
-        Transaction transacao = sessao.beginTransaction();
-        Usuario u = new Usuario();
-        
-            //u.setId(codigo);
-            u.setEmail(tfdEmail.getText());
-            u.setPermissao((String) jComboBox1.getSelectedItem());
-            u.setSenha(tffSenha.getText());
-            sessao.save(u);
-            transacao.commit();
-            JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-        } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
-        } finally {
-            sessao.close();
-        }
+        if (!Validacao.validarDescricao(tfdEmail.getText())) {
+            revisar();
+            emailInvalido();
+        } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
+            revisar();
+            senhaInvalido();
+        } else if (jComboBox1.getSelectedIndex() == 0) {
+            revisar();
+            PermissaoInvalido();
+        } else {
+            Session sessao = null;
+            try {
+                System.out.println("sadas:" + tffSenha.getPassword());
+                
+                sessao = Util.HibernateUtil.getSessionFactory().openSession();
+                Transaction transacao = sessao.beginTransaction();
+                Usuario user = new Usuario();
+                user.setEmail(tfdEmail.getText());
+                user.setPermissao((String) jComboBox1.getSelectedItem());
+                user.setSenha(tffSenha.getPassword());
 
+                sessao.save(user);
+                transacao.commit();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                
+                limparCampos();
+                resetCor();
+                // posicionar cursor
+                tfdEmail.requestFocus();
+                
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed

@@ -12,6 +12,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.Session;
+import tela.TelaPrincipal;
 
 /**
  *
@@ -23,24 +24,11 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*Session session = HibernateFiles.HibernateUtil.getSessionFactory().openSession();
-
-        session.beginTransaction();
-        Usuario user = new Usuario();
-
-        user.setId(1);
-        user.setEmail("Mukesh");
-        user.setSenha("Google");
-
-        session.save(user);
-        session.getTransaction().commit();*/
-
-        Session sessao = null;
+        /*Session sessao = null;
         try {
-            sessao = HibernateFiles.HibernateUtil.getSessionFactory().openSession();
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
             Usuario user = new Usuario();
-            //user.setId(5);
             user.setEmail("jose");
             user.setPermissao("Administrador");
             user.setSenha("1234");
@@ -53,5 +41,8 @@ public class main {
         } finally {
             sessao.close();
         }
+    }*/
+        tela.TelaPrincipal telaprincipal = new TelaPrincipal();
+        telaprincipal.setVisible(true);
     }
 }
