@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import Entidade.Usuario;
 import Util.Validacao;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import org.hibernate.HibernateException;
@@ -355,7 +356,38 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
+        if (!Validacao.validarEmail(tfdEmail.getText())) {
+            revisar();
+            emailInvalido();
+        } else {
+            List resultado = null;
+            Session sessao = null;
+            try {
+                System.out.println("Email excluído:" + tfdEmail.getText());
+                
+                sessao = Util.HibernateUtil.getSessionFactory().openSession();
+                Transaction transacao = sessao.beginTransaction();
+                org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '" + tfdEmail.getText() + "'");
+                resultado = query.list();
+                
+                for (Object object : resultado) {
+                    Usuario user = (Usuario) object;
+                    sessao.delete(user);
+                    transacao.commit();
+                    JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso!");
+                }
+                
+                limparCampos();
+                resetCor();
+                // posicionar cursor
+                tfdEmail.requestFocus();
+                
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
@@ -366,7 +398,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         if (jTabbedPane1.getSelectedIndex() == 0) {
             btnSalvar.setEnabled(true);
             btnEditar.setEnabled(false);
-            btnExcluir.setEnabled(false);
+            btnExcluir.setEnabled(true);
             limparCampos();
         } else if (jTabbedPane1.getSelectedIndex() == 1) {
             btnSalvar.setEnabled(false);
