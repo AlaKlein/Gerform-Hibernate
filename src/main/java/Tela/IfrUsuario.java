@@ -10,9 +10,11 @@ import javax.swing.JOptionPane;
 import Entidade.Usuario;
 import Util.Validacao;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -309,7 +311,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (/*!Validacao.validarDescricao(tfdEmail.getText()) &&*/ !Validacao.validarEmail(tfdEmail.getText())) {
+        if (/*!Validacao.validarDescricao(tfdEmail.getText()) &&*/!Validacao.validarEmail(tfdEmail.getText())) {
             revisar();
             emailInvalido();
         } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
@@ -322,7 +324,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             Session sessao = null;
             try {
                 System.out.println("sadas:" + tffSenha.getPassword());
-                
+
                 sessao = Util.HibernateUtil.getSessionFactory().openSession();
                 Transaction transacao = sessao.beginTransaction();
                 Usuario user = new Usuario();
@@ -333,12 +335,12 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 sessao.save(user);
                 transacao.commit();
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                
+
                 limparCampos();
                 resetCor();
                 // posicionar cursor
                 tfdEmail.requestFocus();
-                
+
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
             } finally {
@@ -348,7 +350,37 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        List<Usuario> resultado = new ArrayList();
+        String sql = "FROM Usuario WHERE email LIKE '%" + tfdBusca.getText() + "%' ORDER BY email";
+        
+        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tblUsuario.getColumnModel().getColumn(3).setPreferredWidth(20);
+        DefaultTableModel modelo = (DefaultTableModel) tblUsuario.getModel();
+        modelo.setNumRows(0);
+        
+        Session sessao = null;
+        try {
+            System.out.println("Busca:" + tfdBusca.getText());
 
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+
+            for (int i = 0; i < resultado.size(); i++) {
+                Usuario user = resultado.get(i);
+                modelo.addRow(new Object [] {user.getId(), user.getEmail(), user.getPermissao(), user.getSenha()});
+                
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -364,24 +396,24 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             Session sessao = null;
             try {
                 System.out.println("Email excluído:" + tfdEmail.getText());
-                
+
                 sessao = Util.HibernateUtil.getSessionFactory().openSession();
                 Transaction transacao = sessao.beginTransaction();
                 org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '" + tfdEmail.getText() + "'");
                 resultado = query.list();
-                
+
                 for (Object object : resultado) {
                     Usuario user = (Usuario) object;
                     sessao.delete(user);
                     transacao.commit();
                     JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso!");
                 }
-                
+
                 limparCampos();
                 resetCor();
                 // posicionar cursor
                 tfdEmail.requestFocus();
-                
+
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
             } finally {
