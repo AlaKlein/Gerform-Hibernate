@@ -73,11 +73,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 jTabbedPane1StateChanged(evt);
             }
         });
-        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTabbedPane1FocusGained(evt);
-            }
-        });
 
         jLabel1.setText("Email (*)");
 
@@ -309,7 +304,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (/*!Validacao.validarDescricao(tfdEmail.getText()) &&*/ !Validacao.validarEmail(tfdEmail.getText())) {
+        if (/*!Validacao.validarDescricao(tfdEmail.getText()) &&*/!Validacao.validarEmail(tfdEmail.getText())) {
             revisar();
             emailInvalido();
         } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
@@ -322,7 +317,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             Session sessao = null;
             try {
                 System.out.println("sadas:" + tffSenha.getPassword());
-                
+
                 sessao = Util.HibernateUtil.getSessionFactory().openSession();
                 Transaction transacao = sessao.beginTransaction();
                 Usuario user = new Usuario();
@@ -333,12 +328,12 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 sessao.save(user);
                 transacao.commit();
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                
+
                 limparCampos();
                 resetCor();
                 // posicionar cursor
                 tfdEmail.requestFocus();
-                
+
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
             } finally {
@@ -352,7 +347,34 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tblUsuario.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
+        } else {
 
+            List resultado = null;
+            Session sessao = null;
+            try {
+                sessao = Util.HibernateUtil.getSessionFactory().openSession();
+                Transaction transacao = sessao.beginTransaction();
+                int id;
+                id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
+
+                org.hibernate.Query query = sessao.createQuery("FROM usuario WHERE id = " + id);
+
+                resultado = query.list();
+                for (Object obj : resultado) {
+                    Usuario user = (Usuario) obj;
+                    user.setId(id);
+                    user.setEmail(tfdEmail.getText());
+                    user.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
+                    sessao.update(user);
+                    transacao.commit();
+                    JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!");
+                }
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -364,24 +386,24 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             Session sessao = null;
             try {
                 System.out.println("Email excluído:" + tfdEmail.getText());
-                
+
                 sessao = Util.HibernateUtil.getSessionFactory().openSession();
                 Transaction transacao = sessao.beginTransaction();
                 org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '" + tfdEmail.getText() + "'");
                 resultado = query.list();
-                
+
                 for (Object object : resultado) {
                     Usuario user = (Usuario) object;
                     sessao.delete(user);
                     transacao.commit();
                     JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso!");
                 }
-                
+
                 limparCampos();
                 resetCor();
                 // posicionar cursor
                 tfdEmail.requestFocus();
-                
+
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
             } finally {
@@ -389,10 +411,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
-
-    }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         if (jTabbedPane1.getSelectedIndex() == 0) {
