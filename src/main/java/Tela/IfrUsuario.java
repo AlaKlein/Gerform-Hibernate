@@ -388,18 +388,16 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (!Validacao.validarEmail(tfdEmail.getText())) {
-            revisar();
-            emailInvalido();
+        if (tblUsuario.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         } else {
             List resultado = null;
             Session sessao = null;
             try {
-                System.out.println("Email excluído:" + tfdEmail.getText());
-
                 sessao = Util.HibernateUtil.getSessionFactory().openSession();
                 Transaction transacao = sessao.beginTransaction();
-                org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '" + tfdEmail.getText() + "'");
+                org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '" + 
+                        tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 1)+ "'");
                 resultado = query.list();
 
                 for (Object object : resultado) {
@@ -408,7 +406,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     transacao.commit();
                     JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso!");
                 }
-
+                
                 limparCampos();
                 resetCor();
                 // posicionar cursor
