@@ -34,7 +34,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Selecione");
         jComboBox1.addItem("Administrador");
-        jComboBox1.addItem("Usuário");
+        jComboBox1.addItem("Operador");
         Formatacao.limparjtable(tblUsuario);
     }
 
