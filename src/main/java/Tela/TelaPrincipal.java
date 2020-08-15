@@ -6,6 +6,7 @@
 package tela;
 
 import Tela.IfrUsuario;
+import Tela.IfrFornecedor;
 import javax.swing.JInternalFrame;
 
 /**
@@ -45,6 +46,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GerForm");
@@ -69,6 +71,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem4);
+
+        jMenuItem1.setText("Fornecedor");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
@@ -95,6 +105,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         centralizarJInternalFrame(ifrUsuario);
         ifrUsuario.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        IfrFornecedor ifrFornecedor = new IfrFornecedor();
+        jDesktopPane1.add(ifrFornecedor);
+        centralizarJInternalFrame(ifrFornecedor);
+        ifrFornecedor.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     /***
     /**
      * @param args the command line arguments
@@ -138,6 +155,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }
