@@ -25,7 +25,9 @@ import org.hibernate.Transaction;
  * @author Klein
  */
 public class IfrUsuario extends javax.swing.JInternalFrame {
+
     int codigo = 0;
+
     /**
      * Creates new form IfrUsuario
      */
@@ -307,7 +309,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (/*!Validacao.validarDescricao(tfdEmail.getText()) &&*/!Validacao.validarEmail(tfdEmail.getText())) {
+        if (!Validacao.validarEmail(tfdEmail.getText())) {
             revisar();
             emailInvalido();
         } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
@@ -318,60 +320,41 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             PermissaoInvalido();
         } else {
 
-            Session sessao = null;
-            List resultado = null;
-            sessao = Util.HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
-            org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE id = " + codigo);
+            Usuario u = new Usuario();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            String retorno = null;
+
+            //Popular Objeto
+            u.setId(codigo);
+            u.setEmail(tfdEmail.getText());
+            u.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
+            u.setSenha(tffSenha.getPassword());
 
             if (codigo != 0) {
                 //atualiza
-                try {
-
-                    resultado = query.list();
-                    for (Object obj : resultado) {
-                        Usuario usuario = (Usuario) obj;
-                        usuario.setId(codigo);
-                        usuario.setEmail(tfdEmail.getText());
-                        usuario.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
-                        sessao.update(usuario);
-                        transacao.commit();
-                        JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!");
-                        limparCampos();
-                        codigo = 0;
-                    }
-
-                } catch (HibernateException hibEx) {
-                    hibEx.printStackTrace();
-                } finally {
-                    sessao.close();
-                }
-
+                retorno = usuarioDAO.Atualizar(u);
             } else {
                 //insere
-                try {
+                retorno = usuarioDAO.Salvar(u);
+            }
 
-                    sessao = Util.HibernateUtil.getSessionFactory().openSession();
-                    transacao = sessao.beginTransaction();
-                    Usuario user = new Usuario();
-                    user.setEmail(tfdEmail.getText());
-                    user.setPermissao((String) jComboBox1.getSelectedItem());
-                    user.setSenha(tffSenha.getPassword());
+            if (retorno == null) {
+                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
 
-                    sessao.save(user);
-                    transacao.commit();
-                    JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                // limpar os campos
+                tfdEmail.setText("");
+                jComboBox1.setSelectedIndex(0);
+                tffSenha.setText("");
 
-                    limparCampos();
-                    resetCor();
-                    // posicionar cursor
-                    tfdEmail.requestFocus();
+                resetCor();
 
-                } catch (HibernateException hibEx) {
-                    hibEx.printStackTrace();
-                } finally {
-                    sessao.close();
-                }
+                // posicionar cursor
+                tfdEmail.requestFocus();
+
+                codigo = 0;
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -379,28 +362,27 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         List<Usuario> resultado = new ArrayList();
         String sql = "FROM Usuario WHERE email LIKE '%" + tfdBusca.getText() + "%' ORDER BY email";
-        
+
         tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(20);
         tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(200);
         tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(50);
         tblUsuario.getColumnModel().getColumn(3).setPreferredWidth(20);
         DefaultTableModel modelo = (DefaultTableModel) tblUsuario.getModel();
         modelo.setNumRows(0);
-        
+
         Session sessao = null;
         try {
-            System.out.println("Busca:" + tfdBusca.getText());
 
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            
+
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
 
             for (int i = 0; i < resultado.size(); i++) {
                 Usuario user = resultado.get(i);
-                modelo.addRow(new Object [] {user.getId(), user.getEmail(), user.getPermissao(), user.getSenha()});
-                
+                modelo.addRow(new Object[]{user.getId(), user.getEmail(), user.getPermissao(), user.getSenha()});
+
             }
 
         } catch (HibernateException hibEx) {
@@ -444,8 +426,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             try {
                 sessao = Util.HibernateUtil.getSessionFactory().openSession();
                 Transaction transacao = sessao.beginTransaction();
-                org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '" + 
-                        tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 1)+ "'");
+                org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE email = '"
+                        + tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 1) + "'");
                 resultado = query.list();
 
                 for (Object object : resultado) {
@@ -454,7 +436,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     transacao.commit();
                     JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso!");
                 }
-                
+
                 limparCampos();
                 resetCor();
                 // posicionar cursor

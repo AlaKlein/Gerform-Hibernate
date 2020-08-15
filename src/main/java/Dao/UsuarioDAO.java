@@ -8,6 +8,7 @@ package Dao;
 import Entidade.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -48,7 +49,54 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public Usuario salvar(Usuario u) {
+    public String Salvar(Usuario u) {
+        Session sessao = null;
+        sessao = Util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        try {
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            transacao = sessao.beginTransaction();
+
+            sessao.save(u);
+            transacao.commit();
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
         return null;
     }
+
+    public String Atualizar(Usuario u) {
+        Session sessao = null;
+        List resultado = null;
+        sessao = Util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE id = " + u.getId());
+
+        try {
+
+            resultado = query.list();
+            for (Object obj : resultado) {
+                Usuario usuario = (Usuario) obj;
+                usuario.setId(u.getId());
+                usuario.setEmail(u.getEmail());
+                usuario.setPermissao(u.getPermissao());
+                sessao.update(usuario);
+                transacao.commit();
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
+    }
+
+    
+    
+    
 }
