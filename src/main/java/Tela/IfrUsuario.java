@@ -5,6 +5,7 @@
  */
 package Tela;
 
+import Dao.UsuarioDAO;
 import Util.Formatacao;
 import javax.swing.JOptionPane;
 import Entidade.Usuario;
@@ -24,7 +25,7 @@ import org.hibernate.Transaction;
  * @author Klein
  */
 public class IfrUsuario extends javax.swing.JInternalFrame {
-
+    int codigo = 0;
     /**
      * Creates new form IfrUsuario
      */
@@ -316,30 +317,61 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             revisar();
             PermissaoInvalido();
         } else {
+
             Session sessao = null;
-            try {
-                System.out.println("sadas:" + tffSenha.getPassword());
+            List resultado = null;
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE id = " + codigo);
 
-                sessao = Util.HibernateUtil.getSessionFactory().openSession();
-                Transaction transacao = sessao.beginTransaction();
-                Usuario user = new Usuario();
-                user.setEmail(tfdEmail.getText());
-                user.setPermissao((String) jComboBox1.getSelectedItem());
-                user.setSenha(tffSenha.getPassword());
+            if (codigo != 0) {
+                //atualiza
+                try {
 
-                sessao.save(user);
-                transacao.commit();
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                    resultado = query.list();
+                    for (Object obj : resultado) {
+                        Usuario usuario = (Usuario) obj;
+                        usuario.setId(codigo);
+                        usuario.setEmail(tfdEmail.getText());
+                        usuario.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
+                        sessao.update(usuario);
+                        transacao.commit();
+                        JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!");
+                        limparCampos();
+                        codigo = 0;
+                    }
 
-                limparCampos();
-                resetCor();
-                // posicionar cursor
-                tfdEmail.requestFocus();
+                } catch (HibernateException hibEx) {
+                    hibEx.printStackTrace();
+                } finally {
+                    sessao.close();
+                }
 
-            } catch (HibernateException hibEx) {
-                hibEx.printStackTrace();
-            } finally {
-                sessao.close();
+            } else {
+                //insere
+                try {
+
+                    sessao = Util.HibernateUtil.getSessionFactory().openSession();
+                    transacao = sessao.beginTransaction();
+                    Usuario user = new Usuario();
+                    user.setEmail(tfdEmail.getText());
+                    user.setPermissao((String) jComboBox1.getSelectedItem());
+                    user.setSenha(tffSenha.getPassword());
+
+                    sessao.save(user);
+                    transacao.commit();
+                    JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+
+                    limparCampos();
+                    resetCor();
+                    // posicionar cursor
+                    tfdEmail.requestFocus();
+
+                } catch (HibernateException hibEx) {
+                    hibEx.printStackTrace();
+                } finally {
+                    sessao.close();
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -383,25 +415,19 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
         } else {
 
-            List resultado = null;
-            Session sessao = null;
             try {
-                sessao = Util.HibernateUtil.getSessionFactory().openSession();
-                Transaction transacao = sessao.beginTransaction();
-                int id;
-                id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
+                int id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
+                Usuario usuario = new UsuarioDAO().consultarId(id);
 
-                org.hibernate.Query query = sessao.createQuery("FROM usuario WHERE id = " + id);
+                if (usuario != null) {
+                    jTabbedPane1.setSelectedIndex(0);
+                    tfdEmail.setText(usuario.getEmail());
+                    jComboBox1.setSelectedItem(usuario.getPermissao());
 
-                resultado = query.list();
-                for (Object obj : resultado) {
-                    Usuario user = (Usuario) obj;
-                    user.setId(id);
-                    user.setEmail(tfdEmail.getText());
-                    user.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
-                    sessao.update(user);
-                    transacao.commit();
-                    JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!");
+                    tfdEmail.requestFocus();
+                    codigo = id;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao editar registro!");
                 }
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
