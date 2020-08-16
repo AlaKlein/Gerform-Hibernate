@@ -6,7 +6,7 @@
 package gerform;
 
 
-import tela.TelaPrincipal;
+import Tela.TelaLogin;
 
 /**
  *
@@ -18,7 +18,9 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        tela.TelaPrincipal telaprincipal = new TelaPrincipal();
-        telaprincipal.setVisible(true);
+//        tela.TelaPrincipal telaprincipal = new TelaPrincipal();
+//        telaprincipal.setVisible(true);
+        Tela.TelaLogin tL = new TelaLogin();
+        tL.setVisible(true);
     }
 }
