@@ -1,6 +1,7 @@
 
 package Tela;
 
+import Dao.FornecedorDAO;
 import Util.Formatacao;
 import Util.Validacao;
 import Entidade.Fornecedor;
@@ -385,15 +386,61 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+        new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+        if (tblFornec.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
+        } else {
+
+            try {
+                int id = Integer.parseInt(String.valueOf(tblFornec.getValueAt(tblFornec.getSelectedRow(), 0)));
+                Fornecedor fornecedor = new FornecedorDAO().consultarId(id);
+
+                if (fornecedor != null) {
+                    jTabbedPane1.setSelectedIndex(0);
+                    tfdRazaoSocial.setText(fornecedor.getRazao_social());
+                    tffCNPJ.setText(fornecedor.getCnpj());
+                    tffTelefone.setText(fornecedor.getTelefone());
+                    tfdendereco.setText(fornecedor.getEndereco());
+                    if (fornecedor.getStatus().equals("Ativo")) {
+                        CkbStatus.setSelected(true);
+                    } else {
+                        CkbStatus.setSelected(false);
+                    }
+
+                    tfdRazaoSocial.requestFocus();
+                    codigo = id;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao editar registro!");
+                }
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+        if (tblFornec.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        } else {
+
+            int id = Integer.parseInt(String.valueOf(tblFornec.getValueAt(tblFornec.getSelectedRow(), 0)));
+            String retorno = new FornecedorDAO().Excluir(id);
+
+            if (retorno == null) {
+                JOptionPane.showMessageDialog(null, "Fornecedor deletado com sucesso!");
+
+                limparCampos();
+                resetCor();
+                // posicionar cursor
+                tfdRazaoSocial.requestFocus();
+                
+                //atualiza tabela
+                new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText());
+            }
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged

@@ -120,7 +120,7 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         jLabelUsuario1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabelUsuario1.setText("Bem Vindo ao GerForm!");
+        jLabelUsuario1.setText("Bem-vindo ao GerForm!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

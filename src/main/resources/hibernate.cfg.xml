@@ -17,6 +17,7 @@
         <mapping class="Tela.IfrFornecedor"/>
         <mapping class="Tela.IfrUsuario"/>
         <mapping class="gerform.main"/>
+        <mapping class="Dao.FornecedorDAO"/>
         <mapping class="Dao.UsuarioDAO"/>
         <mapping class="Dao.LoginDAO"/>
          
