@@ -118,8 +118,8 @@ public class Validacao {
         return true;
     }
 
-    public static boolean validarSenha(char[] senha) {
-        if (new String(senha).isEmpty()) {
+    public static boolean validarSenha(String senha) {
+        if (senha.isEmpty()) {
             return false;
         }
         return true;

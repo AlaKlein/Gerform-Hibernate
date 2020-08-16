@@ -9,6 +9,7 @@ import Dao.UsuarioDAO;
 import Util.Formatacao;
 import javax.swing.JOptionPane;
 import Entidade.Usuario;
+import Util.Encoding;
 import Util.Validacao;
 import java.awt.Color;
 import javax.swing.JComboBox;
@@ -307,7 +308,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         if (!Validacao.validarEmail(tfdEmail.getText())) {
             revisar();
             emailInvalido();
-        } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
+        } else if (!Validacao.validarSenha(new String(tffSenha.getPassword()))) {
             revisar();
             senhaInvalido();
         } else if (jComboBox1.getSelectedIndex() == 0) {
@@ -323,7 +324,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             u.setId(codigo);
             u.setEmail(tfdEmail.getText());
             u.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
-            u.setSenha(tffSenha.getPassword());
+            u.setSenha(Encoding.encodeToMD5(new String (tffSenha.getPassword())));
 
             if (codigo != 0) {
                 //atualiza

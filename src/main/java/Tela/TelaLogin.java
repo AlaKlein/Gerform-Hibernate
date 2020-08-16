@@ -32,7 +32,7 @@ public class TelaLogin extends javax.swing.JFrame {
         if (!Validacao.validarEmail(tfdEmail.getText())) {
             revisar();
             EmailInvalido();
-        } else if (!Validacao.validarSenha(tffSenha.getPassword())) {
+        } else if (!Validacao.validarSenha(new String(tffSenha.getPassword()))) {
             revisar();
             SenhaInvalido();
         } else {

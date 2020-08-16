@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
     private String permissao;
 
     @Column(name = "senha")
-    private char[] senha;
+    private String senha;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class Usuario implements Serializable {
         this.permissao = permissao;
     }
 
-    public char[] getSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(char[] senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 }

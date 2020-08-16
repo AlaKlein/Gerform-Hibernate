@@ -88,6 +88,7 @@ public class UsuarioDAO {
                 usuario.setId(u.getId());
                 usuario.setEmail(u.getEmail());
                 usuario.setPermissao(u.getPermissao());
+                usuario.setSenha(u.getSenha());
                 sessao.update(usuario);
                 transacao.commit();
             }
@@ -149,7 +150,6 @@ public class UsuarioDAO {
             resultado = query.list();
 
             dadosTabela = new Object[resultado.size()][3];
-            System.out.println("tamanho: " + resultado.size());
 
             for (int i = 0; i < resultado.size(); i++) {
                 Usuario user = resultado.get(i);

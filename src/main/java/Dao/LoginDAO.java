@@ -7,6 +7,7 @@ package Dao;
 
 import Entidade.Usuario;
 import Entidade.UsuarioLogado;
+import Util.Encoding;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -27,7 +28,7 @@ public class LoginDAO {
         String usuario = "";
         String pw = "";
         int id = 0;
-        
+
         Session sessao = null;
         sessao = Util.HibernateUtil.getSessionFactory().openSession();
 
@@ -35,28 +36,23 @@ public class LoginDAO {
 
             org.hibernate.Query query = sessao.createQuery("FROM Usuario "
                     + "WHERE email = '" + email + "' "
-                    + "AND senha = '" + senha + "' ");
+                    + "AND senha = md5('" + senha + "') ");
             resultado = query.list();
-
 
             for (int i = 0; i < resultado.size(); i++) {
                 Usuario user = resultado.get(i);
-                 usuario = user.getEmail();
-                 pw = (new String(user.getSenha()));
-                 id = user.getId();
+                usuario = user.getEmail();
+                pw = (user.getSenha());
+                id = user.getId();
             }
-            
             uL.setUsuarioLogadoEmail(usuario);
             uL.setUsuarioLogadoID(id);
-            
-            if (usuario.equals(email) && pw.equals(senha)) {
+
+            if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha))) {
                 tp.setVisible(true);
-            }else{
+            } else {
                 return "erro";
             }
-            
-            System.out.println(usuario);
-            System.out.println(pw);
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
