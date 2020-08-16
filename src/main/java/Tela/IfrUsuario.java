@@ -410,7 +410,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         if (jTabbedPane1.getSelectedIndex() == 0) {
             btnSalvar.setEnabled(true);
             btnEditar.setEnabled(false);
-            btnExcluir.setEnabled(true);
+            btnExcluir.setEnabled(false);
             limparCampos();
         } else if (jTabbedPane1.getSelectedIndex() == 1) {
             btnSalvar.setEnabled(false);
