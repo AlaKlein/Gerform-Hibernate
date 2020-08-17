@@ -4,6 +4,7 @@ package Dao;
 import Entidade.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -123,7 +124,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
     }
 
     @Override
-    public void popularTabela(JTable tabela, String criterio) {
+    public void popularTabela(JTable tabela, String criterio, boolean box) {
 
         List<Usuario> resultado = new ArrayList();
         String sql = "FROM Usuario WHERE email LIKE '%" + criterio + "%' ORDER BY id";

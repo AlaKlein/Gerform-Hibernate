@@ -386,7 +386,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText());
+        new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText(), jCheckBoxInativos.isSelected());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -438,7 +438,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 tfdRazaoSocial.requestFocus();
                 
                 //atualiza tabela
-                new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText());
+                new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText(), jCheckBoxInativos.isSelected());
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed

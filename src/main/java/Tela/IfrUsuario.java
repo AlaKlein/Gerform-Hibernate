@@ -62,6 +62,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         tfdBusca = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         btnFechar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -151,6 +152,13 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        jCheckBox1.setText("Listar Inativos");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -158,6 +166,9 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jCheckBox1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -176,7 +187,9 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     .addComponent(btnPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addGap(25, 25, 25))
         );
 
         jTabbedPane1.addTab("Consulta", jPanel2);
@@ -356,7 +369,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-       new UsuarioDAO().popularTabela(tblUsuario, tfdBusca.getText());
+       new UsuarioDAO().popularTabela(tblUsuario, tfdBusca.getText(), jCheckBox1.isSelected());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -401,7 +414,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 tfdEmail.requestFocus();
                 
                 //atualiza tabela
-                new UsuarioDAO().popularTabela(tblUsuario, tfdBusca.getText());
+                new UsuarioDAO().popularTabela(tblUsuario, tfdBusca.getText(), jCheckBox1.isSelected());
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -422,12 +435,17 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         Formatacao.limparjtable(tblUsuario);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;

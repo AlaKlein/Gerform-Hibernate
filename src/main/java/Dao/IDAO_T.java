@@ -1,6 +1,7 @@
 
 package Dao;
 
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
 public interface IDAO_T <T> {
@@ -13,5 +14,5 @@ public interface IDAO_T <T> {
 
     public T consultarId(int id);
     
-    public void popularTabela(JTable tabela, String criterio);
+    public void popularTabela(JTable tabela, String criterio, boolean box);
 }

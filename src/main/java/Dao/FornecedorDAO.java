@@ -4,6 +4,7 @@ package Dao;
 import Entidade.Fornecedor;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -129,10 +130,15 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
     }
 
     @Override
-    public void popularTabela(JTable tabela, String criterio) {
+    public void popularTabela(JTable tabela, String criterio, boolean box) {
 
         List<Fornecedor> resultado = new ArrayList();
-        String sql = "FROM Fornecedor WHERE razao_social LIKE '%" + criterio + "%' ORDER BY id";
+        String sql = "";
+        if (box) {
+            sql = "FROM Fornecedor WHERE razao_social LIKE '%" + criterio + "%' ORDER BY id";
+        } else {
+            sql = "FROM Fornecedor WHERE razao_social LIKE '%" + criterio + "%' AND status='Ativo' ORDER BY id";
+        }
 
         int lin = 0;
         // dados da tabela
