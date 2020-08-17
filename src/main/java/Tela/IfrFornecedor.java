@@ -353,34 +353,49 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
             revisar();
             enderecoInvalido();
         } else {
-            Session sessao = null;
-            try {
-                sessao = Util.HibernateUtil.getSessionFactory().openSession();
-                Transaction transacao = sessao.beginTransaction();
-                Fornecedor forn = new Fornecedor();
-                forn.setRazao_social(tfdRazaoSocial.getText());
-                forn.setCnpj(tffCNPJ.getText());
-                forn.setTelefone(tffTelefone.getText());
-                forn.setEndereco(tfdendereco.getText());
-                if (jCheckBoxInativos.isSelected()) {
-                    forn.setStatus("Ativo");
-                } else {
-                    forn.setStatus("Inativo");
-                }
+            
+            Fornecedor f = new Fornecedor();
+            FornecedorDAO fornecedorDAO = new FornecedorDAO();
+            String retorno = null;
+            
+            //Popular Objeto
+            f.setId(codigo);
+            f.setRazao_social(tfdRazaoSocial.getText());
+            f.setCnpj(tffCNPJ.getText());
+            f.setTelefone(tffTelefone.getText());
+            f.setEndereco(tfdendereco.getText());
+            if (CkbStatus.isSelected()) {
+                f.setStatus("Ativo");
+            } else {
+                f.setStatus("Inativo");
+            }
+            
+            if (codigo != 0) {
+                //atualiza
+                retorno = fornecedorDAO.Atualizar(f);
+            } else {
+                //insere
+                retorno = fornecedorDAO.Salvar(f);
+            }
+            
+            if (retorno == null) {
+                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
 
-                sessao.save(forn);
-                transacao.commit();
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                // limpar os campos
+                tfdRazaoSocial.setText("");
+                tffCNPJ.setText("");
+                tffTelefone.setText("");
+                tfdendereco.setText("");
 
-                limparCampos();
                 resetCor();
+
                 // posicionar cursor
                 tfdRazaoSocial.requestFocus();
 
-            } catch (HibernateException hibEx) {
-                hibEx.printStackTrace();
-            } finally {
-                sessao.close();
+                codigo = 0;
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
