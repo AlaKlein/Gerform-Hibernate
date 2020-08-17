@@ -1,4 +1,3 @@
-
 package Tela;
 
 import Dao.FornecedorDAO;
@@ -11,7 +10,6 @@ import javax.swing.JTextField;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 
 public class IfrFornecedor extends javax.swing.JInternalFrame {
 
@@ -343,6 +341,9 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
         if (Validacao.validarRazaoSocial(tfdRazaoSocial.getText()) != 0) {
             revisar();
             razao_SocialInvalido();
+        } else if (tffCNPJ.getText().equals("  .   .   /    -  ")) {
+            revisar();
+            cnpjInvalido();
         } else if (!Validacao.validarCNPJ(Formatacao.removerFormatacao(tffCNPJ.getText()))) {
             revisar();
             cnpjInvalido();
@@ -353,11 +354,11 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
             revisar();
             enderecoInvalido();
         } else {
-            
+
             Fornecedor f = new Fornecedor();
             FornecedorDAO fornecedorDAO = new FornecedorDAO();
             String retorno = null;
-            
+
             //Popular Objeto
             f.setId(codigo);
             f.setRazao_social(tfdRazaoSocial.getText());
@@ -369,7 +370,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
             } else {
                 f.setStatus("Inativo");
             }
-            
+
             if (codigo != 0) {
                 //atualiza
                 retorno = fornecedorDAO.Atualizar(f);
@@ -377,7 +378,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 //insere
                 retorno = fornecedorDAO.Salvar(f);
             }
-            
+
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
 
@@ -451,7 +452,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 resetCor();
                 // posicionar cursor
                 tfdRazaoSocial.requestFocus();
-                
+
                 //atualiza tabela
                 new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText(), jCheckBoxInativos.isSelected());
             }
@@ -472,7 +473,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
             limparCampos();
             jCheckBoxInativos.setSelected(false);
         }
-        
+
         Formatacao.limparjtable(tblFornec);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
