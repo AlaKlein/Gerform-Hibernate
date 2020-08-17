@@ -341,9 +341,9 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
         if (Validacao.validarRazaoSocial(tfdRazaoSocial.getText()) != 0) {
             revisar();
             razao_SocialInvalido();
-        } else if (tffCNPJ.getText().equals("  .   .   /    -  ")) {
+        /*} else if (tffCNPJ.getText().equals("  .   .   /    -  ")) {
             revisar();
-            cnpjInvalido();
+            cnpjInvalido();*/
         } else if (!Validacao.validarCNPJ(Formatacao.removerFormatacao(tffCNPJ.getText()))) {
             revisar();
             cnpjInvalido();
