@@ -35,6 +35,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "senha")
     private String senha;
+    
+    @Column(name = "status")
+    private String status;
 
     public int getId() {
         return id;
@@ -67,4 +70,14 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 }

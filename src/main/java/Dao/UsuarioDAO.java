@@ -39,6 +39,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 usuario.setId(id);
                 usuario.setEmail(user.getEmail());
                 usuario.setPermissao(user.getPermissao());
+                usuario.setStatus(user.getStatus());
             }
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
@@ -86,6 +87,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 usuario.setEmail(u.getEmail());
                 usuario.setPermissao(u.getPermissao());
                 usuario.setSenha(u.getSenha());
+                usuario.setStatus(u.getStatus());
                 sessao.update(usuario);
                 transacao.commit();
             }
@@ -111,7 +113,8 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
 
             for (Object object : resultado) {
                 Usuario user = (Usuario) object;
-                sessao.delete(user);
+                user.setStatus("Inativo");
+                sessao.update(user);
                 transacao.commit();
             }
 
@@ -127,17 +130,23 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
         List<Usuario> resultado = new ArrayList();
-        String sql = "FROM Usuario WHERE email LIKE '%" + criterio + "%' ORDER BY id";
-
+        String sql = "";
+        if (box) {
+            sql = "FROM Usuario WHERE email LIKE '%" + criterio + "%' ORDER BY id";
+        } else {
+            sql = "FROM Usuario WHERE email LIKE '%" + criterio + "%' AND status='Ativo' ORDER BY id";
+        }
+        
         int lin = 0;
         // dados da tabela
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[3];
+        Object[] cabecalho = new Object[4];
         cabecalho[0] = "Código";
         cabecalho[1] = "Email";
         cabecalho[2] = "Permissão";
+        cabecalho[3] = "Status";
 
         Session sessao = null;
         try {
@@ -148,13 +157,14 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
 
-            dadosTabela = new Object[resultado.size()][3];
+            dadosTabela = new Object[resultado.size()][4];
 
             for (int i = 0; i < resultado.size(); i++) {
                 Usuario user = resultado.get(i);
                 dadosTabela[i][0] = user.getId();
                 dadosTabela[i][1] = user.getEmail();
                 dadosTabela[i][2] = user.getPermissao();
+                dadosTabela[i][3] = user.getStatus();
             }
 
         } catch (HibernateException hibEx) {

@@ -33,6 +33,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jComboBox1.addItem("Selecione");
         jComboBox1.addItem("Administrador");
         jComboBox1.addItem("Operador");
+        jCheckBox2.setSelected(true);
         Formatacao.limparjtable(tblUsuario);
     }
 
@@ -57,6 +58,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tffSenha = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuario = new javax.swing.JTable();
@@ -91,6 +93,13 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jCheckBox2.setText("Ativo");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,6 +107,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox2)
                     .addComponent(jLabel7)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -126,7 +136,9 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tffSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addContainerGap())
         );
@@ -336,6 +348,12 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             u.setEmail(tfdEmail.getText());
             u.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
             u.setSenha(Encoding.encodeToMD5(new String(tffSenha.getPassword())));
+            
+            if (jCheckBox2.isSelected()) {
+                u.setStatus("Ativo");
+            } else {
+                u.setStatus("Inativo");
+            }
 
             if (codigo != 0) {
                 //atualiza
@@ -352,6 +370,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 tfdEmail.setText("");
                 jComboBox1.setSelectedIndex(0);
                 tffSenha.setText("");
+                jCheckBox2.setSelected(true);
 
                 resetCor();
 
@@ -383,6 +402,12 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     jTabbedPane1.setSelectedIndex(0);
                     tfdEmail.setText(usuario.getEmail());
                     jComboBox1.setSelectedItem(usuario.getPermissao());
+                    
+                    if (usuario.getStatus().equals("Ativo")) {
+                        jCheckBox2.setSelected(true);
+                    } else {
+                        jCheckBox2.setSelected(false);
+                    }
 
                     tfdEmail.requestFocus();
                     codigo = id;
@@ -404,7 +429,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             String retorno = new UsuarioDAO().Excluir(id);
 
             if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Usuário inativado com sucesso!");
 
                 limparCampos();
                 resetCor();
@@ -433,6 +458,10 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         Formatacao.limparjtable(tblUsuario);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
@@ -440,6 +469,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBoxInativos1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
