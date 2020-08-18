@@ -137,10 +137,11 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Fornecedor WHERE"
-                    + " razao_social = '" + f.getRazao_social() + "' OR "
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Fornecedor WHERE NOT id = " + f.getId() +
+                    " AND "
+                    + " (razao_social = '" + f.getRazao_social() + "' OR "
                             + "cnpj = '" + f.getCnpj() + "' OR "
-                                    + "telefone = '" + f.getTelefone() + "'");
+                                    + "telefone = '" + f.getTelefone() + "')");
             resultado = query.list();
 
             if (Integer.parseInt(resultado.get(0).toString()) > 0) {
