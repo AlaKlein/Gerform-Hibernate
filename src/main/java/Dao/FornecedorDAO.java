@@ -128,6 +128,32 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
         }
         return null;
     }
+    
+    public boolean checkExist (Fornecedor f) {
+        boolean a = false;
+        List resultado = null;
+        Session sessao = null;
+
+        try {
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Fornecedor WHERE"
+                    + " razao_social = '" + f.getRazao_social() + "' OR "
+                            + "cnpj = '" + f.getCnpj() + "' OR "
+                                    + "telefone = '" + f.getTelefone() + "'");
+            resultado = query.list();
+
+            if (Integer.parseInt(resultado.get(0).toString()) > 0) {
+                a = true;
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return a;
+    }
 
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {

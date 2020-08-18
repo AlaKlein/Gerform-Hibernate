@@ -341,7 +341,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
         if (Validacao.validarRazaoSocial(tfdRazaoSocial.getText()) != 0) {
             revisar();
             razao_SocialInvalido();
-        /*} else if (tffCNPJ.getText().equals("  .   .   /    -  ")) {
+            /*} else if (tffCNPJ.getText().equals("  .   .   /    -  ")) {
             revisar();
             cnpjInvalido();*/
         } else if (!Validacao.validarCNPJ(Formatacao.removerFormatacao(tffCNPJ.getText()))) {
@@ -371,32 +371,37 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 f.setStatus("Inativo");
             }
 
-            if (codigo != 0) {
-                //atualiza
-                retorno = fornecedorDAO.Atualizar(f);
+            if (fornecedorDAO.checkExist(f)) {
+                JOptionPane.showMessageDialog(null, "Campo já existe no registro!");
             } else {
-                //insere
-                retorno = fornecedorDAO.Salvar(f);
-            }
 
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                if (codigo != 0) {
+                    //atualiza
+                    retorno = fornecedorDAO.Atualizar(f);
+                } else {
+                    //insere
+                    retorno = fornecedorDAO.Salvar(f);
+                }
 
-                // limpar os campos
-                tfdRazaoSocial.setText("");
-                tffCNPJ.setText("");
-                tffTelefone.setText("");
-                tfdendereco.setText("");
+                if (retorno == null) {
+                    JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
 
-                resetCor();
+                    // limpar os campos
+                    tfdRazaoSocial.setText("");
+                    tffCNPJ.setText("");
+                    tffTelefone.setText("");
+                    tfdendereco.setText("");
 
-                // posicionar cursor
-                tfdRazaoSocial.requestFocus();
+                    resetCor();
 
-                codigo = 0;
+                    // posicionar cursor
+                    tfdRazaoSocial.requestFocus();
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                    codigo = 0;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
