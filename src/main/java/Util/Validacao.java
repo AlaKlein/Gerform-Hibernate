@@ -126,7 +126,7 @@ public class Validacao {
     }
 
     public static boolean validarEmail(String email) {
-        if (!EmailValidator.getInstance().isValid(email)) {
+        if (!EmailValidator.getInstance().isValid(email.toLowerCase())) {
             return false;
         }
         return true;
