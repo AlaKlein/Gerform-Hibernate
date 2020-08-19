@@ -345,42 +345,47 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
             //Popular Objeto
             u.setId(codigo);
-            u.setEmail(tfdEmail.getText());
+            u.setEmail(tfdEmail.getText().toLowerCase());
             u.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
             u.setSenha(Encoding.encodeToMD5(new String(tffSenha.getPassword())));
-            
+
             if (jCheckBox2.isSelected()) {
                 u.setStatus("Ativo");
             } else {
                 u.setStatus("Inativo");
             }
 
-            if (codigo != 0) {
-                //atualiza
-                retorno = usuarioDAO.Atualizar(u);
+            if (usuarioDAO.checkExist(u)) {
+                JOptionPane.showMessageDialog(null, "Este email já existe!");
             } else {
-                //insere
-                retorno = usuarioDAO.Salvar(u);
-            }
 
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                if (codigo != 0) {
+                    //atualiza
+                    retorno = usuarioDAO.Atualizar(u);
+                } else {
+                    //insere
+                    retorno = usuarioDAO.Salvar(u);
+                }
 
-                // limpar os campos
-                tfdEmail.setText("");
-                jComboBox1.setSelectedIndex(0);
-                tffSenha.setText("");
-                jCheckBox2.setSelected(true);
+                if (retorno == null) {
+                    JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
 
-                resetCor();
+                    // limpar os campos
+                    tfdEmail.setText("");
+                    jComboBox1.setSelectedIndex(0);
+                    tffSenha.setText("");
+                    jCheckBox2.setSelected(true);
 
-                // posicionar cursor
-                tfdEmail.requestFocus();
+                    resetCor();
 
-                codigo = 0;
+                    // posicionar cursor
+                    tfdEmail.requestFocus();
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                    codigo = 0;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -393,7 +398,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         if (tblUsuario.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
         } else {
-            
+
             try {
                 int id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
                 Usuario usuario = new UsuarioDAO().consultarId(id);
@@ -402,7 +407,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     jTabbedPane1.setSelectedIndex(0);
                     tfdEmail.setText(usuario.getEmail());
                     jComboBox1.setSelectedItem(usuario.getPermissao());
-                    
+
                     if (usuario.getStatus().equals("Ativo")) {
                         jCheckBox2.setSelected(true);
                     } else {

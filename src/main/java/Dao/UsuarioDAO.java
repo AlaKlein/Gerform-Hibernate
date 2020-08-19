@@ -125,6 +125,31 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
         }
         return null;
     }
+    
+    public boolean checkExist (Usuario u) {
+        boolean a = false;
+        List resultado = null;
+        Session sessao = null;
+
+        try {
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Usuario WHERE NOT id = " + u.getId() +
+                    " AND email = '" + u.getEmail() + "'");
+            
+            resultado = query.list();
+
+            if (Integer.parseInt(resultado.get(0).toString()) > 0) {
+                a = true;
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return a;
+    }
 
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
