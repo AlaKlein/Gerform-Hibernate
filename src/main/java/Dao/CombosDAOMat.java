@@ -1,42 +1,50 @@
-
 package Dao;
 
 import Entidade.Material;
 import Util.ComboItem;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
 public class CombosDAOMat {
 
     // construtor 1
     public void popularCombo(String tabela, JComboBox combo, String cond) {
-
+        List<Material> resultado = new ArrayList();
+        String sql = "";
         combo.removeAllItems();
 
         ComboItem item = new ComboItem();
         item.setCodigo(0);
         item.setDescricao("Selecione");
         combo.addItem(item);
-        
-        Session sessao = null;
-        List resultado = null;
-        sessao = Util.HibernateUtil.getSessionFactory().openSession();
-        //Transaction transacao = sessao.beginTransaction();
-        org.hibernate.Query query = sessao.createQuery("FROM Material WHERE tempropriedades='N'");
 
+        sql = "FROM Material WHERE tempropriedades='N'";
+
+        Session sessao = null;
         try {
 
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+
+            org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
-            for (Object obj : resultado) {
-                Material material = (Material) obj;
-                item.setCodigo(material.getId());
-                item.setDescricao(material.getDescricao());
-                System.out.println(material.getId());
-                System.out.println(material.getDescricao());
+
+            for (int i = 0; i < resultado.size(); i++) {
+                Material m = resultado.get(i);
+                //m = new Material();
+
+                System.out.println(m.getId());
+                System.out.println(m.getDescricao());
+                //ComboItem cI = resultado.get(i);
+
+                item = new ComboItem();
+                item.setCodigo(m.getId());
+                item.setDescricao(m.getDescricao());
+
                 combo.addItem(item);
             }
 
@@ -74,7 +82,6 @@ public class CombosDAOMat {
             System.out.println("Erro ao popular Combo = " + e.toString());
         }
     }*/
-
     public void definirItemCombo(JComboBox combo, ComboItem item) {
         for (int i = 0; i < combo.getItemCount(); i++) {
             if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {
