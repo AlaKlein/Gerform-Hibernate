@@ -11,15 +11,20 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
   
+        <mapping class="gerform.main"/>
         <mapping class="Entidade.Usuario"/>
         <mapping class="Entidade.UsuarioLogado"/>
+        <mapping class="Entidade.Material"/>
         <mapping class="Entidade.Fornecedor"/>
+        
         <mapping class="Tela.IfrFornecedor"/>
         <mapping class="Tela.IfrUsuario"/>
-        <mapping class="gerform.main"/>
+        <mapping class="Tela.IfrMaterial"/>
+        
         <mapping class="Dao.FornecedorDAO"/>
         <mapping class="Dao.UsuarioDAO"/>
         <mapping class="Dao.LoginDAO"/>
+        <mapping class="Dao.MaterialDAO"/>
          
     </session-factory>
 </hibernate-configuration>
