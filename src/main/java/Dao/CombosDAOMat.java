@@ -1,6 +1,7 @@
 
 package Dao;
 
+import Entidade.Material;
 import Util.ComboItem;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -24,16 +25,19 @@ public class CombosDAOMat {
         Session sessao = null;
         List resultado = null;
         sessao = Util.HibernateUtil.getSessionFactory().openSession();
-        Transaction transacao = sessao.beginTransaction();
-        org.hibernate.Query query = sessao.createQuery("SELECT id, descricao FROM Material WHERE tempropriedades='N'");
+        //Transaction transacao = sessao.beginTransaction();
+        org.hibernate.Query query = sessao.createQuery("FROM Material WHERE tempropriedades='N'");
 
         try {
 
             resultado = query.list();
             for (Object obj : resultado) {
-                item.setCodigo(Integer.parseInt(resultado.get(0).toString()));
-                item.setDescricao(resultado.get(1).toString());
-                transacao.commit();
+                Material material = (Material) obj;
+                item.setCodigo(material.getId());
+                item.setDescricao(material.getDescricao());
+                System.out.println(material.getId());
+                System.out.println(material.getDescricao());
+                combo.addItem(item);
             }
 
         } catch (HibernateException hibEx) {
