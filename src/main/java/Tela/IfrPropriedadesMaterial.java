@@ -1,10 +1,12 @@
 
 package Tela;
 
+import Dao.CombosDAOMat;
 import Dao.MaterialDAO;
 import Dao.PropriedadesMaterialDAO;
 import Entidade.PropriedadesMaterial;
 import Entidade.UsuarioLogado;
+import Util.ComboItem;
 import Util.Formatacao;
 import Util.SoNumerosEPonto;
 import Util.Validacao;
@@ -21,7 +23,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     
     public IfrPropriedadesMaterial() {
         initComponents();
-        //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
+        new CombosDAOMat().popularCombo("Material", jComboBoxMat, "N");
         tfdUmidade.setDocument(new SoNumerosEPonto());
         tfdGordura.setDocument(new SoNumerosEPonto());
         tfdProteina.setDocument(new SoNumerosEPonto());
@@ -45,6 +47,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         tfdGordura = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tfdProteina = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMat = new javax.swing.JTable();
@@ -82,6 +85,8 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Proteína (*)");
 
+        jCheckBox1.setText("Ativo");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,6 +94,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox1)
                     .addComponent(jLabel7)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -123,7 +129,9 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(tfdProteina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addContainerGap())
         );
@@ -327,7 +335,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         PropriedadesMaterial pm = new PropriedadesMaterial();
         MaterialDAO mat = new MaterialDAO();
         UsuarioLogado u = new UsuarioLogado();
-        //ComboItem ci = (ComboItem) jComboBoxMat.getSelectedItem();
+        ComboItem ci = (ComboItem) jComboBoxMat.getSelectedItem();
         
         if (jComboBoxMat.getSelectedIndex() == 0) {
             revisar();
@@ -342,14 +350,18 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
             revisar();
             proteinaInvalido();
         } else {
-            // populado objeto
-            
             pm.setId(codigo);
             pm.setUsuario_id(u.getUsuarioLogadoID());
-            //pm.setMaterialId(ci.getCodigo());
+            pm.setMaterial_id(ci.getCodigo());
             pm.setUmidade(Double.parseDouble(tfdUmidade.getText().replace(',', '.')));
             pm.setGordura(Double.parseDouble(tfdGordura.getText().replace(',', '.')));
             pm.setProteina(Double.parseDouble(tfdProteina.getText().replace(',', '.')));
+            
+            if (jCheckBox1.isSelected()) {
+                pm.setStatus("Ativo");
+            } else {
+                pm.setStatus("Inativo");
+            }
 
             PropriedadesMaterialDAO propriedadesMaterialDAO = new PropriedadesMaterialDAO();
             String retorno = null;
@@ -372,10 +384,10 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
                 codigo = 0;
 
-                //new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos);
+                new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
 
-                //mat.definirPropriedades(ci.getCodigo(), "S");
-                //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
+                mat.definirPropriedades(ci.getCodigo(), "S");
+                new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Deu erro: \n\nMensagem técnica:" + retorno);
@@ -385,18 +397,18 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos);
+        new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        PropriedadesMaterialDAO pmd = new PropriedadesMaterialDAO();
+        /*PropriedadesMaterialDAO pmd = new PropriedadesMaterialDAO();
         if (tblMat.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
         } else {
             String codigoS = String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0));
-            //int id = pmd.getPropriedadeId(Integer.parseInt(codigoS));
+            int id = pmd.getPropriedadeId(Integer.parseInt(codigoS));
             
-            /*try {
+            try {
                 PropriedadesMaterial propriedadesMaterial = new PropriedadesMaterialDAO().consultarId(Integer.parseInt(codigoS));
                 PropriedadesMaterial propriedadesMaterial = new PropriedadesMaterialDAO().consultarId(id);
 
@@ -422,8 +434,8 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 System.out.println("Erro salvar propriedades do material = " + e);
                 System.out.println("Erro: " + e);
-            }*/
-        }
+            }
+        }*/
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -467,7 +479,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         }
         
         Formatacao.limparjtable(tblMat);
-        //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
+        new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
 
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
@@ -477,6 +489,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBoxInativos;
     private javax.swing.JComboBox<String> jComboBoxMat;
     private javax.swing.JLabel jLabel3;

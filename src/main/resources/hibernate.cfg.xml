@@ -20,11 +20,14 @@
         <mapping class="Tela.IfrFornecedor"/>
         <mapping class="Tela.IfrUsuario"/>
         <mapping class="Tela.IfrMaterial"/>
+        <mapping class="Tela.IfrPropriedadesMaterial"/>
         
         <mapping class="Dao.FornecedorDAO"/>
         <mapping class="Dao.UsuarioDAO"/>
         <mapping class="Dao.LoginDAO"/>
         <mapping class="Dao.MaterialDAO"/>
+        <mapping class="Dao.PropriedadesMaterialDAO"/>
+        <mapping class="Dao.CombosDAOMat"/>
          
     </session-factory>
 </hibernate-configuration>
