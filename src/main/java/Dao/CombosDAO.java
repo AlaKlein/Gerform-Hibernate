@@ -4,8 +4,8 @@
  */
 package Dao;
 
+import Entidade.Fornecedor;
 import Util.ComboItem;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -13,13 +13,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
 public class CombosDAO {
 
-    ResultSet resultado = null;
-
     public void popularCombo(String tabela, JComboBox combo) {
-        List<ComboItem> resultado = new ArrayList();
+        List<Fornecedor> resultado = new ArrayList();
         String sql = "";
         combo.removeAllItems();
 
@@ -28,7 +25,7 @@ public class CombosDAO {
         item.setDescricao("Selecione");
         combo.addItem(item);
 
-        sql = "select * from " + tabela;
+        sql = "FROM Fornecedor";
 
         Session sessao = null;
         try {
@@ -40,11 +37,11 @@ public class CombosDAO {
             resultado = query.list();
 
             for (int i = 0; i < resultado.size(); i++) {
-                ComboItem cI = resultado.get(i);
+                Fornecedor f = resultado.get(i);
 
                 item = new ComboItem();
-                item.setCodigo(cI.getCodigo());
-                item.setDescricao(cI.getDescricao());
+                item.setCodigo(f.getId());
+                item.setDescricao(f.getRazao_social());
 
                 combo.addItem(item);
             }
@@ -55,12 +52,14 @@ public class CombosDAO {
             sessao.close();
         }
     }
+    
+
     public void definirItemCombo(JComboBox combo, ComboItem item) {
         for (int i = 0; i < combo.getItemCount(); i++) {
-            if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {
-                combo.setSelectedIndex(i);
+            //if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {
+              //  combo.setSelectedIndex(i);
                 return;
-            }
+            //}
         }
     }
 }
