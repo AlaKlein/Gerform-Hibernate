@@ -16,6 +16,7 @@
         <mapping class="Entidade.UsuarioLogado"/>
         <mapping class="Entidade.Material"/>
         <mapping class="Entidade.Fornecedor"/>
+        <mapping class="Entidade.PropriedadesMaterial"/>
         
         <mapping class="Tela.IfrFornecedor"/>
         <mapping class="Tela.IfrUsuario"/>

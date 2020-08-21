@@ -1,6 +1,7 @@
 package Dao;
 
 import Entidade.PropriedadesMaterial;
+import Entidade.PropriedadesMaterialTable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -132,24 +133,24 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
-        List<PropriedadesMaterial> resultado = new ArrayList();
+        List<PropriedadesMaterialTable> resultado = new ArrayList();
         String sql = "";
         if (box) {
-            sql = "SELECT * "
+            /*sql = "SELECT * "
                     + "FROM Propriedades_material "
-                    + "WHERE id LIKE '%" + criterio + "%' ORDER BY id";
-            /*sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
-                    + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
-                    + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
-                    + "WHERE m.descricao LIKE '%" + criterio + "%' ORDER BY m.descricao";*/
+                    + "WHERE id LIKE '%" + criterio + "%' ORDER BY id";*/
+            sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
+                    + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = :pm.material_id "
+                    + "INNER JOIN Usuario u ON u.id=:pm.usuario_id "
+                    + "WHERE m.descricao LIKE '%" + criterio + "%' ORDER BY m.descricao";
         } else {
-            sql = "SELECT * "
+            /*sql = "SELECT * "
                     + "FROM Propriedades_material "
-                    + "WHERE id LIKE '%" + criterio + "%' AND status='Ativo' ORDER BY id";
-            /*sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
-                    + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
-                    + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
-                    + "WHERE m.descricao LIKE '%" + criterio + "%' AND pm.status='Ativo' ORDER BY m.descricao";*/
+                    + "WHERE id LIKE '%" + criterio + "%' AND status='Ativo' ORDER BY id";*/
+            sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
+                    + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = :pm.material_id "
+                    + "INNER JOIN Usuario u ON u.id=:pm.usuario_id "
+                    + "WHERE m.descricao LIKE '%" + criterio + "%' AND pm.status=:'Ativo' ORDER BY m.descricao";
         }
 
         int lin = 0;
@@ -171,6 +172,8 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
 
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
+            
+            
 
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
@@ -178,14 +181,14 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             dadosTabela = new Object[resultado.size()][7];
 
             for (int i = 0; i < resultado.size(); i++) {
-                PropriedadesMaterial pm = resultado.get(i);
-                dadosTabela[i][0] = pm.getId();
-                dadosTabela[i][1] = pm.getUsuario_id();
-                dadosTabela[i][2] = pm.getMaterial_id();
-                dadosTabela[i][3] = pm.getUmidade();
-                dadosTabela[i][4] = pm.getGordura();
-                dadosTabela[i][5] = pm.getProteina();
-                dadosTabela[i][6] = pm.getStatus();
+                PropriedadesMaterialTable pmt = resultado.get(i);
+                dadosTabela[i][0] = pmt.getId();
+                dadosTabela[i][1] = pmt.getMaterial();
+                dadosTabela[i][2] = pmt.getUmidade();
+                dadosTabela[i][3] = pmt.getGordura();
+                dadosTabela[i][4] = pmt.getProteina();
+                dadosTabela[i][5] = pmt.getUsuario();
+                dadosTabela[i][6] = pmt.getStatus();
             }
 
         } catch (HibernateException hibEx) {

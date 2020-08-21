@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 public class CombosDAOMat {
 
     // construtor 1
-    public void popularCombo(String tabela, JComboBox combo, String cond) {
+    public void popularComboPropriedades(JComboBox combo) {
         List<Material> resultado = new ArrayList();
         String sql = "";
         combo.removeAllItems();
@@ -37,8 +37,6 @@ public class CombosDAOMat {
                 Material m = resultado.get(i);
                 //m = new Material();
 
-                System.out.println(m.getId());
-                System.out.println(m.getDescricao());
                 //ComboItem cI = resultado.get(i);
 
                 item = new ComboItem();

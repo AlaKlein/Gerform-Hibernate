@@ -23,7 +23,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     
     public IfrPropriedadesMaterial() {
         initComponents();
-        new CombosDAOMat().popularCombo("Material", jComboBoxMat, "N");
+        new CombosDAOMat().popularComboPropriedades(jComboBoxMat);
         tfdUmidade.setDocument(new SoNumerosEPonto());
         tfdGordura.setDocument(new SoNumerosEPonto());
         tfdProteina.setDocument(new SoNumerosEPonto());
@@ -387,7 +387,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
 
                 mat.definirPropriedades(ci.getCodigo(), "S");
-                new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
+                //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Deu erro: \n\nMensagem técnica:" + retorno);
@@ -479,7 +479,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         }
         
         Formatacao.limparjtable(tblMat);
-        new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
+        //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
 
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
