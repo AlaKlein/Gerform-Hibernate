@@ -32,8 +32,12 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
      */
     public IfrMaterial() {
         initComponents();
-        //new CombosDAO().popularCombo("tipo_material", jComboBoxTpMat);
-        //new CombosDAO().popularCombo("fornecedor", jComboBoxFornecedor);
+        
+        jComboBoxTpMat.removeAllItems();
+        jComboBoxTpMat.addItem("Selecione");
+        jComboBoxTpMat.addItem("Matéria Prima");
+        jComboBoxTpMat.addItem("Condimento");
+        new CombosDAO().popularCombo("Fornecedor", jComboBoxFornecedor);
         tfdPrecokg.setDocument(new SoNumerosEPonto());
         Formatacao.limparjtable(tblMat);
     }
@@ -384,7 +388,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
         Material m = new Material();
         MaterialDAO materialDAO = new MaterialDAO();
         String retorno = null;
-        ComboItem ci = (ComboItem) jComboBoxTpMat.getSelectedItem();
+        //ComboItem ci = (ComboItem) jComboBoxTpMat.getSelectedItem();
         ComboItem ci2 = (ComboItem) jComboBoxFornecedor.getSelectedItem();
 
         if (!Validacao.validarDescricao(tfdDescricao.getText())) {
@@ -403,11 +407,15 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
 
             //Popular Objeto
             m.setDescricao(tfdDescricao.getText());
-            m.setDescricao(tfdDescricao.getText());
             m.setPrecokg(Double.parseDouble(tfdPrecokg.getText().replace(',', '.')));
-            m.setTipoMaterialId(ci.getCodigo());
+            if (jComboBoxTpMat.getSelectedItem().equals("Matéria Prima")) {
+            m.setTipoMaterialId(1);
+        }else if (jComboBoxTpMat.getSelectedItem().equals("Condimento")) {
+            m.setTipoMaterialId(2);
+        }
             m.setFornecedor(ci2.getCodigo());
             m.setStatus(CkbStatus.isSelected() ? "Ativo" : "Inativo");
+            m.setTemPropriedades('N');
 
             if (codigo != 0) {
                 //atualiza

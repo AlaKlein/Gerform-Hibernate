@@ -120,7 +120,7 @@ public class MaterialDAO implements IDAO_T<Material> {
 
             for (int i = 0; i < resultado.size(); i++) {
                 Material m = resultado.get(i);
-                m = new Material();
+                material = new Material();
 
                 material.setId(id);
                 material.setDescricao(m.getDescricao());
@@ -171,7 +171,7 @@ public class MaterialDAO implements IDAO_T<Material> {
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
 
-            dadosTabela = new Object[resultado.size()][4];
+            dadosTabela = new Object[resultado.size()][6];
 
             for (int i = 0; i < resultado.size(); i++) {
                 Material m = resultado.get(i);
