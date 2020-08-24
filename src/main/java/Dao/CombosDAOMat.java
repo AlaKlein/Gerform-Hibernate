@@ -52,6 +52,16 @@ public class CombosDAOMat {
             sessao.close();
         }
     }
+    
+    public void popularComboPropriedadesEditar(JComboBox combo, String material) {
+        combo.removeAllItems();
+        ComboItem item = new ComboItem();
+        item.setCodigo(0);
+        item.setDescricao(material);
+        combo.addItem(item);
+    }
+    
+    
 
     // construtor 2
     /*public void popularCombo(String tabela, String campo1, String campo2, JComboBox combo, String complementoSQL) {

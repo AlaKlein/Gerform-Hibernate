@@ -43,6 +43,32 @@ public class MaterialDAO implements IDAO_T<Material> {
         }
         return null;
     }
+    
+    public String definirPropriedades(int id, String campo) {
+        Session sessao = null;
+        List<Material> resultado = null;
+        sessao = Util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        org.hibernate.Query query = sessao.createQuery("FROM Material WHERE id = " + id);
+
+        try {
+
+            resultado = query.list();
+            
+            for (int i = 0; i < resultado.size(); i++) {
+                Material m = resultado.get(i);
+                m.setTemPropriedades(campo.charAt(0));
+                sessao.update(m);
+            }
+            transacao.commit();
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return null;
+    }
 
     @Override
     public String Atualizar(Material m) {
@@ -234,9 +260,4 @@ public class MaterialDAO implements IDAO_T<Material> {
 
         }
     }
-
-    public String definirPropriedades(int o, String campo) {
-        return null;
-    }
-
 }

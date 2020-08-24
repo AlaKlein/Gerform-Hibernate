@@ -14,6 +14,7 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import org.hibernate.HibernateException;
 
 
 public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
@@ -374,6 +375,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                jComboBoxMat.setEnabled(true);
 
                 // limpar os campos
                 limparCampos();
@@ -387,7 +389,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
 
                 mat.definirPropriedades(ci.getCodigo(), "S");
-                //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
+                new CombosDAOMat().popularComboPropriedades(jComboBoxMat);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Deu erro: \n\nMensagem técnica:" + retorno);
@@ -401,6 +403,37 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tblMat.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo!");
+        } else {
+
+            try {
+                int id = Integer.parseInt(String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0)));
+                PropriedadesMaterial pm = new PropriedadesMaterialDAO().consultarId(id);
+
+                if (pm != null) {
+                    jTabbedPane1.setSelectedIndex(0);
+                    new CombosDAOMat().popularComboPropriedadesEditar(jComboBoxMat, 
+                            String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 1)));
+                    jComboBoxMat.setEnabled(false);
+                    tfdUmidade.setText(Double.toString(pm.getUmidade()));
+                    tfdGordura.setText(Double.toString(pm.getGordura()));
+                    tfdProteina.setText(Double.toString(pm.getProteina()));
+                    if (pm.getStatus().equals("Ativo")) {
+                        jCheckBox1.setSelected(true);
+                    } else {
+                        jCheckBox1.setSelected(false);
+                    }
+
+                    tfdUmidade.requestFocus();
+                    codigo = id;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao editar registro!");
+                }
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            }
+        }
         /*PropriedadesMaterialDAO pmd = new PropriedadesMaterialDAO();
         if (tblMat.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
