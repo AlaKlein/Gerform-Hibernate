@@ -10,6 +10,7 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/gerform</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.current_session_context_class">thread</property>
   
         <mapping class="gerform.main"/>
         <mapping class="Entidade.Usuario"/>
@@ -17,6 +18,7 @@
         <mapping class="Entidade.Material"/>
         <mapping class="Entidade.Fornecedor"/>
         <mapping class="Entidade.PropriedadesMaterial"/>
+        <mapping class="Entidade.PropriedadesMaterialTable"/>
         
         <mapping class="Tela.IfrFornecedor"/>
         <mapping class="Tela.IfrUsuario"/>

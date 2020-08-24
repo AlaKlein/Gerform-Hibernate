@@ -1,15 +1,17 @@
 
 package Entidade;
 
+import java.math.BigDecimal;
+
 
 public class PropriedadesMaterialTable {
     
     private int id;
-    private String material;
-    private double umidade;
-    private double gordura;
-    private double proteina;
-    private String usuario;
+    private String descricao;
+    private BigDecimal umidade;
+    private BigDecimal gordura;
+    private BigDecimal proteina;
+    private String email;
     private String status;
 
     public int getId() {
@@ -20,44 +22,44 @@ public class PropriedadesMaterialTable {
         this.id = id;
     }
 
-    public String getMaterial() {
-        return material;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public double getUmidade() {
+    public BigDecimal getUmidade() {
         return umidade;
     }
 
-    public void setUmidade(double umidade) {
+    public void setUmidade(BigDecimal umidade) {
         this.umidade = umidade;
     }
 
-    public double getGordura() {
+    public BigDecimal getGordura() {
         return gordura;
     }
 
-    public void setGordura(double gordura) {
+    public void setGordura(BigDecimal gordura) {
         this.gordura = gordura;
     }
 
-    public double getProteina() {
+    public BigDecimal getProteina() {
         return proteina;
     }
 
-    public void setProteina(double proteina) {
+    public void setProteina(BigDecimal proteina) {
         this.proteina = proteina;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getStatus() {
