@@ -44,7 +44,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         List resultado = null;
         sessao = Util.HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = sessao.beginTransaction();
-        org.hibernate.Query query = sessao.createQuery("FROM Propriedades_material WHERE id = " + pm.getId());
+        org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + pm.getId());
 
         try {
 
@@ -59,12 +59,12 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 pmat.setProteina(pm.getProteina());
                 pmat.setStatus(pm.getStatus());
                 sessao.update(pmat);
+                transacao.commit();
             }
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
         } finally {
-            transacao.commit();
             sessao.close();
         }
         return null;
@@ -78,7 +78,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            org.hibernate.Query query = sessao.createQuery("FROM Propriedades_material WHERE id = " + id);
+            org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + id);
             resultado = query.list();
 
             for (Object object : resultado) {
@@ -108,7 +108,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             transacao = sessao.beginTransaction();
 
-            org.hibernate.Query query = sessao.createQuery("FROM Propriedades_material WHERE id = " + id);
+            org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + id);
             resultado = query.list();
 
             for (int i = 0; i < resultado.size(); i++) {

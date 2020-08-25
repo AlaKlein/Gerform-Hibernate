@@ -338,7 +338,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         UsuarioLogado u = new UsuarioLogado();
         ComboItem ci = (ComboItem) jComboBoxMat.getSelectedItem();
         
-        if (jComboBoxMat.getSelectedIndex() == 0) {
+        if ((jComboBoxMat.getSelectedIndex() == 0) && (jComboBoxMat.isEnabled())) {
             revisar();
             materialInvalido();
         } else if (!Validacao.validarPreco(tfdUmidade.getText())) {
@@ -412,9 +412,9 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 PropriedadesMaterial pm = new PropriedadesMaterialDAO().consultarId(id);
 
                 if (pm != null) {
-                    jTabbedPane1.setSelectedIndex(0);
                     new CombosDAOMat().popularComboPropriedadesEditar(jComboBoxMat, 
                             String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 1)));
+                    jTabbedPane1.setSelectedIndex(0);
                     jComboBoxMat.setEnabled(false);
                     tfdUmidade.setText(Double.toString(pm.getUmidade()));
                     tfdGordura.setText(Double.toString(pm.getGordura()));
