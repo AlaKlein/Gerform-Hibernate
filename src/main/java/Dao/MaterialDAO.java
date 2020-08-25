@@ -6,6 +6,8 @@
 package Dao;
 
 import Entidade.Material;
+import Entidade.MaterialTable;
+import static Util.HibernateUtil.sessionFactory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -16,6 +18,7 @@ import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 /**
  *
@@ -192,12 +195,23 @@ public class MaterialDAO implements IDAO_T<Material> {
 
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
-        List<Material> resultado = new ArrayList();
+
         String sql = "";
         if (box) {
-            sql = "FROM Material WHERE descricao LIKE '%" + criterio + "%' ORDER BY id";
+
+            sql = "SELECT m.id, m.descricao , m.precokg, m.status, t.descricao as tipo_material, a.razao_social\n"
+                    + "FROM material m JOIN tipo_material t ON m.tipo_material_id=t.id\n"
+                    + "JOIN fornecedor a ON m.fornecedor_id=a.id\n"
+                    + "WHERE m.descricao ILIKE '%" + criterio + "%' AND m.status <> 'Excluído'\n"
+                    + "ORDER BY m.id";
+
         } else {
-            sql = "FROM Material WHERE descricao LIKE '%" + criterio + "%' AND status='Ativo' ORDER BY id";
+
+            sql = "SELECT m.id, m.descricao, m.precokg, m.status, t.descricao as tipo_material, a.razao_social\n"
+                    + "FROM material m JOIN tipo_material t ON m.tipo_material_id=t.id\n"
+                    + "JOIN fornecedor a ON m.fornecedor_id=a.id\n"
+                    + "WHERE m.descricao ILIKE '%" + criterio + "%' AND m.status ILIKE 'ativo'\n"
+                    + "ORDER BY m.id";
         }
 
         int lin = 0;
@@ -216,22 +230,25 @@ public class MaterialDAO implements IDAO_T<Material> {
         Session sessao = null;
         try {
 
-            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            sessao = Util.HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction transacao = sessao.beginTransaction();
 
-            org.hibernate.Query query = sessao.createQuery(sql);
-            resultado = query.list();
+            List<MaterialTable> mt = (List<MaterialTable>) sessionFactory
+                    .getCurrentSession()
+                    .createSQLQuery(sql)
+                    .setResultTransformer(Transformers.aliasToBean(MaterialTable.class))
+                    .list();
 
-            dadosTabela = new Object[resultado.size()][6];
+            dadosTabela = new Object[mt.size()][6];
 
-            for (int i = 0; i < resultado.size(); i++) {
-                Material m = resultado.get(i);
-                dadosTabela[i][0] = m.getId();
-                dadosTabela[i][1] = m.getDescricao();
-                dadosTabela[i][2] = m.getPrecokg();
-                dadosTabela[i][3] = m.getTipoMaterialId();
-                dadosTabela[i][4] = m.getFornecedor();
-                dadosTabela[i][5] = m.getStatus();
+            for (int i = 0; i < mt.size(); i++) {
+                dadosTabela[i][0] = mt.get(i).getId();
+                dadosTabela[i][1] = mt.get(i).getDescricao();
+                dadosTabela[i][2] = mt.get(i).getPrecokg();
+                dadosTabela[i][3] = mt.get(i).getTipoMaterial();
+                dadosTabela[i][4] = mt.get(i).getFornecedor();
+                dadosTabela[i][5] = mt.get(i).getStatus();
+
             }
 
         } catch (HibernateException hibEx) {
@@ -250,7 +267,8 @@ public class MaterialDAO implements IDAO_T<Material> {
 
             // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
             @Override
-            public Class getColumnClass(int column) {
+            public Class
+                    getColumnClass(int column) {
 
                 if (column == 2) {
 //                    return ImageIcon.class;
@@ -282,7 +300,6 @@ public class MaterialDAO implements IDAO_T<Material> {
                     column.setPreferredWidth(140);
                     break;
             }
-
         }
     }
 }
