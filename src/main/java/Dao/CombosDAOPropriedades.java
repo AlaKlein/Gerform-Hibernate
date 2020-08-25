@@ -9,10 +9,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class CombosDAOMat {
+public class CombosDAOPropriedades implements ComboDAO_T{
 
     // construtor 1
-    public void popularComboPropriedades(JComboBox combo) {
+    @Override
+    public void popularCombo(JComboBox combo) {
         List<Material> resultado = new ArrayList();
         String sql = "";
         combo.removeAllItems();
@@ -90,6 +91,7 @@ public class CombosDAOMat {
             System.out.println("Erro ao popular Combo = " + e.toString());
         }
     }*/
+    @Override
     public void definirItemCombo(JComboBox combo, ComboItem item) {
         for (int i = 0; i < combo.getItemCount(); i++) {
             if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {

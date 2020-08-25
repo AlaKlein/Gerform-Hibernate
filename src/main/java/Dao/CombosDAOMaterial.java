@@ -13,9 +13,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class CombosDAO {
+public class CombosDAOMaterial implements ComboDAO_T{
 
-    public void popularCombo(String tabela, JComboBox combo) {
+    @Override
+    public void popularCombo(JComboBox combo) {
         List<Fornecedor> resultado = new ArrayList();
         String sql = "";
         combo.removeAllItems();
@@ -53,6 +54,7 @@ public class CombosDAO {
         }
     }
 
+    @Override
     public void definirItemCombo(JComboBox combo, ComboItem item) {
         for (int i = 0; i < combo.getItemCount(); i++) {
             //if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {

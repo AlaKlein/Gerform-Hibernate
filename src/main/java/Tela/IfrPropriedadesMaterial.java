@@ -1,7 +1,7 @@
 
 package Tela;
 
-import Dao.CombosDAOMat;
+import Dao.CombosDAOPropriedades;
 import Dao.MaterialDAO;
 import Dao.PropriedadesMaterialDAO;
 import Entidade.PropriedadesMaterial;
@@ -24,7 +24,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     
     public IfrPropriedadesMaterial() {
         initComponents();
-        new CombosDAOMat().popularComboPropriedades(jComboBoxMat);
+        new CombosDAOPropriedades().popularCombo(jComboBoxMat);
         tfdUmidade.setDocument(new SoNumerosEPonto());
         tfdGordura.setDocument(new SoNumerosEPonto());
         tfdProteina.setDocument(new SoNumerosEPonto());
@@ -389,7 +389,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
                 new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
 
-                new CombosDAOMat().popularComboPropriedades(jComboBoxMat);
+                new CombosDAOPropriedades().popularCombo(jComboBoxMat);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Deu erro: \n\nMensagem técnica:" + retorno);
@@ -412,7 +412,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 PropriedadesMaterial pm = new PropriedadesMaterialDAO().consultarId(id);
 
                 if (pm != null) {
-                    new CombosDAOMat().popularComboPropriedadesEditar(jComboBoxMat, 
+                    new CombosDAOPropriedades().popularComboPropriedadesEditar(jComboBoxMat, 
                             String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 1)));
                     jTabbedPane1.setSelectedIndex(0);
                     jComboBoxMat.setEnabled(false);

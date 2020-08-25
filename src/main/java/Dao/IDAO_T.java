@@ -1,7 +1,6 @@
 
 package Dao;
 
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
 public interface IDAO_T <T> {

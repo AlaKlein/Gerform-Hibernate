@@ -30,7 +30,7 @@
         <mapping class="Dao.LoginDAO"/>
         <mapping class="Dao.MaterialDAO"/>
         <mapping class="Dao.PropriedadesMaterialDAO"/>
-        <mapping class="Dao.CombosDAOMat"/>
+        <mapping class="Dao.CombosDAOPropriedades"/>
          
     </session-factory>
 </hibernate-configuration>

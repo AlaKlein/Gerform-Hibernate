@@ -9,7 +9,7 @@ import Util.ComboItem;
 import Util.Formatacao;
 import Util.Validacao;
 import Util.SoNumerosEPonto;
-import Dao.CombosDAO;
+import Dao.CombosDAOMaterial;
 import Dao.FornecedorDAO;
 import Dao.MaterialDAO;
 import Entidade.Fornecedor;
@@ -39,7 +39,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
         jComboBoxTpMat.addItem("Selecione");
         jComboBoxTpMat.addItem("Matéria Prima");
         jComboBoxTpMat.addItem("Condimento");
-        new CombosDAO().popularCombo("Fornecedor", jComboBoxFornecedor);
+        new CombosDAOMaterial().popularCombo(jComboBoxFornecedor);
         tfdPrecokg.setDocument(new SoNumerosEPonto());
         Formatacao.limparjtable(tblMat);
     }
