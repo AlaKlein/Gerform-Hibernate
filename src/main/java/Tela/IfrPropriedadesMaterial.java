@@ -369,6 +369,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
             if (codigo == 0) {
                 retorno = propriedadesMaterialDAO.Salvar(pm);
+                mat.definirPropriedades(mat.consultarSomenteId(ci.getDescricao()), "S");
             } else {
                 retorno = propriedadesMaterialDAO.Atualizar(pm);
             }
@@ -388,7 +389,6 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
                 new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
 
-                mat.definirPropriedades(ci.getCodigo(), "S");
                 new CombosDAOMat().popularComboPropriedades(jComboBoxMat);
 
             } else {
@@ -434,64 +434,27 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 hibEx.printStackTrace();
             }
         }
-        /*PropriedadesMaterialDAO pmd = new PropriedadesMaterialDAO();
-        if (tblMat.getSelectionModel().isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de editá-lo");
-        } else {
-            String codigoS = String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0));
-            int id = pmd.getPropriedadeId(Integer.parseInt(codigoS));
-            
-            try {
-                PropriedadesMaterial propriedadesMaterial = new PropriedadesMaterialDAO().consultarId(Integer.parseInt(codigoS));
-                PropriedadesMaterial propriedadesMaterial = new PropriedadesMaterialDAO().consultarId(id);
-
-                if (propriedadesMaterial != null) {
-                    jTabbedPane1.setSelectedIndex(0);
-
-                    new CombosDAO().popularCombo("material", jComboBoxMat);
-
-                    ComboItem item = new ComboItem();
-                    item.setCodigo(propriedadesMaterial.getMaterialId());
-                    new CombosDAO().definirItemCombo(jComboBoxMat, item);
-
-                    tfdUmidade.setText(String.valueOf(propriedadesMaterial.getUmidade()));
-                    tfdGordura.setText(String.valueOf(propriedadesMaterial.getGordura()));
-                    tfdProteina.setText(String.valueOf(propriedadesMaterial.getProteina()));
-
-                    jComboBoxMat.requestFocus();
-                    codigo = propriedadesMaterial.getId();
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao editar registro!");
-                }
-            } catch (Exception e) {
-                System.out.println("Erro salvar propriedades do material = " + e);
-                System.out.println("Erro: " + e);
-            }
-        }*/
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        /*PropriedadesMaterialDAO pmd = new PropriedadesMaterialDAO();
         if (tblMat.getSelectionModel().isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(null, "É necessário selecionar um item antes de excluí-lo");
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         } else {
+            int id = Integer.parseInt(String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0)));
+            String retorno = new PropriedadesMaterialDAO().Excluir(id);
 
-            String codigoS = String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0));
-            int id = pmd.getPropriedadeId(Integer.parseInt(codigoS));
-            
-            
-            String retorno = new PropriedadesMaterialDAO().excluir(id);
-            
             if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
-                MaterialDAO mat = new MaterialDAO();
-                mat.definirPropriedades(Integer.parseInt(codigoS), "N");
-                new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos);
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
+                JOptionPane.showMessageDialog(null, "Propriedade inativada com sucesso!");
+
+                limparCampos();
+                resetCor();
+                // posicionar cursor
+                tfdUmidade.requestFocus();
+
+                //atualiza tabela
+                new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
             }
-        }*/
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
