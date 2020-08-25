@@ -43,7 +43,7 @@ public class CombosDAO {
                 item.setCodigo(f.getId());
                 item.setDescricao(f.getRazao_social());
 
-                combo.addItem(item);
+                combo.addItem(item.toString());
             }
 
         } catch (HibernateException hibEx) {
@@ -52,13 +52,12 @@ public class CombosDAO {
             sessao.close();
         }
     }
-    
 
     public void definirItemCombo(JComboBox combo, ComboItem item) {
         for (int i = 0; i < combo.getItemCount(); i++) {
             //if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {
-              //  combo.setSelectedIndex(i);
-                return;
+              //combo.setSelectedIndex(i);
+                //return;
             //}
         }
     }

@@ -10,7 +10,9 @@ import Util.Formatacao;
 import Util.Validacao;
 import Util.SoNumerosEPonto;
 import Dao.CombosDAO;
+import Dao.FornecedorDAO;
 import Dao.MaterialDAO;
+import Entidade.Fornecedor;
 import Entidade.Material;
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -32,7 +34,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
      */
     public IfrMaterial() {
         initComponents();
-        
+
         jComboBoxTpMat.removeAllItems();
         jComboBoxTpMat.addItem("Selecione");
         jComboBoxTpMat.addItem("Matéria Prima");
@@ -409,10 +411,10 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             m.setDescricao(tfdDescricao.getText());
             m.setPrecokg(Double.parseDouble(tfdPrecokg.getText().replace(',', '.')));
             if (jComboBoxTpMat.getSelectedItem().equals("Matéria Prima")) {
-            m.setTipoMaterialId(1);
-        }else if (jComboBoxTpMat.getSelectedItem().equals("Condimento")) {
-            m.setTipoMaterialId(2);
-        }
+                m.setTipoMaterialId(1);
+            } else if (jComboBoxTpMat.getSelectedItem().equals("Condimento")) {
+                m.setTipoMaterialId(2);
+            }
             m.setFornecedor(ci2.getCodigo());
             m.setStatus(CkbStatus.isSelected() ? "Ativo" : "Inativo");
             m.setTemPropriedades('N');
@@ -457,19 +459,30 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             try {
                 int id = Integer.parseInt(String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0)));
                 Material material = new MaterialDAO().consultarId(id);
+                MaterialDAO materialDAO = new MaterialDAO();
 
                 if (material != null) {
                     jTabbedPane1.setSelectedIndex(0);
                     tfdDescricao.setText(material.getDescricao());
                     tfdPrecokg.setText(String.valueOf(material.getPrecokg()));
 
-                    ComboItem item = new ComboItem();
-                    item.setCodigo(material.getTipoMaterialId());
-                    new CombosDAO().definirItemCombo(jComboBoxTpMat, item);
+                    //ComboItem item = new ComboItem();
+                    //item.setCodigo(material.getTipoMaterialId());
+                    //new CombosDAO().definirItemCombo(jComboBoxTpMat, item);
+                    Fornecedor f = new FornecedorDAO().consultarId(materialDAO.consultarId(material.getId()).getFornecedor());
+                    //FornecedorDAO f = new FornecedorDAO.consultarId(materialDAO.consultarId(material.getId()).getFornecedor());
+                    
+                    System.out.println(jComboBoxFornecedor.getItemAt(2));
+                    for (int i = 0; i < jComboBoxFornecedor.getItemCount(); i++) {
+                        
+                        if (f.getRazao_social().equals(jComboBoxFornecedor.getItemAt(i))) {
+                            jComboBoxFornecedor.setSelectedIndex(i);
 
-                    item.setCodigo(material.getFornecedor());
-                    new CombosDAO().definirItemCombo(jComboBoxFornecedor, item);
+                        }
+                    }
 
+                    //item.setCodigo(material.getFornecedor());
+                    //new CombosDAO().definirItemCombo(jComboBoxFornecedor, item);
                     if (material.getStatus().equals("Ativo")) {
                         CkbStatus.setSelected(true);
                     } else {
