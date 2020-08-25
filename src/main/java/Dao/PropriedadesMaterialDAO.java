@@ -44,7 +44,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         List resultado = null;
         sessao = Util.HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = sessao.beginTransaction();
-        org.hibernate.Query query = sessao.createQuery("FROM Propriedades_material WHERE id = " + pm.getId());
+        org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + pm.getId());
 
         try {
 
@@ -59,12 +59,12 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 pmat.setProteina(pm.getProteina());
                 pmat.setStatus(pm.getStatus());
                 sessao.update(pmat);
+                transacao.commit();
             }
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
         } finally {
-            transacao.commit();
             sessao.close();
         }
         return null;
@@ -78,7 +78,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            org.hibernate.Query query = sessao.createQuery("FROM Propriedades_material WHERE id = " + id);
+            org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + id);
             resultado = query.list();
 
             for (Object object : resultado) {
@@ -108,7 +108,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             transacao = sessao.beginTransaction();
 
-            org.hibernate.Query query = sessao.createQuery("FROM Propriedades_material WHERE id = " + id);
+            org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + id);
             resultado = query.list();
 
             for (int i = 0; i < resultado.size(); i++) {
@@ -132,31 +132,17 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         return pmat;
     }
     
-    public List<PropriedadesMaterialTable> transformList(List resultado) {
-        List<PropriedadesMaterialTable> pmt = new ArrayList<PropriedadesMaterialTable>();
-        for (Object obj : resultado) {
-            pmt.add((PropriedadesMaterialTable) obj);
-        }
-        return pmt;
-    }
-
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
         //List<PropriedadesMaterialTable> resultado = new ArrayList<PropriedadesMaterialTable>();
         String sql = "";
         if (box) {
-            /*sql = "SELECT * "
-                    + "FROM Propriedades_material "
-                    + "WHERE id LIKE '%" + criterio + "%' ORDER BY id";*/
             sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
                     + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
                     + "WHERE m.descricao LIKE '%" + criterio + "%' ORDER BY m.descricao";
         } else {
-            /*sql = "SELECT * "
-                    + "FROM Propriedades_material "
-                    + "WHERE id LIKE '%" + criterio + "%' AND status='Ativo' ORDER BY id";*/
             sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
                     + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
@@ -189,21 +175,19 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             .createSQLQuery(sql)
             .setResultTransformer(Transformers.aliasToBean(PropriedadesMaterialTable.class))
             .list();
-            
-            
 
-            //org.hibernate.Query query = sessao.createSQLQuery(sql);
-            //resultado = query.list();
+            /*org.hibernate.Query query = sessao.createSQLQuery(sql);
+            resultado = query.list();
             
-            /*List<PropriedadesMaterialTable> pmt = new ArrayList<PropriedadesMaterialTable>();
+            List<PropriedadesMaterialTable> pmt = new ArrayList<PropriedadesMaterialTable>();
             
-            pmt = transformList(resultado);*/
+            pmt = transformList(resultado);
 
-            //dadosTabela = new Object[resultado.size()][7];
+            dadosTabela = new Object[resultado.size()][7];*/
             dadosTabela = new Object[pmt.size()][7];
             
             for (int i = 0; i < pmt.size(); i++) {
-                System.out.println(pmt.get(i).getDescricao());
+                //System.out.println(pmt.get(i).getDescricao());
                 dadosTabela[i][0] = pmt.get(i).getId();
                 dadosTabela[i][1] = pmt.get(i).getDescricao();
                 dadosTabela[i][2] = pmt.get(i).getUmidade();
@@ -212,18 +196,6 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 dadosTabela[i][5] = pmt.get(i).getEmail();
                 dadosTabela[i][6] = pmt.get(i).getStatus();
             }
-
-            /*for (int i = 0; i < resultado.size(); i++) {
-                System.out.println(resultado.get(i));
-                PropriedadesMaterialTable pmt = (PropriedadesMaterialTable) resultado.get(i);
-                dadosTabela[i][0] = pmt.getId();
-                /*dadosTabela[i][1] = pmt.getMaterial();
-                dadosTabela[i][2] = pmt.getUmidade();
-                dadosTabela[i][3] = pmt.getGordura();
-                dadosTabela[i][4] = pmt.getProteina();
-                dadosTabela[i][5] = pmt.getUsuario();
-                dadosTabela[i][6] = pmt.getStatus();
-            }*/
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
