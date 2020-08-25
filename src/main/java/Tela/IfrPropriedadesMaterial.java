@@ -466,17 +466,15 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
             btnSalvar.setEnabled(true);
             btnEditar.setEnabled(false);
             btnExcluir.setEnabled(false);
-            limparCampos();
+            //limparCampos();
         } else if (jTabbedPane1.getSelectedIndex() == 1) {
             btnSalvar.setEnabled(false);
             btnEditar.setEnabled(true);
             btnExcluir.setEnabled(true);
-            limparCampos();
+            //limparCampos();
         }
         
         Formatacao.limparjtable(tblMat);
-        //new CombosDAOMat().popularCombo("material", jComboBoxMat, "N");
-
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
