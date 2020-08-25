@@ -353,7 +353,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         } else {
             pm.setId(codigo);
             pm.setUsuario_id(u.getUsuarioLogadoID());
-            pm.setMaterial_id(ci.getCodigo());
+            pm.setMaterial_id(mat.consultarSomenteId(ci.getDescricao()));
             pm.setUmidade(Double.parseDouble(tfdUmidade.getText().replace(',', '.')));
             pm.setGordura(Double.parseDouble(tfdGordura.getText().replace(',', '.')));
             pm.setProteina(Double.parseDouble(tfdProteina.getText().replace(',', '.')));

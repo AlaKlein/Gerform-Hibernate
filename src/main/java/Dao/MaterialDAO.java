@@ -164,6 +164,31 @@ public class MaterialDAO implements IDAO_T<Material> {
         }
         return material;
     }
+    
+    public int consultarSomenteId(String material) {
+        Session sessao = null;
+        Transaction transacao = null;
+        List<Material> resultado = null;
+
+        try {
+
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            transacao = sessao.beginTransaction();
+
+            org.hibernate.Query query = sessao.createQuery("FROM Material WHERE descricao = '" + material + "'");
+            resultado = query.list();
+
+            for (int i = 0; i < resultado.size(); i++) {
+                Material m = resultado.get(i);
+                return m.getId();
+            }
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return 0;
+    }
 
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
