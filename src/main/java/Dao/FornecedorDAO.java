@@ -252,5 +252,4 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             }
         }
     }
-    
 }
