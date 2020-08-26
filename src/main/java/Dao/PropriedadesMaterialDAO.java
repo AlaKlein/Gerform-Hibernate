@@ -141,12 +141,12 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
                     + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
-                    + "WHERE m.descricao LIKE '%" + criterio + "%' ORDER BY m.descricao";
+                    + "WHERE m.descricao LIKE '%" + criterio + "%' ORDER BY pm.id";
         } else {
             sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
                     + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
-                    + "WHERE m.descricao LIKE '%" + criterio + "%' AND pm.status='Ativo' ORDER BY m.descricao";
+                    + "WHERE m.descricao LIKE '%" + criterio + "%' AND pm.status='Ativo' ORDER BY pm.id";
         }
 
         int lin = 0;
