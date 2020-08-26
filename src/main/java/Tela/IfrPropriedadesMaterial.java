@@ -28,6 +28,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         tfdUmidade.setDocument(new SoNumerosEPonto());
         tfdGordura.setDocument(new SoNumerosEPonto());
         tfdProteina.setDocument(new SoNumerosEPonto());
+        jCheckBox1.setSelected(true);
         Formatacao.limparjtable(tblMat);
     }
 
