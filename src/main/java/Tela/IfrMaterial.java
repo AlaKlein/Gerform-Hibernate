@@ -406,45 +406,50 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             revisar();
             fornecedorInvalido();
         } else {
+                //Popular Objeto
+                m.setId(codigo);
+                m.setDescricao(tfdDescricao.getText());
+                m.setPrecokg(Double.parseDouble(tfdPrecokg.getText().replace(',', '.')));
+                if (jComboBoxTpMat.getSelectedItem().equals("Matéria Prima")) {
+                    m.setTipoMaterialId(1);
+                } else if (jComboBoxTpMat.getSelectedItem().equals("Condimento")) {
+                    m.setTipoMaterialId(2);
+                }
+                m.setFornecedor(Integer.parseInt(String.valueOf(ci2.getCodigo())));
+                m.setStatus(CkbStatus.isSelected() ? "Ativo" : "Inativo");
+                m.setTemPropriedades('N');
 
-            //Popular Objeto
-            m.setId(codigo);
-            m.setDescricao(tfdDescricao.getText());
-            m.setPrecokg(Double.parseDouble(tfdPrecokg.getText().replace(',', '.')));
-            if (jComboBoxTpMat.getSelectedItem().equals("Matéria Prima")) {
-                m.setTipoMaterialId(1);
-            } else if (jComboBoxTpMat.getSelectedItem().equals("Condimento")) {
-                m.setTipoMaterialId(2);
-            }
-            m.setFornecedor(Integer.parseInt(String.valueOf(ci2.getCodigo())));
-            m.setStatus(CkbStatus.isSelected() ? "Ativo" : "Inativo");
-            m.setTemPropriedades('N');
-
-            if (codigo != 0) {
-                //atualiza
-                retorno = materialDAO.Atualizar(m);
-            } else {
-                //insere
-                retorno = materialDAO.Salvar(m);
-            }
-
-            if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-
-                // limpar os campos
-                limparCampos();
-                resetCor();
-
-                // posicionar cursor
+                if (materialDAO.checkExist(m)) {
+                JOptionPane.showMessageDialog(null, "Material Já Registrado!");
+                descricaoInvalido();
                 tfdDescricao.requestFocus();
-
-                codigo = 0;
-
             } else {
-                JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                
+                if (codigo != 0) {
+                    //atualiza
+                    retorno = materialDAO.Atualizar(m);
+                } else {
+                    //insere
+                    retorno = materialDAO.Salvar(m);
+                }
+
+                if (retorno == null) {
+                    JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+
+                    // limpar os campos
+                    limparCampos();
+                    resetCor();
+
+                    // posicionar cursor
+                    tfdDescricao.requestFocus();
+
+                    codigo = 0;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                }
             }
         }
-
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -470,8 +475,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                     ComboItem item = new ComboItem();
                     //item.setCodigo(material.getTipoMaterialId());
                     //new CombosDAOMaterial().definirItemCombo(jComboBoxTpMat, item);
-                    
-                    
+
                     if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Matéria Prima")) {
                         jComboBoxTpMat.setSelectedIndex(1);
                     } else if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Condimento")) {
