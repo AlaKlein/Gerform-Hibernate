@@ -140,7 +140,8 @@ public class MaterialDAO implements IDAO_T<Material> {
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Material WHERE descricao = '" + m.getDescricao() + "'");
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Material WHERE NOT id = " + m.getId() +
+                    " AND descricao = '" + m.getDescricao() + "'");
             resultado = query.list();
 
             if (Integer.parseInt(resultado.get(0).toString()) > 0) {
