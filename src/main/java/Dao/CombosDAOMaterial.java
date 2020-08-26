@@ -13,7 +13,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class CombosDAOMaterial implements ComboDAO_T{
+public class CombosDAOMaterial implements ComboDAO_T {
 
     @Override
     public void popularCombo(JComboBox combo) {
@@ -58,9 +58,10 @@ public class CombosDAOMaterial implements ComboDAO_T{
     public void definirItemCombo(JComboBox combo, ComboItem item) {
         for (int i = 0; i < combo.getItemCount(); i++) {
             //if (((ComboItem) combo.getItemAt(i)).getCodigo() == (item.getCodigo())) {
-              //combo.setSelectedIndex(i);
-                //return;
-            //}
+            if (Integer.parseInt(String.valueOf(((ComboItem) combo.getItemAt(i)).getCodigo())) == item.getCodigo()) {
+                combo.setSelectedIndex(i);
+                return;
+            }
         }
     }
 }

@@ -468,11 +468,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
 
                     ComboItem item = new ComboItem();
                     //item.setCodigo(material.getTipoMaterialId());
-                    //new CombosDAO().definirItemCombo(jComboBoxTpMat, item);
-                    Fornecedor f = new FornecedorDAO().consultarId(materialDAO.consultarId(material.getId()).getFornecedor());
-                    //FornecedorDAO f = new FornecedorDAO.consultarId(materialDAO.consultarId(material.getId()).getFornecedor());
-
-                    //System.out.println(jComboBoxFornecedor.getItemAt(2));
+                    //new CombosDAOMaterial().definirItemCombo(jComboBoxTpMat, item);
                     
                     
                     if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Matéria Prima")) {
@@ -481,14 +477,8 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                         jComboBoxTpMat.setSelectedIndex(2);
                     }
 
-                    for (int i = 0; i < jComboBoxFornecedor.getItemCount(); i++) {
-                        if (f.getRazao_social().equals(String.valueOf(jComboBoxFornecedor.getItemAt(i)))) {
-                            jComboBoxFornecedor.setSelectedIndex(i);
-                        }
-                    }
-
-                    //item.setCodigo(material.getFornecedor());
-                    //new CombosDAOMaterial().definirItemCombo(jComboBoxFornecedor, item);
+                    item.setCodigo(material.getFornecedor());
+                    new CombosDAOMaterial().definirItemCombo(jComboBoxFornecedor, item);
                     if (material.getStatus().equals("Ativo")) {
                         CkbStatus.setSelected(true);
                     } else {
