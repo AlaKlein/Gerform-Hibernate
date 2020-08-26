@@ -415,7 +415,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             } else if (jComboBoxTpMat.getSelectedItem().equals("Condimento")) {
                 m.setTipoMaterialId(2);
             }
-            m.setFornecedor(ci2.getCodigo());
+            m.setFornecedor(Integer.parseInt(String.valueOf(ci2.getCodigo())));
             m.setStatus(CkbStatus.isSelected() ? "Ativo" : "Inativo");
             m.setTemPropriedades('N');
 
@@ -466,23 +466,29 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                     tfdDescricao.setText(material.getDescricao());
                     tfdPrecokg.setText(String.valueOf(material.getPrecokg()));
 
-                    //ComboItem item = new ComboItem();
+                    ComboItem item = new ComboItem();
                     //item.setCodigo(material.getTipoMaterialId());
                     //new CombosDAO().definirItemCombo(jComboBoxTpMat, item);
                     Fornecedor f = new FornecedorDAO().consultarId(materialDAO.consultarId(material.getId()).getFornecedor());
                     //FornecedorDAO f = new FornecedorDAO.consultarId(materialDAO.consultarId(material.getId()).getFornecedor());
-                    
-                    System.out.println(jComboBoxFornecedor.getItemAt(2));
-                    for (int i = 0; i < jComboBoxFornecedor.getItemCount(); i++) {
-                        
-                        if (f.getRazao_social().equals(jComboBoxFornecedor.getItemAt(i))) {
-                            jComboBoxFornecedor.setSelectedIndex(i);
 
+                    //System.out.println(jComboBoxFornecedor.getItemAt(2));
+                    
+                    
+                    if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Matéria Prima")) {
+                        jComboBoxTpMat.setSelectedIndex(1);
+                    } else if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Condimento")) {
+                        jComboBoxTpMat.setSelectedIndex(2);
+                    }
+
+                    for (int i = 0; i < jComboBoxFornecedor.getItemCount(); i++) {
+                        if (f.getRazao_social().equals(String.valueOf(jComboBoxFornecedor.getItemAt(i)))) {
+                            jComboBoxFornecedor.setSelectedIndex(i);
                         }
                     }
 
                     //item.setCodigo(material.getFornecedor());
-                    //new CombosDAO().definirItemCombo(jComboBoxFornecedor, item);
+                    //new CombosDAOMaterial().definirItemCombo(jComboBoxFornecedor, item);
                     if (material.getStatus().equals("Ativo")) {
                         CkbStatus.setSelected(true);
                     } else {
@@ -544,7 +550,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             jCheckBoxInativos.setSelected(false);
         }
 
-        Formatacao.limparjtable(tblMat);
+        //Formatacao.limparjtable(tblMat);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void CkbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CkbStatusActionPerformed

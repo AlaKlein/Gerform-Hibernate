@@ -44,7 +44,7 @@ public class CombosDAOMaterial implements ComboDAO_T{
                 item.setCodigo(f.getId());
                 item.setDescricao(f.getRazao_social());
 
-                combo.addItem(item.toString());
+                combo.addItem(item);
             }
 
         } catch (HibernateException hibEx) {
