@@ -86,17 +86,17 @@ public class MaterialDAO implements IDAO_T<Material> {
             resultado = query.list();
             for (Object obj : resultado) {
                 Material material = (Material) obj;
-
+                
                 material.setId(m.getId());
                 material.setDescricao(m.getDescricao());
-                material.setFornecedor(m.getFornecedor());
                 material.setPrecokg(m.getPrecokg());
+                material.setTipoMaterialId(m.getTipoMaterialId());
+                material.setFornecedor(m.getFornecedor());
                 material.setStatus(m.getStatus());
                 material.setTemPropriedades(m.getTemPropriedades());
-                material.setTipoMaterialId(m.getTipoMaterialId());
                 sessao.update(material);
+                transacao.commit();
             }
-            transacao.commit();
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();

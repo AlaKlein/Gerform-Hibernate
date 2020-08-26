@@ -408,6 +408,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
         } else {
 
             //Popular Objeto
+            m.setId(codigo);
             m.setDescricao(tfdDescricao.getText());
             m.setPrecokg(Double.parseDouble(tfdPrecokg.getText().replace(',', '.')));
             if (jComboBoxTpMat.getSelectedItem().equals("Matéria Prima")) {
@@ -504,7 +505,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             String retorno = new MaterialDAO().Excluir(id);
 
             if (retorno == null) {
-                JOptionPane.showMessageDialog(null, "Usuário inativado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Material inativado com sucesso!");
 
                 limparCampos();
                 resetCor();
