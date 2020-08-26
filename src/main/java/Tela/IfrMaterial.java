@@ -417,7 +417,11 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                 }
                 m.setFornecedor(Integer.parseInt(String.valueOf(ci2.getCodigo())));
                 m.setStatus(CkbStatus.isSelected() ? "Ativo" : "Inativo");
+                if (codigo != 0) {
+                m.setTemPropriedades('S');
+                }else{ 
                 m.setTemPropriedades('N');
+                }
 
                 if (materialDAO.checkExist(m)) {
                 JOptionPane.showMessageDialog(null, "Material Já Registrado!");
