@@ -119,7 +119,7 @@ public class Validacao {
     }
 
     public static boolean validarSenha(String senha) {
-        if (senha.isEmpty()) {
+        if (senha.isEmpty() || senha.length() < 8) {
             return false;
         }
         return true;
