@@ -2,9 +2,9 @@
 package Dao;
 
 import Entidade.Usuario;
+import Util.Audita;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -13,6 +13,8 @@ import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import Entidade.UsuarioLogado;
+import Util.Log;
 
 
 public class UsuarioDAO implements IDAO_T<Usuario>{
@@ -62,8 +64,11 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             sessao.save(u);
             transacao.commit();
 
+            Audita.salvarAuditoria("Insert", "usuario", UsuarioLogado.getUsuarioLogadoID());
+            
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
+            //hibEx.printStackTrace();
         } finally {
             sessao.close();
         }

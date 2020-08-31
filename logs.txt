@@ -1,0 +1,79 @@
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.MappingException: Unknown entity: Entidade.Auditoria
+
+Horário: 31/08/2020 13:23:17
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 13:24:24
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 13:27:36
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 13:37:12
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 13:40:45
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 13:45:35
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.SQLGrammarException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 14:07:50
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.SQLGrammarException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 14:09:21
+
+Usuário: auditar
+Tela: Auditoria
+Ação executada: auditar
+
+Erro: org.hibernate.exception.SQLGrammarException: could not insert: [Entidade.Auditoria]
+
+Horário: 31/08/2020 14:11:19
+
+Usuário: admin@gerform.com
+Classe: Insert
+
+Erro: org.hibernate.MappingException: Unknown entity: java.lang.String
+
+Horário: 31/08/2020 14:21:35
+
