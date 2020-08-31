@@ -28,6 +28,7 @@ public class LoginDAO {
         List<Usuario> resultado = new ArrayList();
         String usuario = "";
         String pw = "";
+        String erro = "";
         int id = 0;
         String permissao = "";
         String status = "Ativo";
@@ -57,14 +58,16 @@ public class LoginDAO {
             if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha)) && (status.equals("Ativo"))) {
                 tp.setVisible(true);
             } else if (!status.equals("Ativo")) {
-                return "usuarioinativo";
+                erro = "usuarioinativo";
+                return erro;
             } else {
-                return "erro";
+                erro = "Erro ao fazer Login";
+                Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Login", erro);
+                return erro;
             }
 
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Login", hibEx.toString());
-            //hibEx.printStackTrace();
         } finally {
             sessao.close();
         }

@@ -7,7 +7,9 @@ package Tela;
 
 import Dao.LoginDAO;
 import Entidade.UsuarioLogado;
+import Util.Audita;
 import Util.Formatacao;
+import Util.Log;
 import Util.Validacao;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -28,6 +30,7 @@ public class TelaLogin extends javax.swing.JFrame {
     public void login() {
         LoginDAO loginDAO = new LoginDAO();
         String retorno = "gerform";
+        String erro = "";
         UsuarioLogado u = new UsuarioLogado();
 
         if (!Validacao.validarEmail(tfdEmail.getText())) {
@@ -42,11 +45,16 @@ public class TelaLogin extends javax.swing.JFrame {
 
             if (retorno == null) {
                 System.out.println("Usuário Logado: ID: " + u.getUsuarioLogadoID() + ", E-mail: " + u.getUsuarioLogadoEmail());
+                Audita.salvarAuditoria("Login", "usuario", UsuarioLogado.getUsuarioLogadoID());
                 this.dispose();
             } else if (retorno.equals("usuarioinativo")){
-                JOptionPane.showMessageDialog(null, "Usuário inativo ou excluído!");
+                erro = "Usuário inativo ou excluído!";
+                JOptionPane.showMessageDialog(null, erro);
+                Log.geraLogBD(tfdEmail.getText(), "Login", erro);
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreta!");
+                erro = "Usuário ou senha incorreta!";
+                JOptionPane.showMessageDialog(null, erro);
+                Log.geraLogBD(tfdEmail.getText(), "Login", erro);
             }
         }
     }

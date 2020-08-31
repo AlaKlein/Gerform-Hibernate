@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import Entidade.Usuario;
 import Entidade.UsuarioLogado;
 import Util.Encoding;
+import Util.Log;
 import Util.Validacao;
 import java.awt.Color;
 import javax.swing.JComboBox;
@@ -24,7 +25,8 @@ import org.hibernate.HibernateException;
 public class IfrUsuario extends javax.swing.JInternalFrame {
 
     int codigo = 0;
-
+    String erro = null;
+    
     /**
      * Creates new form IfrUsuario
      */
@@ -385,7 +387,9 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     codigo = 0;
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                    retorno = "Impossível salvar usuário: " + retorno;
+                    JOptionPane.showMessageDialog(null, retorno);
+                    Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrUsuario", btnSalvar, retorno);
                 }
             }
         }
@@ -420,8 +424,9 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Erro ao editar registro!");
                 }
-            } catch (HibernateException hibEx) {
-                hibEx.printStackTrace();
+            } catch (Exception e) {
+                String erro = "Erro: " + e;
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrUsuario", btnEditar, erro);
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -433,10 +438,10 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         } else {
 
             int id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
-            
-            if ((id == UsuarioLogado.getUsuarioLogadoID()) || 
-                    ((!UsuarioLogado.getUsuarioLogadoPermissao().equals("Administrador")) && 
-                    (tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 2).equals("Administrador")))) {
+
+            if ((id == UsuarioLogado.getUsuarioLogadoID())
+                    || ((!UsuarioLogado.getUsuarioLogadoPermissao().equals("Administrador"))
+                    && (tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 2).equals("Administrador")))) {
                 JOptionPane.showMessageDialog(null, "Esse usuário não pode ser inativado!");
             } else {
                 retorno = new UsuarioDAO().Excluir(id);
@@ -452,6 +457,10 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
                 //atualiza tabela
                 new UsuarioDAO().popularTabela(tblUsuario, tfdBusca.getText(), jCheckBox1.isSelected());
+            } else {
+                String erro = "Impossível Inativar Usuário: " + retorno;
+                JOptionPane.showMessageDialog(null, erro);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrUsuario", btnExcluir, erro);
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed

@@ -20,7 +20,6 @@ public class Audita {
     public static boolean salvarAuditoria(String acao, String tabela, int usuario_id) {
         Auditoria audita = new Auditoria();
 
-        //audita.setId(5);
         audita.setUsuario(usuario_id);
         audita.setTabela(tabela);
         audita.setData(new Date());
@@ -36,11 +35,9 @@ public class Audita {
             sessao.save(audita);
             transacao.commit();
 
-            
-
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
-            Log.geraLog("auditar", "Auditoria", "auditar", hibEx.toString());
+            Log.geraLogBD(Entidade.UsuarioLogado.getUsuarioLogadoEmail(), "Auditoria", hibEx.toString());
         } finally {
             sessao.close();
         }
