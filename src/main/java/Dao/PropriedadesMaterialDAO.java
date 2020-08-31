@@ -137,7 +137,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
 
         //List<PropriedadesMaterialTable> resultado = new ArrayList<PropriedadesMaterialTable>();
         String sql = "";
-        if (box) {
+        /*if (box) {
             sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
                     + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
@@ -147,7 +147,9 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                     + "FROM Propriedades_material pm INNER JOIN Material m ON m.id = pm.material_id "
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
                     + "WHERE m.descricao ILIKE '%" + criterio + "%' AND pm.status='Ativo' ORDER BY pm.id";
-        }
+        }*/
+        
+        sql = "SELECT * FROM show_propriedades('" + criterio + "', " + box + ");";
 
         int lin = 0;
         // dados da tabela
