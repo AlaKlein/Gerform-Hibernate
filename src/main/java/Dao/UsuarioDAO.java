@@ -44,7 +44,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 usuario.setStatus(user.getStatus());
             }
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -68,7 +68,6 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
-            //hibEx.printStackTrace();
         } finally {
             sessao.close();
         }
@@ -96,9 +95,10 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 sessao.update(usuario);
                 transacao.commit();
             }
+            Audita.salvarAuditoria("Update", "usuario", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -122,9 +122,10 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 sessao.update(user);
                 transacao.commit();
             }
+            Audita.salvarAuditoria("Inactivate", "usuario", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -149,7 +150,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             }
 
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -198,7 +199,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             }
 
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
         } finally {
             sessao.close();
         }
