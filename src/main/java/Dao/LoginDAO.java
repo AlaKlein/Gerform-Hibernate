@@ -30,6 +30,7 @@ public class LoginDAO {
         String pw = "";
         int id = 0;
         String permissao = "";
+        String status = "Ativo";
 
         Session sessao = null;
         sessao = Util.HibernateUtil.getSessionFactory().openSession();
@@ -47,13 +48,16 @@ public class LoginDAO {
                 pw = (user.getSenha());
                 id = user.getId();
                 permissao = user.getPermissao();
+                status = user.getStatus();
             }
             uL.setUsuarioLogadoEmail(usuario);
             uL.setUsuarioLogadoID(id);
             uL.setUsuarioLogadoPermissao(permissao);
 
-            if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha))) {
+            if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha)) && (status.equals("Ativo"))) {
                 tp.setVisible(true);
+            } else if (!status.equals("Ativo")) {
+                return "usuarioinativo";
             } else {
                 return "erro";
             }

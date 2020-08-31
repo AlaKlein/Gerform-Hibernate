@@ -43,8 +43,10 @@ public class TelaLogin extends javax.swing.JFrame {
             if (retorno == null) {
                 System.out.println("Usuário Logado: ID: " + u.getUsuarioLogadoID() + ", E-mail: " + u.getUsuarioLogadoEmail());
                 this.dispose();
+            } else if (retorno.equals("usuarioinativo")){
+                JOptionPane.showMessageDialog(null, "Usuário inativo ou excluído!");
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreta!");
             }
         }
     }
