@@ -8,6 +8,7 @@ package Dao;
 import Entidade.Usuario;
 import Entidade.UsuarioLogado;
 import Util.Encoding;
+import Util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -55,7 +56,8 @@ public class LoginDAO {
             }
 
         } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Login", hibEx.toString());
+            //hibEx.printStackTrace();
         } finally {
             sessao.close();
         }

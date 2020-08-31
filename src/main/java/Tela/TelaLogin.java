@@ -7,6 +7,7 @@ package Tela;
 
 import Dao.LoginDAO;
 import Entidade.UsuarioLogado;
+import Util.Formatacao;
 import Util.Validacao;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -68,6 +69,11 @@ public class TelaLogin extends javax.swing.JFrame {
     public void SenhaInvalido() {
         tfdBranco(tfdEmail);
         tfdAmarelo(tffSenha);
+    }
+    
+    public void Branco() {
+        tfdBranco(tfdEmail);
+        tfdBranco(tffSenha);
     }
 
     /**
@@ -178,6 +184,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+        Branco();
         login();
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
