@@ -13,6 +13,7 @@ public class UsuarioLogado {
 
     public static int usuarioLogadoID;
     public static String usuarioLogadoEmail;
+    public static String usuarioLogadoPermissao;
 
     public static String getUsuarioLogadoEmail() {
         return usuarioLogadoEmail;
@@ -28,5 +29,13 @@ public class UsuarioLogado {
 
     public static void setUsuarioLogadoID(int usuarioLogadoID) {
         UsuarioLogado.usuarioLogadoID = usuarioLogadoID;
+    }
+
+    public static String getUsuarioLogadoPermissao() {
+        return usuarioLogadoPermissao;
+    }
+
+    public static void setUsuarioLogadoPermissao(String usuarioLogadoPermissao) {
+        UsuarioLogado.usuarioLogadoPermissao = usuarioLogadoPermissao;
     }
 }

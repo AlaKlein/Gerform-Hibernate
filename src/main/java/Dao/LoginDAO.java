@@ -29,6 +29,7 @@ public class LoginDAO {
         String usuario = "";
         String pw = "";
         int id = 0;
+        String permissao = "";
 
         Session sessao = null;
         sessao = Util.HibernateUtil.getSessionFactory().openSession();
@@ -45,9 +46,11 @@ public class LoginDAO {
                 usuario = user.getEmail();
                 pw = (user.getSenha());
                 id = user.getId();
+                permissao = user.getPermissao();
             }
             uL.setUsuarioLogadoEmail(usuario);
             uL.setUsuarioLogadoID(id);
+            uL.setUsuarioLogadoPermissao(permissao);
 
             if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha))) {
                 tp.setVisible(true);

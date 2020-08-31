@@ -9,6 +9,7 @@ import Dao.UsuarioDAO;
 import Util.Formatacao;
 import javax.swing.JOptionPane;
 import Entidade.Usuario;
+import Entidade.UsuarioLogado;
 import Util.Encoding;
 import Util.Validacao;
 import java.awt.Color;
@@ -426,12 +427,20 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        String retorno = "1";
         if (tblUsuario.getSelectionModel().isSelectionEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione uma linha!");
         } else {
 
             int id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
-            String retorno = new UsuarioDAO().Excluir(id);
+            
+            if ((id == UsuarioLogado.getUsuarioLogadoID()) || 
+                    ((!UsuarioLogado.getUsuarioLogadoPermissao().equals("Administrador")) && 
+                    (tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 2).equals("Administrador")))) {
+                JOptionPane.showMessageDialog(null, "Esse usuário não pode ser inativado!");
+            } else {
+                retorno = new UsuarioDAO().Excluir(id);
+            }
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Usuário inativado com sucesso!");
