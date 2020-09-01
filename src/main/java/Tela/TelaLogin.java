@@ -44,7 +44,7 @@ public class TelaLogin extends javax.swing.JFrame {
             retorno = loginDAO.login(tfdEmail.getText(), new String(tffSenha.getPassword()));
 
             if (retorno == null) {
-                System.out.println("Usuário Logado: ID: " + u.getUsuarioLogadoID() + ", E-mail: " + u.getUsuarioLogadoEmail());
+                System.out.println("Usuário Logado: ID: " + u.getUsuarioLogadoID() + ", E-mail: " + u.getUsuarioLogadoEmail() + ", Permissão: " + u.getUsuarioLogadoPermissao());
                 Audita.salvarAuditoria("Login", "usuario", UsuarioLogado.getUsuarioLogadoID());
                 this.dispose();
             } else if (retorno.equals("usuarioinativo")){

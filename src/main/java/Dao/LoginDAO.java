@@ -11,6 +11,7 @@ import Util.Encoding;
 import Util.Log;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.classic.Session;
 
@@ -57,6 +58,9 @@ public class LoginDAO {
 
             if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha)) && (status.equals("Ativo"))) {
                 tp.setVisible(true);
+                if (uL.getUsuarioLogadoPermissao().equals("Operador")) {
+                tp.operador(permissao);
+                }
             } else if (!status.equals("Ativo")) {
                 erro = "usuarioinativo";
                 return erro;
@@ -67,7 +71,9 @@ public class LoginDAO {
             }
 
         } catch (HibernateException hibEx) {
+            JOptionPane.showMessageDialog(null, "Erro ao fazer login! Consulte o log de erros para mais informações.");
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Login", hibEx.toString());
+            hibEx.printStackTrace();
         } finally {
             sessao.close();
         }

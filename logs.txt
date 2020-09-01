@@ -198,3 +198,83 @@ Erro: Usuário inativo ou excluído!
 Horário: 31/08/2020 20:46:31
 
 ######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 20:51:16
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 20:55:46
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 21:34:31
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 21:35:01
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 21:35:37
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 21:36:48
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 31/08/2020 21:39:00
+
+######################################################################################################################
+Usuário: null
+Classe: Login
+
+Erro: [Ljava.lang.StackTraceElement;@12781bdc
+
+Horário: 31/08/2020 22:07:29
+
+######################################################################################################################
+Usuário: 
+Classe: Login
+
+Erro: Erro ao fazer Login
+
+Horário: 31/08/2020 22:22:55
+
+######################################################################################################################
+Usuário: 123@abcd.com
+Classe: Login
+
+Erro: Usuário ou senha incorreta!
+
+Horário: 31/08/2020 22:22:57
+
+######################################################################################################################
