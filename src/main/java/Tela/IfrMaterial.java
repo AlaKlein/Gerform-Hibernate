@@ -521,7 +521,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                 limparCampos();
                 resetCor();
             } else {
-                String erro = "Impossível Inativar Usuário: " + retorno;
+                String erro = "Impossível Inativar Material: " + retorno;
                 JOptionPane.showMessageDialog(null, erro);
                 Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrUsuario", btnExcluir, erro);
             }

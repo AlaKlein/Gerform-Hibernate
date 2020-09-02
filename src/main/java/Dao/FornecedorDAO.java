@@ -2,6 +2,9 @@
 package Dao;
 
 import Entidade.Fornecedor;
+import Entidade.UsuarioLogado;
+import Util.Audita;
+import Util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -45,6 +48,7 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             }
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -63,9 +67,13 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
 
             sessao.save(f);
             transacao.commit();
+            
+            Audita.salvarAuditoria("Insert", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -94,9 +102,12 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
                 sessao.update(fornecedor);
                 transacao.commit();
             }
+            
+            Audita.salvarAuditoria("Update", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -120,9 +131,12 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
                 sessao.update(forn);
                 transacao.commit();
             }
+            Audita.salvarAuditoria("Inactivate", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -150,6 +164,8 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+            hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -203,6 +219,7 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
         } finally {
             sessao.close();
         }

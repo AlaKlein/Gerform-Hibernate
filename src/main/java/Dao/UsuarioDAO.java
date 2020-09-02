@@ -100,6 +100,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             Audita.salvarAuditoria("Update", "usuario", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
         } finally {
             sessao.close();
@@ -153,8 +154,8 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             }
 
         } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
-            hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -203,8 +204,8 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             }
 
         } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
-            hibEx.toString();
         } finally {
             sessao.close();
         }

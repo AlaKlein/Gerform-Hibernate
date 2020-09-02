@@ -4,6 +4,8 @@ import Dao.FornecedorDAO;
 import Util.Formatacao;
 import Util.Validacao;
 import Entidade.Fornecedor;
+import Entidade.UsuarioLogado;
+import Util.Log;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -400,7 +402,9 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                     codigo = 0;
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                 retorno = "Impossível salvar fornecedor: " + retorno;
+                    JOptionPane.showMessageDialog(null, retorno);
+                    Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrFornecedor", btnSalvar, retorno);
                 }
             }
         }
@@ -438,6 +442,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 }
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrFornecedor", btnEditar, hibEx.toString());
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -460,6 +465,10 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
 
                 //atualiza tabela
                 new FornecedorDAO().popularTabela(tblFornec, tfdBusca.getText(), jCheckBoxInativos.isSelected());
+            }else{
+                String erro = "Impossível Inativar Fornecedor: " + retorno;
+                JOptionPane.showMessageDialog(null, erro);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrFornecedor", btnExcluir, erro);
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
