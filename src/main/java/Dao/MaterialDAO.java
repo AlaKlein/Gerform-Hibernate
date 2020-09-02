@@ -7,7 +7,10 @@ package Dao;
 
 import Entidade.Material;
 import Entidade.MaterialTable;
+import Entidade.UsuarioLogado;
+import Util.Audita;
 import static Util.HibernateUtil.sessionFactory;
+import Util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -38,9 +41,13 @@ public class MaterialDAO implements IDAO_T<Material> {
 
             sessao.save(m);
             transacao.commit();
+            
+            Audita.salvarAuditoria("Insert", "material", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
             hibEx.printStackTrace();
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -65,8 +72,12 @@ public class MaterialDAO implements IDAO_T<Material> {
             }
             transacao.commit();
 
+            Audita.salvarAuditoria("Update", "propMaterial", UsuarioLogado.getUsuarioLogadoID());
+            
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -97,9 +108,13 @@ public class MaterialDAO implements IDAO_T<Material> {
                 sessao.update(material);
                 transacao.commit();
             }
+            
+             Audita.salvarAuditoria("Update", "material", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -123,9 +138,13 @@ public class MaterialDAO implements IDAO_T<Material> {
                 sessao.update(material);
             }
             transacao.commit();
+            
+            Audita.salvarAuditoria("Inactivate", "material", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -150,6 +169,7 @@ public class MaterialDAO implements IDAO_T<Material> {
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "querry", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -186,6 +206,7 @@ public class MaterialDAO implements IDAO_T<Material> {
             }
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "querry", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -211,6 +232,7 @@ public class MaterialDAO implements IDAO_T<Material> {
             }
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "querry", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -279,6 +301,7 @@ public class MaterialDAO implements IDAO_T<Material> {
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "querry", hibEx.toString());
         } finally {
             sessao.close();
         }

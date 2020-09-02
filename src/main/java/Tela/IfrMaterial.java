@@ -12,6 +12,8 @@ import Util.SoNumerosEPonto;
 import Dao.CombosDAOMaterial;
 import Dao.MaterialDAO;
 import Entidade.Material;
+import Entidade.UsuarioLogado;
+import Util.Log;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.JComboBox;
@@ -448,7 +450,9 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                     codigo = 0;
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Erro: \n\nMensagem técnica:" + retorno);
+                    retorno = "Impossível salvar usuário: " + retorno;
+                    JOptionPane.showMessageDialog(null, retorno);
+                    Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrMaterial", btnSalvar, retorno);
                 }
             }
         }
@@ -498,6 +502,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                 }
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrMaterial", btnEditar, hibEx.toString());
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -516,7 +521,9 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                 limparCampos();
                 resetCor();
             } else {
-                JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
+                String erro = "Impossível Inativar Usuário: " + retorno;
+                JOptionPane.showMessageDialog(null, erro);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrUsuario", btnExcluir, erro);
             }
 
             //atualiza tabela
