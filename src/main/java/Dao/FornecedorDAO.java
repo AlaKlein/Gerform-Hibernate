@@ -71,6 +71,7 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             Audita.salvarAuditoria("Insert", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
             return hibEx.toString();
@@ -106,6 +107,7 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             Audita.salvarAuditoria("Update", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
         } finally {
@@ -118,10 +120,11 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
     public String Excluir(int id) {
         List resultado = null;
         Session sessao = null;
+        Transaction transacao = null;
 
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
+            transacao = sessao.beginTransaction();
             org.hibernate.Query query = sessao.createQuery("FROM Fornecedor WHERE id = " + id);
             resultado = query.list();
 
@@ -134,6 +137,7 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             Audita.salvarAuditoria("Inactivate", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
             return hibEx.toString();

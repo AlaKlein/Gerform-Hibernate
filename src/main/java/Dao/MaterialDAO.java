@@ -45,7 +45,8 @@ public class MaterialDAO implements IDAO_T<Material> {
             Audita.salvarAuditoria("Insert", "material", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
-             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
+            transacao.rollback();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
             hibEx.printStackTrace();
             return hibEx.toString();
         } finally {
@@ -76,6 +77,7 @@ public class MaterialDAO implements IDAO_T<Material> {
             
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            transacao.rollback();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
             return hibEx.toString();
         } finally {
@@ -112,6 +114,7 @@ public class MaterialDAO implements IDAO_T<Material> {
              Audita.salvarAuditoria("Update", "material", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
             return hibEx.toString();
@@ -125,10 +128,11 @@ public class MaterialDAO implements IDAO_T<Material> {
     public String Excluir(int id) {
         List resultado = null;
         Session sessao = null;
+        Transaction transacao = null;
 
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
+            transacao = sessao.beginTransaction();
             org.hibernate.Query query = sessao.createQuery("FROM Material WHERE id = " + id);
             resultado = query.list();
 
@@ -142,6 +146,7 @@ public class MaterialDAO implements IDAO_T<Material> {
             Audita.salvarAuditoria("Inactivate", "material", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
             return hibEx.toString();

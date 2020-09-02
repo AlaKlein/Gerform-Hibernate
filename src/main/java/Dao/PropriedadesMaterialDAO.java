@@ -30,8 +30,10 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             sessao.save(pm);
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
         } finally {
+            
             transacao.commit();
             sessao.close();
         }
@@ -63,6 +65,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             }
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
         } finally {
             sessao.close();
@@ -74,10 +77,11 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
     public String Excluir(int id) {
         List resultado = null;
         Session sessao = null;
+        Transaction transacao = null;
 
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
+            transacao = sessao.beginTransaction();
             org.hibernate.Query query = sessao.createQuery("FROM PropriedadesMaterial WHERE id = " + id);
             resultado = query.list();
 
@@ -89,6 +93,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             }
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
         } finally {
             sessao.close();

@@ -61,13 +61,13 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             transacao = sessao.beginTransaction();
-
             sessao.save(u);
             transacao.commit();
 
             Audita.salvarAuditoria("Insert", "usuario", UsuarioLogado.getUsuarioLogadoID());
             
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
             return hibEx.toString();
         } finally {
@@ -100,6 +100,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             Audita.salvarAuditoria("Update", "usuario", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
         } finally {
@@ -112,10 +113,11 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
     public String Excluir(int id) {
         List resultado = null;
         Session sessao = null;
+        Transaction transacao = null;
 
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
+            transacao = sessao.beginTransaction();
             org.hibernate.Query query = sessao.createQuery("FROM Usuario WHERE id = " + id);
             resultado = query.list();
 
@@ -128,6 +130,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             Audita.salvarAuditoria("Inactivate", "usuario", UsuarioLogado.getUsuarioLogadoID());
 
         } catch (HibernateException hibEx) {
+            transacao.rollback();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
             return hibEx.toString();
         } finally {
