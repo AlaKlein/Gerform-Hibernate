@@ -69,6 +69,7 @@ public class AuditoriaDAO {
             }
 
         } catch (HibernateException hibEx) {
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
             hibEx.printStackTrace();
         } finally {
             sessao.close();

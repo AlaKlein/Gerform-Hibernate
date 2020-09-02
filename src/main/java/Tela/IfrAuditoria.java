@@ -5,6 +5,7 @@
  */
 package Tela;
 import Dao.AuditoriaDAO;
+import java.awt.Desktop;
 /**
  *
  * @author Klein
@@ -32,6 +33,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAudit = new javax.swing.JTable();
         btnAuditoria1 = new javax.swing.JButton();
+        btnAuditoria2 = new javax.swing.JButton();
 
         btnAuditoria.setText("Consultar");
         btnAuditoria.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +62,15 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAuditoria2.setText("Logs");
+        btnAuditoria2.setMaximumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria2.setMinimumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuditoria2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,6 +82,8 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAuditoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAuditoria1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -79,11 +92,12 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAuditoria)
-                    .addComponent(btnAuditoria1))
+                    .addComponent(btnAuditoria1)
+                    .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -99,10 +113,18 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnAuditoria1ActionPerformed
 
+    private void btnAuditoria2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoria2ActionPerformed
+        try {
+            Desktop.getDesktop().open(new java.io.File("logs.txt"));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnAuditoria2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnAuditoria1;
+    private javax.swing.JButton btnAuditoria2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAudit;
     // End of variables declaration//GEN-END:variables

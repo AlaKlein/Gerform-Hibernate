@@ -278,3 +278,102 @@ Erro: Usuário ou senha incorreta!
 Horário: 31/08/2020 22:22:57
 
 ######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Insert
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:17:39
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 02/09/2020 10:17:57
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 02/09/2020 10:18:01
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 02/09/2020 10:18:04
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Insert
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:28:21
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Tela: IfrUsuario
+Ação executada: Salvar
+
+Erro: Impossível salvar usuário: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:28:29
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Insert
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:44:34
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Tela: IfrUsuario
+Ação executada: Salvar
+
+Erro: Impossível salvar usuário: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:44:37
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 02/09/2020 10:45:23
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Insert
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:49:33
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Tela: IfrUsuario
+Ação executada: Salvar
+
+Erro: Impossível salvar usuário: org.hibernate.exception.ConstraintViolationException: could not insert: [Entidade.Usuario]
+
+Horário: 02/09/2020 10:49:38
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 02/09/2020 10:49:47
+
+######################################################################################################################

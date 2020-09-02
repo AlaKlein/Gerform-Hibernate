@@ -45,6 +45,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             }
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+            hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -68,6 +69,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -126,6 +128,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
 
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());
+            return hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -151,6 +154,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
 
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+            hibEx.toString();
         } finally {
             sessao.close();
         }
@@ -200,6 +204,7 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
 
         } catch (HibernateException hibEx) {
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+            hibEx.toString();
         } finally {
             sessao.close();
         }
