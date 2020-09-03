@@ -347,8 +347,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
             //Popular Objeto
             u.setId(codigo);
-            u.setEmail(null);
-            //u.setEmail(tfdEmail.getText().toLowerCase());
+            //u.setEmail(null);
+            u.setEmail(tfdEmail.getText().toLowerCase());
             u.setPermissao(String.valueOf(jComboBox1.getSelectedItem()));
             u.setSenha(Encoding.encodeToMD5(new String(tffSenha.getPassword())));
 

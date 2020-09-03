@@ -523,7 +523,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             } else {
                 String erro = "Impossível Inativar Material: " + retorno;
                 JOptionPane.showMessageDialog(null, erro);
-                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrUsuario", btnExcluir, erro);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrMaterial", btnExcluir, erro);
             }
 
             //atualiza tabela

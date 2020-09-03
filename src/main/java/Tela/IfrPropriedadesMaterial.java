@@ -8,6 +8,7 @@ import Entidade.PropriedadesMaterial;
 import Entidade.UsuarioLogado;
 import Util.ComboItem;
 import Util.Formatacao;
+import Util.Log;
 import Util.SoNumerosEPonto;
 import Util.Validacao;
 import java.awt.Color;
@@ -393,7 +394,9 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 new CombosDAOPropriedades().popularCombo(jComboBoxMat);
 
             } else {
-                JOptionPane.showMessageDialog(null, "Deu erro: \n\nMensagem técnica:" + retorno);
+                retorno = "Impossível salvar Propriedades do Material: " + retorno;
+                    JOptionPane.showMessageDialog(null, retorno);
+                    Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrPropriedadesMaterial", btnSalvar, retorno);
             }
 
         }
@@ -433,6 +436,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                 }
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrPropriedadesMaterial", btnEditar, hibEx.toString());
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -454,6 +458,10 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
                 //atualiza tabela
                 new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
+            }else{
+                String erro = "Impossível Inativar Propriedades do Material: " + retorno;
+                JOptionPane.showMessageDialog(null, erro);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrPropriedadesMaterial", btnExcluir, erro);
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
