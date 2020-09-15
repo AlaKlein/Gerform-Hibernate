@@ -106,7 +106,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         //atualiza tabela
-        new AuditoriaDAO().popularTabela(tblAudit);
+        new AuditoriaDAO().popularTabela(tblAudit,"");
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnAuditoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoria1ActionPerformed

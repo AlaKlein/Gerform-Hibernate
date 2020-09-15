@@ -48,7 +48,7 @@ public class AuditDAO {
                 + "AND a.tabela ILIKE '%" + tab + "%'\n"
                 + "AND a.acao ILIKE '%" + acao + "%'\n"
                 + "AND DATE(a.data) BETWEEN '" + dataIni + "' AND '" + dataFim + "'"
-                + "";
+                + "ORDER BY a.id";
 
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -271,7 +271,7 @@ public class AuditDAO {
     }
 
     public void popTabela(JTable tab) {
-        new AuditoriaDAO().popularTabela(tab);
+        new AuditoriaDAO().popularTabela(tab,"tabela");
         DefaultTableModel model = (DefaultTableModel) tab.getModel();
         
         tab.removeColumn(tab.getColumnModel().getColumn(0));
@@ -290,7 +290,7 @@ public class AuditDAO {
     }
 
    public void popAcao(JTable tab) {
-        new AuditoriaDAO().popularTabela(tab);
+        new AuditoriaDAO().popularTabela(tab,"acao");
         DefaultTableModel model = (DefaultTableModel) tab.getModel();
         
         tab.removeColumn(tab.getColumnModel().getColumn(0));

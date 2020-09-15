@@ -26,11 +26,17 @@ import org.hibernate.transform.Transformers;
  */
 public class AuditoriaDAO {
 
-    public void popularTabela(JTable tabela) {
+    public void popularTabela(JTable tabela, String criterio) {
 
         String sql = "";
 
-        sql = "SELECT * FROM vw_auditoria";
+        if (criterio.equals("tabela")) {
+            sql = "SELECT DISTINCT(tabela) FROM vw_auditoria";
+        } else if (criterio.equals("acao")) {
+            sql = "SELECT DISTINCT(acao) FROM vw_auditoria";
+        } else {
+            sql = "SELECT * FROM vw_auditoria";
+        }
 
         int lin = 0;
         // dados da tabela
@@ -118,7 +124,7 @@ public class AuditoriaDAO {
                 case 2:
                     column.setPreferredWidth(100);
                     break;
-                    case 3:
+                case 3:
                     column.setPreferredWidth(200);
                     break;
             }
