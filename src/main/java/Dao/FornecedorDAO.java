@@ -16,6 +16,7 @@ import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import tela.TelaPrincipal;
 
 
 public class FornecedorDAO implements IDAO_T<Fornecedor>{
@@ -68,8 +69,10 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             sessao.save(f);
             transacao.commit();
             
-            Audita.salvarAuditoria("Insert", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Insert", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();

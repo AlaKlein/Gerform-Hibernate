@@ -19,12 +19,16 @@ import javax.swing.JInternalFrame;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    public static boolean ligaAuditoria = true;
+    
+    
     /**
      * Creates new form FrmPrincipal
      */
     public TelaPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        checkBoxAuditoria.setSelected(true);
     }
 
     private void centralizarJInternalFrame(JInternalFrame frame) {
@@ -52,6 +56,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        checkBoxAuditoria = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -65,15 +70,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GerForm");
 
+        checkBoxAuditoria.setText("Auditoria");
+        checkBoxAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAuditoriaActionPerformed(evt);
+            }
+        });
+
+        jDesktopPane1.setLayer(checkBoxAuditoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(617, Short.MAX_VALUE)
+                .addComponent(checkBoxAuditoria)
+                .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 482, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(452, Short.MAX_VALUE)
+                .addComponent(checkBoxAuditoria)
+                .addContainerGap())
         );
 
         jMenu1.setText("Cadastros");
@@ -190,6 +210,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         centralizarJInternalFrame(ifrAudit);
         ifrAudit.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void checkBoxAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAuditoriaActionPerformed
+        ligaAuditoria = !ligaAuditoria;
+    }//GEN-LAST:event_checkBoxAuditoriaActionPerformed
     /**
      * *
      * /
@@ -233,6 +257,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxAuditoria;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

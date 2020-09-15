@@ -742,3 +742,35 @@ Erro: Usuário ou senha incorreta!
 Horário: 15/09/2020 15:48:52
 
 ######################################################################################################################
+Usuário: sam@univates.br
+Classe: Query
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 15/09/2020 16:02:59
+
+######################################################################################################################
+Usuário: sam@univates.br
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 15/09/2020 16:02:59
+
+######################################################################################################################
+Usuário: sam@univates.br
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 15/09/2020 16:02:59
+
+######################################################################################################################
+Usuário: sam@univates.br
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 15/09/2020 16:03:01
+
+######################################################################################################################
