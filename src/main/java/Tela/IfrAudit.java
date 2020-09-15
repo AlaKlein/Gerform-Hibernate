@@ -6,8 +6,14 @@
 package Tela;
 
 import Dao.AuditDAO;
+import Util.Formatacao;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,10 +24,8 @@ public class IfrAudit extends javax.swing.JInternalFrame {
 
     AuditDAO auditDAO = new AuditDAO();
     int codigo = 0;
-    private static IfrAudit tela;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    Date dataIni = null;
-    Date dataFim = null;
+    String dataIni = "01/01/0001";
+    String dataFim = "01/01/5000";
 
     /**
      * Creates new form IfrMaterial
@@ -29,16 +33,15 @@ public class IfrAudit extends javax.swing.JInternalFrame {
     public IfrAudit() {
         this.setTitle("Auditoria");
         initComponents();
-        dataInicial();
 
         //auditDAO.popularTabela2(tblEmail, "email", "usuario");
         auditDAO.popEmail(tblEmail);
         auditDAO.popTabela(tblTabela);
         auditDAO.popAcao(tblAcao);
-        
-        //Formatacao.formatarData(tffDataInicial);
-        //Formatacao.formatarData(tffDataFinal);
-        //Formatacao.limparjtable(tblAuditoria);
+
+        Formatacao.formatarData(tffDataInicial);
+        Formatacao.formatarData(tffDataFinal);
+        Formatacao.limparjtable(tblAuditoria);
     }
 
     /**
@@ -67,8 +70,9 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         tffDataInicial = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         tffDataFinal = new javax.swing.JFormattedTextField();
+        btnAuditoria2 = new javax.swing.JButton();
 
-        setTitle("Consulta Formulação");
+        setTitle("Auditoria");
 
         tblAuditoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,6 +145,15 @@ public class IfrAudit extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Data Final Período:");
 
+        btnAuditoria2.setText("Logs");
+        btnAuditoria2.setMaximumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria2.setMinimumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuditoria2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,6 +162,8 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnfechar1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,23 +206,23 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPesquisar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPesquisar)
+                        .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnfechar1))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void dataInicial() {
-        try {
-            dataIni = sdf.parse("01/01/0001");
-            dataFim = sdf.parse("01/01/5000");
-        } catch (Exception e) {
-            System.out.println("Erro: " + e);
-        }
+     public static void tfdAmarelo(JFormattedTextField c) {
+        c.setBackground(Color.yellow);
     }
 
+    public static void tfdBranco(JFormattedTextField c) {
+        c.setBackground(Color.white);
+    }
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         DefaultTableModel modelEmail = (DefaultTableModel) tblEmail.getModel();
@@ -217,35 +232,41 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         String selectedAcao = null;
         String selectedTabela = null;
 
-
-        if (tblEmail.getSelectedRow() == -1) {
-            selectedEmail = "";
+        if (tffDataInicial.getText().equals("  /  /    ") && !tffDataFinal.getText().equals("  /  /    ")) {
+            JOptionPane.showMessageDialog(null, "A data inicial deve ser informada!");
+            tfdAmarelo(tffDataInicial);
+            tfdBranco(tffDataFinal);
+            tffDataInicial.requestFocus();
+        } else if ((!tffDataInicial.getText().equals("  /  /    ") && tffDataFinal.getText().equals("  /  /    "))) {
+            JOptionPane.showMessageDialog(null, "A data final deve ser informada!");
+            tfdAmarelo(tffDataFinal);
+            tfdBranco(tffDataInicial);
+            tffDataFinal.requestFocus();
         } else {
-            selectedEmail = String.valueOf(modelEmail.getValueAt(tblEmail.getSelectedRow(), 1));
-        }
-        if (tblTabela.getSelectedRow() == -1) {
-            selectedTabela = "";
-        } else {
-            selectedTabela = String.valueOf(modelTabela.getValueAt(tblTabela.getSelectedRow(), 2));
-        }
-        if (tblAcao.getSelectedRow() == -1) {
-            selectedAcao = "";
-        } else {
-            selectedAcao = String.valueOf(modelAcao.getValueAt(tblAcao.getSelectedRow(), 4));
-        }
-        try {
-//            if (tffDataInicial.getText().equals("  /  /    ") && tffDataFinal.getText().equals("  /  /    ")) {
-//               auditDAO.popularTabela(tblAuditoria, selectedEmail, selectedTabela, selectedAcao, dataIni, dataFim);
-//            } else {
 
-                //java.sql.Date data = new java.sql.Date(sdf.parse(tffDataInicial.getText()).getTime());
-                //java.sql.Date data2 = new java.sql.Date(sdf.parse(tffDataFinal.getText()).getTime());
-            auditDAO.popularTabela(tblAuditoria, selectedEmail , selectedTabela, selectedAcao);//, data, data2);
-            //}
-        } catch (Exception e) {
-            System.out.println("Erro: " + e);
+            if (tblEmail.getSelectedRow() == -1) {
+                selectedEmail = "";
+            } else {
+                selectedEmail = String.valueOf(modelEmail.getValueAt(tblEmail.getSelectedRow(), 1));
+            }
+            if (tblTabela.getSelectedRow() == -1) {
+                selectedTabela = "";
+            } else {
+                selectedTabela = String.valueOf(modelTabela.getValueAt(tblTabela.getSelectedRow(), 2));
+            }
+            if (tblAcao.getSelectedRow() == -1) {
+                selectedAcao = "";
+            } else {
+                selectedAcao = String.valueOf(modelAcao.getValueAt(tblAcao.getSelectedRow(), 4));
+            }
+            if (tffDataInicial.getText().equals("  /  /    ") && tffDataFinal.getText().equals("  /  /    ")) {
+                auditDAO.popularTabela(tblAuditoria, selectedEmail, selectedTabela, selectedAcao, dataIni, dataFim);
+            } else {
+                dataIni = tffDataInicial.getText();
+                dataFim = tffDataFinal.getText();
+                auditDAO.popularTabela(tblAuditoria, selectedEmail, selectedTabela, selectedAcao, dataIni, dataFim);
+            }
         }
-
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -262,8 +283,16 @@ public class IfrAudit extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnLimparSelecoesActionPerformed
 
+    private void btnAuditoria2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoria2ActionPerformed
+        try {
+            Desktop.getDesktop().open(new java.io.File("logs.txt"));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnAuditoria2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAuditoria2;
     private javax.swing.JButton btnLimparSelecoes;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnfechar1;

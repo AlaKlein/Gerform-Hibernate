@@ -133,6 +133,18 @@ public class Formatacao {
         }
         return (dataFormatada);
     }
+    
+     public static String formatarDataHora(Date data) {
+        String dataFormatada = null;
+        try {
+            //Date dataDMA = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+            //dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);
+            dataFormatada = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(data);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return (dataFormatada);
+    }
 
     public static String removerFormatacao(String dado) {
         String retorno = "";

@@ -6,12 +6,10 @@
 package Dao;
 
 import Entidade.AuditoriaTable;
-import Entidade.Usuario;
 import Entidade.UsuarioLogado;
 import static Util.HibernateUtil.sessionFactory;
 import Util.Log;
 import java.sql.ResultSet;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -19,7 +17,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
@@ -32,7 +29,7 @@ public class AuditDAO {
 
     ResultSet resultadoQ;
 
-    public void popularTabela(JTable tabela, String email, String tab, String acao) {
+    public void popularTabela(JTable tabela, String email, String tab, String acao, String dataIni, String dataFim) {
         if (email.equals("Selecione")) {
             email = "";
         }
@@ -49,10 +46,10 @@ public class AuditDAO {
                 + "ON u.id=a.usuario_id\n"
                 + "WHERE u.email ILIKE '%" + email + "%'\n"
                 + "AND a.tabela ILIKE '%" + tab + "%'\n"
-                + "AND a.acao ILIKE '%" + acao + "%'"
+                + "AND a.acao ILIKE '%" + acao + "%'\n"
+                + "AND DATE(a.data) BETWEEN '" + dataIni + "' AND '" + dataFim + "'"
                 + "";
 
-        int lin = 0;
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -82,7 +79,7 @@ public class AuditDAO {
                 dadosTabela[i][0] = mt.get(i).getId();
                 dadosTabela[i][1] = mt.get(i).getEmail();
                 dadosTabela[i][2] = mt.get(i).getTabela();
-                dadosTabela[i][3] = mt.get(i).getData();
+                dadosTabela[i][3] = Util.Formatacao.formatarDataHora(mt.get(i).getData());
                 dadosTabela[i][4] = mt.get(i).getAcao();
             }
 

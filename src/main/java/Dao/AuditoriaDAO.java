@@ -5,12 +5,10 @@
  */
 package Dao;
 
-import Entidade.Auditoria;
 import Entidade.AuditoriaTable;
 import Entidade.UsuarioLogado;
 import static Util.HibernateUtil.sessionFactory;
 import Util.Log;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;

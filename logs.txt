@@ -646,3 +646,67 @@ Erro: org.hibernate.PropertyNotFoundException: Could not find setter for permiss
 Horário: 14/09/2020 21:58:09
 
 ######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 15/09/2020 12:23:47
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 15/09/2020 12:24:21
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.SQLGrammarException: could not execute query
+
+Horário: 15/09/2020 12:25:28
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.DataException: could not execute query
+
+Horário: 15/09/2020 12:55:22
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.GenericJDBCException: could not execute query
+
+Horário: 15/09/2020 12:55:33
+
+######################################################################################################################
+Usuário: 
+Classe: Login
+
+Erro: Erro ao fazer Login
+
+Horário: 15/09/2020 13:04:45
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Login
+
+Erro: Usuário ou senha incorreta!
+
+Horário: 15/09/2020 13:04:46
+
+######################################################################################################################
+Usuário: admin@gerform.com
+Classe: Query
+
+Erro: org.hibernate.exception.DataException: could not execute query
+
+Horário: 15/09/2020 13:15:48
+
+######################################################################################################################
