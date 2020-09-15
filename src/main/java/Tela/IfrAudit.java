@@ -280,6 +280,11 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         tblAcao.getSelectionModel().clearSelection();
         tffDataInicial.setText("");
         tffDataFinal.setText("");
+        Formatacao.formatarData(tffDataInicial);
+        Formatacao.formatarData(tffDataFinal);
+        dataIni = "01/01/0001";
+        dataFim = "01/01/5000";
+        
 
     }//GEN-LAST:event_btnLimparSelecoesActionPerformed
 
