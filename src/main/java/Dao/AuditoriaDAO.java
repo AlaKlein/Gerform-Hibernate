@@ -34,6 +34,8 @@ public class AuditoriaDAO {
             sql = "SELECT DISTINCT(tabela) FROM vw_auditoria";
         } else if (criterio.equals("acao")) {
             sql = "SELECT DISTINCT(acao) FROM vw_auditoria";
+        } else if (criterio.equals("email")) {
+            sql = "SELECT DISTINCT(email) FROM vw_auditoria";    
         } else {
             sql = "SELECT * FROM vw_auditoria";
         }

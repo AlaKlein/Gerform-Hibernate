@@ -253,10 +253,11 @@ public class AuditDAO {
     }
 
     public void popEmail(JTable tab) {
-        new UsuarioDAO().popularTabela(tab, "", false);
+        new AuditoriaDAO().popularTabela(tab,"email");
         DefaultTableModel model = (DefaultTableModel) tab.getModel();
         
         tab.removeColumn(tab.getColumnModel().getColumn(0));
+        tab.removeColumn(tab.getColumnModel().getColumn(1));
         tab.removeColumn(tab.getColumnModel().getColumn(1));
         tab.removeColumn(tab.getColumnModel().getColumn(1));
         
