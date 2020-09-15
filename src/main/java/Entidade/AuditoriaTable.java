@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Klein
  */
 public class AuditoriaTable {
-
+ //teste
     private int id;
     private int usuario_id;
     private String email;
