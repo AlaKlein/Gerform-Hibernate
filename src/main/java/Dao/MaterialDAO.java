@@ -22,6 +22,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
+import tela.TelaPrincipal;
 
 /**
  *
@@ -42,7 +43,9 @@ public class MaterialDAO implements IDAO_T<Material> {
             sessao.save(m);
             transacao.commit();
             
-            Audita.salvarAuditoria("Insert", "material", UsuarioLogado.getUsuarioLogadoID());
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Insert", "material", UsuarioLogado.getUsuarioLogadoID());
+            }
 
         } catch (HibernateException hibEx) {
             transacao.rollback();
@@ -73,7 +76,9 @@ public class MaterialDAO implements IDAO_T<Material> {
             }
             transacao.commit();
 
-            Audita.salvarAuditoria("Update", "propMaterial", UsuarioLogado.getUsuarioLogadoID());
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Update", "propMaterial", UsuarioLogado.getUsuarioLogadoID());
+            }
             
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
@@ -111,8 +116,10 @@ public class MaterialDAO implements IDAO_T<Material> {
                 transacao.commit();
             }
             
-             Audita.salvarAuditoria("Update", "material", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Update", "material", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -143,8 +150,10 @@ public class MaterialDAO implements IDAO_T<Material> {
             }
             transacao.commit();
             
-            Audita.salvarAuditoria("Inactivate", "material", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Inactivate", "material", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();

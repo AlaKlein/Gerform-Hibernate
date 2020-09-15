@@ -17,6 +17,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
+import tela.TelaPrincipal;
 
 public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
 
@@ -32,8 +33,10 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
 
             sessao.save(pm);
             
-            Audita.salvarAuditoria("Insert", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Insert", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
@@ -71,8 +74,10 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 transacao.commit();
             }
             
-             Audita.salvarAuditoria("Update", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Update", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
             transacao.rollback();
@@ -102,8 +107,10 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 transacao.commit();
             }
             
-            Audita.salvarAuditoria("Inactivate", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Inactivate", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();

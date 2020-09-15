@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Entidade.UsuarioLogado;
 import Util.Log;
+import tela.TelaPrincipal;
 
 
 public class UsuarioDAO implements IDAO_T<Usuario>{
@@ -64,7 +65,9 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
             sessao.save(u);
             transacao.commit();
 
-            Audita.salvarAuditoria("Insert", "usuario", UsuarioLogado.getUsuarioLogadoID());
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Insert", "usuario", UsuarioLogado.getUsuarioLogadoID());
+            }
             
         } catch (HibernateException hibEx) {
             transacao.rollback();
@@ -97,8 +100,11 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 sessao.update(usuario);
                 transacao.commit();
             }
-            Audita.salvarAuditoria("Update", "usuario", UsuarioLogado.getUsuarioLogadoID());
-
+            
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Update", "usuario", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -127,8 +133,11 @@ public class UsuarioDAO implements IDAO_T<Usuario>{
                 sessao.update(user);
                 transacao.commit();
             }
-            Audita.salvarAuditoria("Inactivate", "usuario", UsuarioLogado.getUsuarioLogadoID());
-
+            
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Inactivate", "usuario", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Inactivate", hibEx.toString());

@@ -107,8 +107,10 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
                 transacao.commit();
             }
             
-            Audita.salvarAuditoria("Update", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
-
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Update", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -137,8 +139,11 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
                 sessao.update(forn);
                 transacao.commit();
             }
-            Audita.salvarAuditoria("Inactivate", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
-
+            
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Inactivate", "fornecedor", UsuarioLogado.getUsuarioLogadoID());
+            }
+            
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
