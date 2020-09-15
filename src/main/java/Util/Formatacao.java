@@ -139,7 +139,7 @@ public class Formatacao {
         try {
             //Date dataDMA = new SimpleDateFormat("dd/MM/yyyy").parse(data);
             //dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);
-            dataFormatada = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(data);
+            dataFormatada = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(data);
         } catch (Exception e) {
             System.err.println(e);
         }
