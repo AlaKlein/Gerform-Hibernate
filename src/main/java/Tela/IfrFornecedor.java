@@ -373,9 +373,9 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 f.setStatus("Inativo");
             }
 
-            //if (fornecedorDAO.checkExist(f)) {
-              //  JOptionPane.showMessageDialog(null, "Campo já existe no registro!");
-            //} else {
+            if (fornecedorDAO.checkExist(f)) {
+                JOptionPane.showMessageDialog(null, "Campo já existe no registro!");
+            } else {
 
                 if (codigo != 0) {
                     //atualiza
@@ -405,7 +405,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                  retorno = "Impossível salvar fornecedor: " + retorno;
                     JOptionPane.showMessageDialog(null, retorno);
                     Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrFornecedor", btnSalvar, retorno);
-                //}
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
