@@ -11,6 +11,7 @@ import Tela.IfrMaterial;
 import Tela.IfrAuditoria;
 import Tela.IfrAudit;
 import Tela.IfrPropriedadesMaterial;
+import Tela.IfrProduto;
 import javax.swing.JInternalFrame;
 
 /**
@@ -63,6 +64,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -129,6 +131,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
+
+        jMenuItem5.setText("Produto");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -214,6 +224,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void checkBoxAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAuditoriaActionPerformed
         ligaAuditoria = !ligaAuditoria;
     }//GEN-LAST:event_checkBoxAuditoriaActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        IfrProduto ifrProduto = new IfrProduto();
+        jDesktopPane1.add(ifrProduto);
+        centralizarJInternalFrame(ifrProduto);
+        ifrProduto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     /**
      * *
      * /
@@ -266,6 +283,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables

@@ -183,7 +183,7 @@ public class MaterialDAO implements IDAO_T<Material> {
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
-            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "querry", hibEx.toString());
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "query", hibEx.toString());
         } finally {
             sessao.close();
         }

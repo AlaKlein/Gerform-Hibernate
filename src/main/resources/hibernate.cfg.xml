@@ -23,6 +23,7 @@
         <mapping class="Entidade.PropriedadesMaterial"/>
         <mapping class="Entidade.PropriedadesMaterialTable"/>
         <mapping class="Entidade.Auditoria"/>
+        <mapping class="Entidade.Produto"/>
 
         <mapping class="Util.Audita"/>
                 
@@ -30,6 +31,7 @@
         <mapping class="Tela.IfrUsuario"/>
         <mapping class="Tela.IfrMaterial"/>
         <mapping class="Tela.IfrPropriedadesMaterial"/>
+        <mapping class="Tela.IfrProduto"/>
         
         <mapping class="Dao.FornecedorDAO"/>
         <mapping class="Dao.UsuarioDAO"/>
@@ -37,6 +39,7 @@
         <mapping class="Dao.MaterialDAO"/>
         <mapping class="Dao.PropriedadesMaterialDAO"/>
         <mapping class="Dao.CombosDAOPropriedades"/>
+        <mapping class="Dao.ProdutoDAO"/>
          
     </session-factory>
 </hibernate-configuration>
