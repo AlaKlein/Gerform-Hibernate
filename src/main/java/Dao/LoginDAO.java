@@ -41,7 +41,7 @@ public class LoginDAO {
 
             org.hibernate.Query query = sessao.createQuery("FROM Usuario "
                     + "WHERE email = '" + email + "' "
-                    + "AND senha = md5('" + senha + "') ");
+                    + "AND senha = '" + senha + "' ");
             resultado = query.list();
 
             for (int i = 0; i < resultado.size(); i++) {
@@ -56,7 +56,7 @@ public class LoginDAO {
             uL.setUsuarioLogadoID(id);
             uL.setUsuarioLogadoPermissao(permissao);
 
-            if (usuario.equals(email) && pw.equals(Encoding.encodeToMD5(senha)) && (status.equals("Ativo"))) {
+            if (usuario.equals(email) && pw.equals(senha) && (status.equals("Ativo"))) {
                 tp.setVisible(true);
                 if (uL.getUsuarioLogadoPermissao().equals("Operador")) {
                 tp.operador(permissao);

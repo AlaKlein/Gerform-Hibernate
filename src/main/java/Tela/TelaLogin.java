@@ -8,6 +8,7 @@ package Tela;
 import Dao.LoginDAO;
 import Entidade.UsuarioLogado;
 import Util.Audita;
+import Util.Encoding;
 import Util.Formatacao;
 import Util.Log;
 import Util.Validacao;
@@ -41,7 +42,7 @@ public class TelaLogin extends javax.swing.JFrame {
             SenhaInvalido();
         } else {
 
-            retorno = loginDAO.login(tfdEmail.getText(), new String(tffSenha.getPassword()));
+            retorno = loginDAO.login(tfdEmail.getText(), Encoding.encodeToMD5(new String(tffSenha.getPassword())));
 
             if (retorno == null) {
                 System.out.println("Usuário Logado: ID: " + u.getUsuarioLogadoID() + ", E-mail: " + u.getUsuarioLogadoEmail() + ", Permissão: " + u.getUsuarioLogadoPermissao());
