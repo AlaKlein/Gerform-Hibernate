@@ -71,6 +71,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         tffDataFinal = new javax.swing.JFormattedTextField();
         btnAuditoria2 = new javax.swing.JButton();
+        btnAuditoria3 = new javax.swing.JButton();
 
         setTitle("Auditoria");
 
@@ -154,6 +155,15 @@ public class IfrAudit extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAuditoria3.setText("Logs2");
+        btnAuditoria3.setMaximumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria3.setMinimumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuditoria3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,6 +172,8 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar)
@@ -208,9 +220,10 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnPesquisar)
-                        .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnfechar1))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,9 +308,17 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAuditoria2ActionPerformed
 
+    private void btnAuditoria3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoria3ActionPerformed
+        try {
+            Desktop.getDesktop().open(new java.io.File("log.log"));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnAuditoria3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAuditoria2;
+    private javax.swing.JButton btnAuditoria3;
     private javax.swing.JButton btnLimparSelecoes;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnfechar1;
