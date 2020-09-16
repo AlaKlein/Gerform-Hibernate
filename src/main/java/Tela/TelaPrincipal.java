@@ -44,6 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void operador(String permissao) {
         if (permissao.equals("Operador")) {
             jMenu2.setEnabled(false);
+            checkBoxAuditoria.setEnabled(false);
         }
     }
 
