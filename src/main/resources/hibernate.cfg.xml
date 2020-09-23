@@ -24,6 +24,7 @@
         <mapping class="Entidade.PropriedadesMaterialTable"/>
         <mapping class="Entidade.Auditoria"/>
         <mapping class="Entidade.Produto"/>
+        <mapping class="Entidade.ProdutoTable"/>
 
         <mapping class="Util.Audita"/>
                 
