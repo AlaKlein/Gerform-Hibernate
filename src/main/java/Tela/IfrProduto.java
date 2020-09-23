@@ -16,6 +16,7 @@ import org.hibernate.HibernateException;
 public class IfrProduto extends javax.swing.JInternalFrame {
 
     int codigo = 0;
+    boolean temForm = false;
     private static IfrProduto tela;
 
     public IfrProduto() {
@@ -324,6 +325,13 @@ public class IfrProduto extends javax.swing.JInternalFrame {
             p.setDescricao(tfdDescricao.getText());
             p.setTipo_produto_id(jComboBoxTpProd.getSelectedIndex());
             p.setTem_formulacao('S');
+            
+            if (temForm) {
+                p.setTem_formulacao('S');
+            } else {
+                p.setTem_formulacao('N');
+            }
+            
             p.setStatus("Ativo");
             if (!CkbStatus.isSelected()) {
                 p.setStatus("Inativo");
@@ -343,6 +351,8 @@ public class IfrProduto extends javax.swing.JInternalFrame {
 
                 if (retorno == null) {
                     JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                    
+                    temForm = false;
 
                     limparCampos();
                     resetCor();
@@ -380,6 +390,12 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                     CkbStatus.setSelected(true);
                     if (produto.getStatus().equals("Inativo")) {
                         CkbStatus.setSelected(false);
+                    }
+                    
+                    if (produto.getTem_formulacao() == 'S') {
+                        temForm = true;
+                    } else {
+                        temForm = false;
                     }
 
                     tfdDescricao.requestFocus();
