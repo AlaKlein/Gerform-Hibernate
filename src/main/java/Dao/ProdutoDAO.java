@@ -2,8 +2,10 @@
 package Dao;
 
 import Entidade.Produto;
+import Entidade.ProdutoTable;
 import Entidade.UsuarioLogado;
 import Util.Audita;
+import static Util.HibernateUtil.sessionFactory;
 import Util.Log;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -18,6 +20,7 @@ import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import tela.TelaPrincipal;
 
 
@@ -182,7 +185,7 @@ public class ProdutoDAO implements IDAO_T<Produto>{
         return a;
     }
 
-    @Override
+    /*@Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
         List<Produto> resultado = new ArrayList();
@@ -228,6 +231,115 @@ public class ProdutoDAO implements IDAO_T<Produto>{
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+        } finally {
+            sessao.close();
+        }
+
+        // configuracoes adicionais no componente tabela
+        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
+            @Override
+            // quando retorno for FALSE, a tabela nao é editavel
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
+            @Override
+            public Class
+                    getColumnClass(int column) {
+
+                if (column == 2) {
+//                    return ImageIcon.class;
+                }
+                return Object.class;
+            }
+        });
+
+        // permite seleção de apenas uma linha da tabela
+        tabela.setSelectionMode(0);
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+        }
+
+        // redimensiona as colunas de uma tabela
+        TableColumn column = null;
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            column = tabela.getColumnModel().getColumn(i);
+            switch (i) {
+                case 0:
+                    column.setPreferredWidth(17);
+                    break;
+                case 1:
+                    column.setPreferredWidth(140);
+                    break;
+            }
+        }
+    }*/
+    
+    @Override
+    public void popularTabela(JTable tabela, String criterio, boolean box) {
+
+        String sql = "";
+        if (box) {
+
+            sql = "SELECT p.id, p.descricao , tp.descricao AS tipoProduto, p.tem_formulacao, p.status \n"
+                    + "FROM produto p JOIN tipo_produto tp ON p.tipo_produto_id=tp.id \n"
+                    + "WHERE p.descricao ILIKE '%" + criterio + "%' AND p.status <> 'Excluído'\n"
+                    + "ORDER BY p.id";
+
+        } else {
+
+            sql = "SELECT p.id, p.descricao , tp.descricao AS tipoProduto, p.tem_formulacao, p.status \n"
+                    + "FROM produto p JOIN tipo_produto tp ON p.tipo_produto_id=tp.id \n"
+                    + "WHERE p.descricao ILIKE '%" + criterio + "%' AND p.status ILIKE 'ativo' \n"
+                    + "ORDER BY p.id";
+        }
+        
+        System.out.println(sql);
+        
+        int lin = 0;
+        // dados da tabela
+        Object[][] dadosTabela = null;
+
+        // cabecalho da tabela
+        Object[] cabecalho = new Object[5];
+        cabecalho[0] = "Id";
+        cabecalho[1] = "Descrição";
+        cabecalho[2] = "Tipo do Produto";
+        cabecalho[3] = "Tem Formulação";
+        cabecalho[4] = "Status";
+
+        Session sessao = null;
+        try {
+
+            sessao = Util.HibernateUtil.getSessionFactory().getCurrentSession();
+            Transaction transacao = sessao.beginTransaction();
+
+            List<ProdutoTable> mt = (List<ProdutoTable>) sessionFactory
+                    .getCurrentSession()
+                    .createSQLQuery(sql)
+                    .setResultTransformer(Transformers.aliasToBean(ProdutoTable.class))
+                    .list();
+
+            dadosTabela = new Object[mt.size()][5];
+
+            for (int i = 0; i < mt.size(); i++) {
+                dadosTabela[i][0] = mt.get(i).getId();
+                dadosTabela[i][1] = mt.get(i).getDescricao();
+                dadosTabela[i][2] = mt.get(i).getTipoproduto();
+                dadosTabela[i][3] = mt.get(i).getTem_formulacao();
+                dadosTabela[i][4] = mt.get(i).getStatus();
+
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "query", hibEx.toString());
         } finally {
             sessao.close();
         }
