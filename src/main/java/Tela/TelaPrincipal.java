@@ -5,6 +5,7 @@
  */
 package tela;
 
+import Entidade.UsuarioLogado;
 import Tela.IfrUsuario;
 import Tela.IfrFornecedor;
 import Tela.IfrMaterial;
@@ -28,6 +29,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        operador(UsuarioLogado.getUsuarioLogadoPermissao());
+        analista(UsuarioLogado.getUsuarioLogadoPermissao());
         this.setExtendedState(MAXIMIZED_BOTH);
         checkBoxAuditoria.setSelected(true);
     }

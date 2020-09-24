@@ -35,7 +35,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
     public IfrMaterial() {
         initComponents();
 
-        MaterialOperador("Operador");
+        MaterialOperador(UsuarioLogado.getUsuarioLogadoPermissao());
         jComboBoxTpMat.removeAllItems();
         jComboBoxTpMat.addItem("Selecione");
         jComboBoxTpMat.addItem("Matéria Prima");

@@ -28,14 +28,6 @@ public class LoginDAO {
 
     public String login(String email, String senha) {
         UsuarioLogado uL = new UsuarioLogado();
-        TelaPrincipal tp = new TelaPrincipal();
-        
-        IfrUsuario iU = new IfrUsuario();
-        IfrFornecedor iF = new IfrFornecedor();
-        IfrMaterial iM = new IfrMaterial();
-        IfrPropriedadesMaterial iProp = new IfrPropriedadesMaterial();
-        IfrProduto iProd = new IfrProduto();
-        
         
         List<Usuario> resultado = new ArrayList();
         String usuario = "";
@@ -68,15 +60,7 @@ public class LoginDAO {
             uL.setUsuarioLogadoPermissao(permissao);
 
             if (usuario.equals(email) && pw.equals(senha) && (status.equals("Ativo"))) {
-                tp.setVisible(true);
-                if (uL.getUsuarioLogadoPermissao().equals("Operador")) {
-                tp.operador(permissao);
-                iU.UserOperador(permissao);
-                iF.FornecOperador(permissao);
-                iM.MaterialOperador(permissao);
-                iProp.PropOperador(permissao);
-                iProd.ProdOperador(permissao);
-                }
+                new TelaPrincipal().setVisible(true);
             } else if (!status.equals("Ativo")) {
                 erro = "usuarioinativo";
                 return erro;

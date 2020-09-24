@@ -21,7 +21,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
 
     public IfrProduto() {
         initComponents();
-        ProdOperador("Operador");
+        ProdOperador(UsuarioLogado.getUsuarioLogadoPermissao());
         jComboBoxTpProd.removeAllItems();
         jComboBoxTpProd.addItem("Selecione");
         jComboBoxTpProd.addItem("Congelado");

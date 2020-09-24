@@ -31,7 +31,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
      */
     public IfrUsuario() {
         initComponents();
-        UserOperador("Operador");
+        UserOperador(UsuarioLogado.getUsuarioLogadoPermissao());
+        UserAnalista(UsuarioLogado.getUsuarioLogadoPermissao());
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Selecione");
         jComboBox1.addItem("Administrador");
@@ -39,6 +40,26 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jComboBox1.addItem("Operador");
         jCheckBox2.setSelected(true);
         Formatacao.limparjtable(tblUsuario);
+    }
+    
+    public final void UserOperador(String permissao) {
+        if (permissao.equals("Operador")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+    }
+    
+    public void UserAnalista(String permissao) {
+        if (permissao.equals("Analista")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
     }
 
     /**
@@ -271,17 +292,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void UserOperador(String permissao) {
-        if (permissao.equals("Operador")) {
-            jTabbedPane1.setEnabledAt(0, false);
-            jTabbedPane1.setSelectedIndex(1);
-            btnEditar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-            btnSalvar.setEnabled(false);
-        }
-    }
-        
     
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();

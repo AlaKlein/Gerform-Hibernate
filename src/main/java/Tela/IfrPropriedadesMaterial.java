@@ -25,7 +25,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     
     public IfrPropriedadesMaterial() {
         initComponents();
-        PropOperador("Operador");
+        PropOperador(UsuarioLogado.getUsuarioLogadoPermissao());
         new CombosDAOPropriedades().popularCombo(jComboBoxMat);
         tfdUmidade.setDocument(new SoNumerosEPonto());
         tfdGordura.setDocument(new SoNumerosEPonto());
