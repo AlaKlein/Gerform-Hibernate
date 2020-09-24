@@ -6,6 +6,7 @@
 package Tela;
 
 import Dao.AuditDAO;
+import Util.CSV;
 import Util.Formatacao;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -72,6 +73,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         tffDataFinal = new javax.swing.JFormattedTextField();
         btnAuditoria2 = new javax.swing.JButton();
         btnAuditoria3 = new javax.swing.JButton();
+        btnAuditoria4 = new javax.swing.JButton();
 
         setTitle("Auditoria");
 
@@ -164,6 +166,15 @@ public class IfrAudit extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAuditoria4.setText("Excel");
+        btnAuditoria4.setMaximumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria4.setMinimumSize(new java.awt.Dimension(79, 23));
+        btnAuditoria4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuditoria4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,6 +183,8 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,15 +234,16 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnPesquisar)
                         .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnfechar1))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     public static void tfdAmarelo(JFormattedTextField c) {
+    public static void tfdAmarelo(JFormattedTextField c) {
         c.setBackground(Color.yellow);
     }
 
@@ -297,7 +311,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         Formatacao.formatarData(tffDataFinal);
         dataIni = "01/01/0001";
         dataFim = "01/01/5000";
-        
+
 
     }//GEN-LAST:event_btnLimparSelecoesActionPerformed
 
@@ -315,10 +329,20 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAuditoria3ActionPerformed
 
+    private void btnAuditoria4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoria4ActionPerformed
+        try {
+            CSV csv = new CSV();
+            csv.geraCSV(tblAuditoria);
+            Desktop.getDesktop().open(new java.io.File("teste.csv"));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnAuditoria4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAuditoria2;
     private javax.swing.JButton btnAuditoria3;
+    private javax.swing.JButton btnAuditoria4;
     private javax.swing.JButton btnLimparSelecoes;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnfechar1;
