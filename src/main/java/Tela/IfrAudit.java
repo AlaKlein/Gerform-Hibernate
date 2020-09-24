@@ -10,11 +10,8 @@ import Util.CSV;
 import Util.Formatacao;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,7 +32,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         this.setTitle("Auditoria");
         initComponents();
 
-        //auditDAO.popularTabela2(tblEmail, "email", "usuario");
+        auditDAO.popularTabela(tblAuditoria, "", "", "", dataIni, dataFim);
         auditDAO.popEmail(tblEmail);
         auditDAO.popTabela(tblTabela);
         auditDAO.popAcao(tblAcao);
@@ -166,7 +163,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAuditoria4.setText("Excel");
+        btnAuditoria4.setText("CSV");
         btnAuditoria4.setMaximumSize(new java.awt.Dimension(79, 23));
         btnAuditoria4.setMinimumSize(new java.awt.Dimension(79, 23));
         btnAuditoria4.addActionListener(new java.awt.event.ActionListener() {
@@ -319,6 +316,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         try {
             Desktop.getDesktop().open(new java.io.File("logs.txt"));
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo solicitado: " + e);
         }
     }//GEN-LAST:event_btnAuditoria2ActionPerformed
 
@@ -326,6 +324,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         try {
             Desktop.getDesktop().open(new java.io.File("log.log"));
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo solicitado: " + e);
         }
     }//GEN-LAST:event_btnAuditoria3ActionPerformed
 
@@ -335,6 +334,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
             csv.geraCSV(tblAuditoria);
             Desktop.getDesktop().open(new java.io.File("teste.csv"));
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo solicitado: " + e);
         }
     }//GEN-LAST:event_btnAuditoria4ActionPerformed
 
