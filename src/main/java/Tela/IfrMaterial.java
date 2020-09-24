@@ -35,6 +35,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
     public IfrMaterial() {
         initComponents();
 
+        MaterialOperador("Operador");
         jComboBoxTpMat.removeAllItems();
         jComboBoxTpMat.addItem("Selecione");
         jComboBoxTpMat.addItem("Matéria Prima");
@@ -313,6 +314,16 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void MaterialOperador(String permissao) {
+        if (permissao.equals("Operador")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+    }
+    
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         limparCampos();

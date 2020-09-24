@@ -31,9 +31,11 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
      */
     public IfrUsuario() {
         initComponents();
+        UserOperador("Operador");
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Selecione");
         jComboBox1.addItem("Administrador");
+        jComboBox1.addItem("Analista");
         jComboBox1.addItem("Operador");
         jCheckBox2.setSelected(true);
         Formatacao.limparjtable(tblUsuario);
@@ -270,6 +272,17 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void UserOperador(String permissao) {
+        if (permissao.equals("Operador")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+    }
+        
+    
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         limparCampos();

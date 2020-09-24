@@ -10,27 +10,19 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class IfrFornecedor extends javax.swing.JInternalFrame {
 
     int codigo = 0;
-    private static IfrFornecedor tela;
 
     public IfrFornecedor() {
         initComponents();
+        FornecOperador("Operador");
         Formatacao.formatarCnpj(tffCNPJ);
         Formatacao.formatarTelefone(tffTelefone);
         Formatacao.limparjtable(tblFornec);
     }
 
-    public static IfrFornecedor getInstancia() {
-        if (tela == null) {
-            tela = new IfrFornecedor();
-        }
-        return tela;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -273,12 +265,19 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void FornecOperador(String permissao) {
+        if (permissao.equals("Operador")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+    }
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         limparCampos();
     }//GEN-LAST:event_btnFecharActionPerformed
-
     public void limparCampos() {
         tfdRazaoSocial.setText("");
         tffCNPJ.setText("");

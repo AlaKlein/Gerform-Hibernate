@@ -20,7 +20,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
 
     public IfrProduto() {
         initComponents();
-        
+        ProdOperador("Operador");
         jComboBoxTpProd.removeAllItems();
         jComboBoxTpProd.addItem("Selecione");
         jComboBoxTpProd.addItem("Congelado");
@@ -257,6 +257,16 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void ProdOperador(String permissao) {
+        if (permissao.equals("Operador")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+    }
+    
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         limparCampos();

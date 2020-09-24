@@ -47,6 +47,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             checkBoxAuditoria.setEnabled(false);
         }
     }
+    
+     public void analista(String permissao) {
+        if (permissao.equals("Analista")) {
+            jMenu2.setEnabled(false);
+            checkBoxAuditoria.setEnabled(false);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

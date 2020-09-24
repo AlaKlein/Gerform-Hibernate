@@ -25,6 +25,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
     
     public IfrPropriedadesMaterial() {
         initComponents();
+        PropOperador("Operador");
         new CombosDAOPropriedades().popularCombo(jComboBoxMat);
         tfdUmidade.setDocument(new SoNumerosEPonto());
         tfdGordura.setDocument(new SoNumerosEPonto());
@@ -262,6 +263,16 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void PropOperador(String permissao) {
+        if (permissao.equals("Operador")) {
+            jTabbedPane1.setEnabledAt(0, false);
+            jTabbedPane1.setSelectedIndex(1);
+            btnEditar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }
+    }
+    
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         limparCampos();
