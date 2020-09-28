@@ -23,7 +23,7 @@ public class CSV {
         FileWriter excel = new FileWriter(filename);
 
         for(int i = 0; i < model.getColumnCount(); i++){
-            excel.write(model.getColumnName(i) + "\t");
+            excel.write(model.getColumnName(i) + ";");
             //excel.append(',');
         }
 
@@ -31,7 +31,7 @@ public class CSV {
 
         for(int i=0; i< model.getRowCount(); i++) {
             for(int j=0; j < model.getColumnCount(); j++) {
-                excel.write(model.getValueAt(i,j).toString() + "\t");
+                excel.write(model.getValueAt(i,j).toString() + ";");
                 //excel.append(',');
             }
             excel.write("\n");
