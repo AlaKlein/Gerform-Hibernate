@@ -1,11 +1,13 @@
 package Util;
 
+import com.toedter.calendar.JDateChooser;
 import java.text.*;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.*;
+import org.hibernate.dialect.JDataStoreDialect;
 
 public class Formatacao {
 
@@ -133,8 +135,8 @@ public class Formatacao {
         }
         return (dataFormatada);
     }
-    
-     public static String formatarDataHora(Date data) {
+
+    public static String formatarDataHora(Date data) {
         String dataFormatada = null;
         try {
             //Date dataDMA = new SimpleDateFormat("dd/MM/yyyy").parse(data);
@@ -171,10 +173,24 @@ public class Formatacao {
 
         return dataHoje;
     }
-    
-    public static void limparjtable (JTable j) {
-          DefaultTableModel model = (DefaultTableModel) j.getModel();
+
+    public static void limparjtable(JTable j) {
+        DefaultTableModel model = (DefaultTableModel) j.getModel();
         model.setRowCount(0);
     }
-    
+
+    public static String formatarJcaledar(JDateChooser j) {
+        Date o = j.getDate();   //Import java.util not java.sql
+        String x = String.format("%1$td-%1$tm-%1$ty", o);
+        return x;
+    }
+
+    public static Boolean JcalendarNull(JDateChooser j) {
+        Date date = j.getDate();
+        if (date == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -8,9 +8,11 @@ package Tela;
 import Dao.AuditDAO;
 import Util.CSV;
 import Util.Formatacao;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
-import javax.swing.JFormattedTextField;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,9 +38,6 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         auditDAO.popEmail(tblEmail);
         auditDAO.popTabela(tblTabela);
         auditDAO.popAcao(tblAcao);
-
-        Formatacao.formatarData(tffDataInicial);
-        Formatacao.formatarData(tffDataFinal);
         Formatacao.limparjtable(tblAuditoria);
     }
 
@@ -65,9 +64,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         tblAcao = new javax.swing.JTable();
         btnLimparSelecoes = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        tffDataInicial = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        tffDataFinal = new javax.swing.JFormattedTextField();
         btnAuditoria2 = new javax.swing.JButton();
         btnAuditoria3 = new javax.swing.JButton();
         btnAuditoria4 = new javax.swing.JButton();
@@ -180,39 +177,37 @@ public class IfrAudit extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnPesquisar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnfechar1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimparSelecoes)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(2, 2, 2)
-                        .addComponent(tffDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jDateChooserIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
+                        .addComponent(btnAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tffDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnfechar1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLimparSelecoes)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jDateChooserIni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(34, 34, 34)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(53, 53, 53)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jDateChooserFim, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -221,8 +216,6 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tffDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tffDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(jLabel4))
                     .addComponent(jDateChooserIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,19 +237,23 @@ public class IfrAudit extends javax.swing.JInternalFrame {
                         .addComponent(btnAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnfechar1))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public static void tfdAmarelo(JFormattedTextField c) {
-        c.setBackground(Color.yellow);
+    public static void jdcAmarelo(JDateChooser j) {
+        for (Component c : j.getComponents()) {
+            ((JComponent) c).setBackground(Color.YELLOW);
+        }
     }
 
-    public static void tfdBranco(JFormattedTextField c) {
-        c.setBackground(Color.white);
+    public static void jdcBranco(JDateChooser j) {
+        for (Component c : j.getComponents()) {
+            ((JComponent) c).setBackground(Color.WHITE);
+        }
     }
+
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         DefaultTableModel modelEmail = (DefaultTableModel) tblEmail.getModel();
@@ -266,18 +263,17 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         String selectedAcao = null;
         String selectedTabela = null;
 
-        if (tffDataInicial.getText().equals("  /  /    ") && !tffDataFinal.getText().equals("  /  /    ")) {
+        if (Formatacao.JcalendarNull(jDateChooserIni) && !Formatacao.JcalendarNull(jDateChooserFim)) {
             JOptionPane.showMessageDialog(null, "A data inicial deve ser informada!");
-            tfdAmarelo(tffDataInicial);
-            tfdBranco(tffDataFinal);
-            tffDataInicial.requestFocus();
-        } else if ((!tffDataInicial.getText().equals("  /  /    ") && tffDataFinal.getText().equals("  /  /    "))) {
+            jdcAmarelo(jDateChooserIni);
+            jdcBranco(jDateChooserFim);
+            jDateChooserIni.requestFocusInWindow();
+        } else if ((!Formatacao.JcalendarNull(jDateChooserIni) && Formatacao.JcalendarNull(jDateChooserFim))) {
             JOptionPane.showMessageDialog(null, "A data final deve ser informada!");
-            tfdAmarelo(tffDataFinal);
-            tfdBranco(tffDataInicial);
-            tffDataFinal.requestFocus();
+            jdcAmarelo(jDateChooserFim);
+            jdcBranco(jDateChooserIni);
+            jDateChooserFim.requestFocusInWindow();
         } else {
-
             if (tblEmail.getSelectedRow() == -1) {
                 selectedEmail = "";
             } else {
@@ -293,15 +289,16 @@ public class IfrAudit extends javax.swing.JInternalFrame {
             } else {
                 selectedAcao = String.valueOf(modelAcao.getValueAt(tblAcao.getSelectedRow(), 4));
             }
-            if (tffDataInicial.getText().equals("  /  /    ") && tffDataFinal.getText().equals("  /  /    ")) {
+            if (Formatacao.JcalendarNull(jDateChooserIni) && Formatacao.JcalendarNull(jDateChooserFim)) {
                 auditDAO.popularTabela(tblAuditoria, selectedEmail, selectedTabela, selectedAcao, dataIni, dataFim);
             } else {
-                dataIni = tffDataInicial.getText();
-                dataFim = tffDataFinal.getText();
+                jdcBranco(jDateChooserIni);
+                jdcBranco(jDateChooserFim);
+                dataIni = Formatacao.formatarJcaledar(jDateChooserIni);
+                dataFim = Formatacao.formatarJcaledar(jDateChooserFim);
                 auditDAO.popularTabela(tblAuditoria, selectedEmail, selectedTabela, selectedAcao, dataIni, dataFim);
             }
         }
-
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnfechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfechar1ActionPerformed
@@ -312,14 +309,10 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         tblEmail.getSelectionModel().clearSelection();
         tblTabela.getSelectionModel().clearSelection();
         tblAcao.getSelectionModel().clearSelection();
-        tffDataInicial.setText("");
-        tffDataFinal.setText("");
-        Formatacao.formatarData(tffDataInicial);
-        Formatacao.formatarData(tffDataFinal);
+        jDateChooserIni.setCalendar(null);
+        jDateChooserFim.setCalendar(null);
         dataIni = "01/01/0001";
         dataFim = "01/01/5000";
-
-
     }//GEN-LAST:event_btnLimparSelecoesActionPerformed
 
     private void btnAuditoria2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoria2ActionPerformed
@@ -368,7 +361,5 @@ public class IfrAudit extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblAuditoria;
     private javax.swing.JTable tblEmail;
     private javax.swing.JTable tblTabela;
-    private javax.swing.JFormattedTextField tffDataFinal;
-    private javax.swing.JFormattedTextField tffDataInicial;
     // End of variables declaration//GEN-END:variables
 }
