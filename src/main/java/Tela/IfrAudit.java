@@ -9,6 +9,7 @@ import Dao.AuditDAO;
 import Util.CSV;
 import Util.Formatacao;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -39,6 +40,9 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         auditDAO.popTabela(tblTabela);
         auditDAO.popAcao(tblAcao);
         Formatacao.limparjtable(tblAuditoria);
+        desabilitarEdicaoJDC(jDateChooserIni);
+        desabilitarEdicaoJDC(jDateChooserFim);
+
     }
 
     /**
@@ -242,6 +246,12 @@ public class IfrAudit extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public static void desabilitarEdicaoJDC(JDateChooser j) {
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) j.getDateEditor();
+        editor.setEditable(false);
+    }
+
     public static void jdcAmarelo(JDateChooser j) {
         for (Component c : j.getComponents()) {
             ((JComponent) c).setBackground(Color.YELLOW);
