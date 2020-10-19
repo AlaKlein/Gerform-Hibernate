@@ -5,6 +5,8 @@
  */
 package tela;
 
+import Dao.FornecedorDAO;
+import Dao.ReportDAO;
 import Entidade.UsuarioLogado;
 import Tela.IfrUsuario;
 import Tela.IfrFornecedor;
@@ -13,7 +15,16 @@ import Tela.IfrAuditoria;
 import Tela.IfrAudit;
 import Tela.IfrPropriedadesMaterial;
 import Tela.IfrProduto;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -22,8 +33,7 @@ import javax.swing.JInternalFrame;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     public static boolean ligaAuditoria = true;
-    
-    
+
     /**
      * Creates new form FrmPrincipal
      */
@@ -50,8 +60,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             checkBoxAuditoria.setEnabled(false);
         }
     }
-    
-     public void analista(String permissao) {
+
+    public void analista(String permissao) {
         if (permissao.equals("Analista")) {
             jMenu2.setEnabled(false);
             checkBoxAuditoria.setEnabled(false);
@@ -78,6 +88,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GerForm");
@@ -164,6 +177,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Relatórios");
+
+        jMenuItem9.setText("Fornecedores");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem9);
+
+        jMenuItem10.setText("Material");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem10);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,6 +259,46 @@ public class TelaPrincipal extends javax.swing.JFrame {
         centralizarJInternalFrame(ifrProduto);
         ifrProduto.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // Compila o relatorio
+                    JasperReport relatorio = JasperCompileManager.compileReport("src/main/java/Relatorio/RelatorioFornecedor.jrxml");
+                    // Executa relatoio
+                    JasperPrint impressao = JasperFillManager.fillReport(relatorio, null, ReportDAO.getInstance().getConnection());
+
+                    // Exibe resultado em video
+                    JasperViewer.viewReport(impressao, false);
+
+                } catch (Exception e) {
+                    System.out.println("Erro ao gerar relatório: " + e);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    // Compila o relatorio
+                    JasperReport relatorio = JasperCompileManager.compileReport("src/main/java/Relatorio/RelatorioMaterial.jrxml");
+                    // Executa relatoio
+                    JasperPrint impressao = JasperFillManager.fillReport(relatorio, null, ReportDAO.getInstance().getConnection());
+
+                    // Exibe resultado em video
+                    JasperViewer.viewReport(impressao, false);
+
+                } catch (Exception e) {
+                    System.out.println("Erro ao gerar relatório: " + e);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
     /**
      * *
      * /
@@ -273,12 +346,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }

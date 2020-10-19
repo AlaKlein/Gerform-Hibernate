@@ -17,28 +17,30 @@ import javax.swing.table.TableModel;
 public class CSV {
 
     public void geraCSV(JTable table) {
-    try{
-        TableModel model = table.getModel();
-        String filename = "teste.csv";
-        FileWriter excel = new FileWriter(filename);
+        try {
+            TableModel model = table.getModel();
+            String filename = "teste.csv";
+            FileWriter excel = new FileWriter(filename);
 
-        for(int i = 0; i < model.getColumnCount(); i++){
-            excel.write(model.getColumnName(i) + ";");
-            //excel.append(',');
-        }
-
-        excel.write("\n");
-
-        for(int i=0; i< model.getRowCount(); i++) {
-            for(int j=0; j < model.getColumnCount(); j++) {
-                excel.write(model.getValueAt(i,j).toString() + ";");
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                excel.write(model.getColumnName(i) + ";");
                 //excel.append(',');
             }
+
             excel.write("\n");
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    excel.write(model.getValueAt(i, j).toString() + ";");
+                    //excel.append(',');
+                }
+                excel.write("\n");
+            }
+
+            excel.close();
+
+        } catch (IOException e) {
+            System.out.println(e);
         }
-
-        excel.close();
-
-    }catch(IOException e){ System.out.println(e); }
-}
+    }
 }
