@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Listagem_Material" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c368610e-5bee-4e75-8f1e-ecda64380534">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -134,7 +135,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 		<band height="15" splitType="Stretch">
 			<frame>
 				<reportElement x="2" y="0" width="800" height="15" uuid="822bafe9-34ee-4b4f-aa76-3eae029c4911"/>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="0" y="0" width="60" height="15" uuid="93e9612d-376a-42c7-96dc-60abccef9268">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e32edafd-dfad-45cf-a961-c06efb9eeb6a"/>
 					</reportElement>
@@ -149,7 +150,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="60" y="0" width="255" height="15" uuid="b6242e57-d876-4b37-a65a-fda1d402aae7">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac46c118-e052-4a45-b9c8-9d73dfb3b2fc"/>
 					</reportElement>
@@ -164,7 +165,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{desc_material}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="315" y="0" width="95" height="15" uuid="04d70265-de32-4f7f-a4ac-151c06e0a102">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3b541ee4-7d80-49f1-9097-c925ce13ecd7"/>
 					</reportElement>
@@ -179,7 +180,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA["R$ "+$F{precokg}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="410" y="0" width="95" height="15" uuid="b9fe7bd9-baf6-426a-9e40-05766108b812">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1940312-22e0-404d-bd9b-ff3e387c6052"/>
 					</reportElement>
@@ -194,7 +195,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="505" y="0" width="95" height="15" uuid="d75ce237-d725-4ec5-868b-aba56dd04ff1">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="634e7b1a-1d77-45e6-b72c-e10989068399"/>
 					</reportElement>
@@ -209,7 +210,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{desc_tipomaterial}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="600" y="0" width="200" height="15" uuid="6a052f84-0e48-44c8-9285-62e64559748e">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40960717-efe5-4cfe-9388-9b2270fd803f"/>
 					</reportElement>
@@ -246,7 +247,7 @@ JOIN fornecedor a ON m.fornecedor_id=a.id]]>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[new String(("Página "+$V{PAGE_NUMBER}+" de").getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new String(("Página "+$V{PAGE_NUMBER}+" de").getBytes("ISO-8859-1"), "latin1")]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement style="Column header" x="2" y="0" width="197" height="16" forecolor="#FFFFFF" uuid="06b3d6e8-b4a5-4251-b1fb-f640689933e8"/>
