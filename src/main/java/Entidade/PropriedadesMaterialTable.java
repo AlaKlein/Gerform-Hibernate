@@ -13,6 +13,8 @@ public class PropriedadesMaterialTable {
     private BigDecimal proteina;
     private String email;
     private String status;
+    private BigDecimal precokg;
+    
 
     public int getId() {
         return id;
@@ -68,6 +70,14 @@ public class PropriedadesMaterialTable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public BigDecimal getPrecokg() {
+        return precokg;
+    }
+
+    public void setPrecokg(BigDecimal precokg) {
+        this.precokg = precokg;
     }
     
     

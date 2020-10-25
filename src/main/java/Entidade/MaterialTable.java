@@ -16,8 +16,12 @@ public class MaterialTable {
     private String descricao;
     private BigDecimal precokg;
     private String tipo_material;
+    private int tipo_material_id;
+    private int fornecedor_id;
     private String razao_social;
     private String status;
+    private char tempropriedades;
+
 
     public int getId() {
         return id;

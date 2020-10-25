@@ -25,6 +25,8 @@
         <mapping class="Entidade.Auditoria"/>
         <mapping class="Entidade.Produto"/>
         <mapping class="Entidade.ProdutoTable"/>
+        <mapping class="Entidade.Formulacao"/>
+        <mapping class="Entidade.ItemFormulacao"/>
 
         <mapping class="Util.Audita"/>
                 

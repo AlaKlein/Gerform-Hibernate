@@ -5,6 +5,7 @@
     <class>Entidade.Usuario</class>
     <class>Entidade.Fornecedor</class>
     <class>Entidade.Material</class>
+    <class>Entidade.Formulacao</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/gerform"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
