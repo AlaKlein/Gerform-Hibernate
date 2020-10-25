@@ -1300,12 +1300,15 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             String retorno = "gerform";
             // populado objeto
             Formulacao f = new FormulacaoDAO().consultarId((getIdAtualizar()));
+            ItemFormulacaoDAO itemFormulacaoDAO = new ItemFormulacaoDAO();
 
             if (f != null) {
-                new ItemFormulacaoDAO().Excluir(getIdAtualizar());
+                //atualiza
+                
+                new FormulacaoDAO().Excluir(getIdAtualizar());
                 for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
                     ItemFormulacao itemFormulacao = new ItemFormulacao();
-
+                    
                     itemFormulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
                     itemFormulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
                     itemFormulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
@@ -1321,56 +1324,89 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                     retorno = new ItemFormulacaoDAO().Salvar(itemFormulacao);
                 }
                 for (int lin = 0; lin < modelCond.getRowCount(); lin++) {
-                    ItemFormulacao item_formulacao = new ItemFormulacao();
+                    ItemFormulacao itemFormulacao = new ItemFormulacao();
 
-                    item_formulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
-                    item_formulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
-                    item_formulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
-                    item_formulacao.setPrecoKg(Double.parseDouble(modelCond.getValueAt(lin, 4).toString()));
-                    item_formulacao.setPrecoKgProd(Double.parseDouble(modelCond.getValueAt(lin, 5).toString()));
-                    item_formulacao.setUmidade(Double.parseDouble(modelCond.getValueAt(lin, 6).toString()));
-                    item_formulacao.setGordura(Double.parseDouble(modelCond.getValueAt(lin, 7).toString()));
-                    item_formulacao.setProteina(Double.parseDouble(modelCond.getValueAt(lin, 8).toString()));
-                    item_formulacao.setProdutoID(getIdAtualizar());
-                    item_formulacao.setFormulacao_ver(1);
+                    itemFormulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
+                    itemFormulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
+                    itemFormulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
+                    itemFormulacao.setPrecoKg(Double.parseDouble(modelCond.getValueAt(lin, 4).toString()));
+                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelCond.getValueAt(lin, 5).toString()));
+                    itemFormulacao.setUmidade(Double.parseDouble(modelCond.getValueAt(lin, 6).toString()));
+                    itemFormulacao.setGordura(Double.parseDouble(modelCond.getValueAt(lin, 7).toString()));
+                    itemFormulacao.setProteina(Double.parseDouble(modelCond.getValueAt(lin, 8).toString()));
+                    itemFormulacao.setProdutoID(getIdAtualizar());
+                    itemFormulacao.setFormulacao_ver(1);
 
-                    retorno = new ItemFormulacaoDAO().Salvar(item_formulacao);
+                    retorno = new ItemFormulacaoDAO().Salvar(itemFormulacao);
                 }
+//                for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
+//
+//                    itemFormulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
+//                    itemFormulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
+//                    itemFormulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
+//                    itemFormulacao.setPrecoKg(Double.parseDouble(modelMP.getValueAt(lin, 4).toString()));
+//                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelMP.getValueAt(lin, 5).toString()));
+//                    itemFormulacao.setUmidade(Double.parseDouble(modelMP.getValueAt(lin, 6).toString()));
+//                    itemFormulacao.setGordura(Double.parseDouble(modelMP.getValueAt(lin, 7).toString()));
+//                    itemFormulacao.setProteina(Double.parseDouble(modelMP.getValueAt(lin, 8).toString()));
+//                    itemFormulacao.setProdutoID(getIdAtualizar());
+//                    itemFormulacao.setFormulacao_ver(1);
+//
+//                    retorno = itemFormulacaoDAO.atualizar(itemFormulacao, 1);
+//                }
+//
+//                for (int lin = 0; lin < modelCond.getRowCount(); lin++) {
+//                    itemFormulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
+//                    itemFormulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
+//                    itemFormulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
+//                    itemFormulacao.setPrecoKg(Double.parseDouble(modelCond.getValueAt(lin, 4).toString()));
+//                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelCond.getValueAt(lin, 5).toString()));
+//                    itemFormulacao.setUmidade(Double.parseDouble(modelCond.getValueAt(lin, 6).toString()));
+//                    itemFormulacao.setGordura(Double.parseDouble(modelCond.getValueAt(lin, 7).toString()));
+//                    itemFormulacao.setProteina(Double.parseDouble(modelCond.getValueAt(lin, 8).toString()));
+//                    itemFormulacao.setProdutoID(getIdAtualizar());
+//                    itemFormulacao.setFormulacao_ver(1);
+//
+//                    retorno = itemFormulacaoDAO.atualizar(itemFormulacao, 2);
+//                }
 
                 formulacaoDAO.adicionarCusto(getIdAtualizar(), Double.parseDouble(tfdSomaR$KgProdTotal.getText()));
+
             } else {
+                //insere
+
                 for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
-                    ItemFormulacao item_formulacao = new ItemFormulacao();
+                    ItemFormulacao itemFormulacao = new ItemFormulacao();
+                    
+                    itemFormulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
+                    itemFormulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
+                    itemFormulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
+                    itemFormulacao.setPrecoKg(Double.parseDouble(modelMP.getValueAt(lin, 4).toString()));
+                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelMP.getValueAt(lin, 5).toString()));
+                    itemFormulacao.setUmidade(Double.parseDouble(modelMP.getValueAt(lin, 6).toString()));
+                    itemFormulacao.setGordura(Double.parseDouble(modelMP.getValueAt(lin, 7).toString()));
+                    itemFormulacao.setProteina(Double.parseDouble(modelMP.getValueAt(lin, 8).toString()));
+                    itemFormulacao.setProdutoID(formID);
+                    itemFormulacao.setFormulacao_ver(1);
 
-                    item_formulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
-                    item_formulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
-                    item_formulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
-                    item_formulacao.setPrecoKg(Double.parseDouble(modelMP.getValueAt(lin, 4).toString()));
-                    item_formulacao.setPrecoKgProd(Double.parseDouble(modelMP.getValueAt(lin, 5).toString()));
-                    item_formulacao.setUmidade(Double.parseDouble(modelMP.getValueAt(lin, 6).toString()));
-                    item_formulacao.setGordura(Double.parseDouble(modelMP.getValueAt(lin, 7).toString()));
-                    item_formulacao.setProteina(Double.parseDouble(modelMP.getValueAt(lin, 8).toString()));
-                    item_formulacao.setProdutoID(formID);
-                    item_formulacao.setFormulacao_ver(1);
-
-                    retorno = new ItemFormulacaoDAO().Salvar(item_formulacao);
+                    retorno = new ItemFormulacaoDAO().Salvar(itemFormulacao);
                 }
 
                 for (int lin = 0; lin < modelCond.getRowCount(); lin++) {
-                    ItemFormulacao item_formulacao = new ItemFormulacao();
+                    ItemFormulacao itemFormulacao = new ItemFormulacao();
+                    
+                    itemFormulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
+                    itemFormulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
+                    itemFormulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
+                    itemFormulacao.setPrecoKg(Double.parseDouble(modelCond.getValueAt(lin, 4).toString()));
+                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelCond.getValueAt(lin, 5).toString()));
+                    itemFormulacao.setUmidade(Double.parseDouble(modelCond.getValueAt(lin, 6).toString()));
+                    itemFormulacao.setGordura(Double.parseDouble(modelCond.getValueAt(lin, 7).toString()));
+                    itemFormulacao.setProteina(Double.parseDouble(modelCond.getValueAt(lin, 8).toString()));
+                    itemFormulacao.setProdutoID(formID);
+                    itemFormulacao.setFormulacao_ver(1);
 
-                    item_formulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
-                    item_formulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
-                    item_formulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
-                    item_formulacao.setPrecoKg(Double.parseDouble(modelCond.getValueAt(lin, 4).toString()));
-                    item_formulacao.setPrecoKgProd(Double.parseDouble(modelCond.getValueAt(lin, 5).toString()));
-                    item_formulacao.setUmidade(Double.parseDouble(modelCond.getValueAt(lin, 6).toString()));
-                    item_formulacao.setGordura(Double.parseDouble(modelCond.getValueAt(lin, 7).toString()));
-                    item_formulacao.setProteina(Double.parseDouble(modelCond.getValueAt(lin, 8).toString()));
-                    item_formulacao.setProdutoID(formID);
-                    item_formulacao.setFormulacao_ver(1);
-
-                    retorno = new ItemFormulacaoDAO().Salvar(item_formulacao);
+                    retorno = new ItemFormulacaoDAO().Salvar(itemFormulacao);
                 }
                 formulacaoDAO.adicionarCusto(formID, Double.parseDouble(tfdSomaR$KgProdTotal.getText()));
             }

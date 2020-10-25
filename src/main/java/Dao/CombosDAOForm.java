@@ -16,13 +16,10 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author pretto
+ * @author Klein
  */
 public class CombosDAOForm {
 
-    ResultSet resultado = null;
-
-    // construtor 1
     public void popularCombo(String tabela, JComboBox combo, String cond) {
         List<Produto> resultado = new ArrayList();
         String sql = "";

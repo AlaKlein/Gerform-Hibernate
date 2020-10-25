@@ -36,7 +36,7 @@ public class ItemFormulacao implements Serializable {
     private double proteina;
     private double formulacao_produto_id;
     private int formulacao_ver;
-
+    
     public double getProdutoID() {
         return formulacao_produto_id;
     }
@@ -120,4 +120,11 @@ public class ItemFormulacao implements Serializable {
     public void setFormulacao_ver(int formulacao_ver) {
         this.formulacao_ver = formulacao_ver;
     }
+
+    public int getFormulacao_ver() {
+        return formulacao_ver;
+    }
+    
+    
+    
 }

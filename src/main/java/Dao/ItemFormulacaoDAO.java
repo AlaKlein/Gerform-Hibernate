@@ -63,12 +63,55 @@ public class ItemFormulacaoDAO implements IDAO_T<ItemFormulacao> {
         return null;
     }
 
+    public String atualizar(ItemFormulacao i, int tpMaterial) {
+        Session sessao = null;
+        List resultado = null;
+        sessao = Util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        //org.hibernate.Query query = sessao.createQuery("FROM ItemFormulacao WHERE formulacao_produto_id = " + i.getProdutoID());
+        org.hibernate.Query query = sessao.createQuery("FROM item_formulacao i JOIN Material m ON i.material_id=m.id"
+                + " WHERE formulacao_produto_id = " + i.getProdutoID() + " AND tipo_material_id=" + tpMaterial);
+
+        try {
+            resultado = query.list();
+            for (Object obj : resultado) {
+                ItemFormulacao itemFormulacao = (ItemFormulacao) obj;
+
+                itemFormulacao.setMaterialID(i.getMaterialID());
+                itemFormulacao.setPercentual(i.getPercentual());
+                itemFormulacao.setKg(i.getKg());
+                itemFormulacao.setPrecoKg(i.getPrecoKg());
+                itemFormulacao.setPrecoKgProd(i.getPrecoKgProd());
+                itemFormulacao.setUmidade(i.getUmidade());
+                itemFormulacao.setGordura(i.getGordura());
+                itemFormulacao.setProteina(i.getProteina());
+                itemFormulacao.setProdutoID(i.getProdutoID());
+                itemFormulacao.setFormulacao_ver(i.getFormulacao_ver());
+                sessao.update(itemFormulacao);
+            }
+            transacao.commit();
+
+            if (TelaPrincipal.ligaAuditoria) {
+                Audita.salvarAuditoria("Update", "itemFormulacao", UsuarioLogado.getUsuarioLogadoID());
+            }
+
+        } catch (HibernateException hibEx) {
+            transacao.rollback();
+            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Update", hibEx.toString());
+            return hibEx.toString();
+        } finally {
+            sessao.close();
+        }
+        return null;
+    }
+
     @Override
     public String Excluir(int id) {
         List resultado = null;
         Session sessao = null;
         Transaction transacao = null;
-        
+
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             transacao = sessao.beginTransaction();
@@ -354,11 +397,6 @@ public class ItemFormulacaoDAO implements IDAO_T<ItemFormulacao> {
     }
 
     @Override
-    public String Atualizar(ItemFormulacao o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ItemFormulacao consultarId(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -368,4 +406,9 @@ public class ItemFormulacaoDAO implements IDAO_T<ItemFormulacao> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String Atualizar(ItemFormulacao o) {
+       
+        return null;
+    }
 }
