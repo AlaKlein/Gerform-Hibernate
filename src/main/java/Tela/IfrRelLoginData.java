@@ -168,6 +168,10 @@ public class IfrRelLoginData extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Nenhuma data foi informada!");
             jdcAmarelo(jDateChooserIni);
             jdcAmarelo(jDateChooserFim);
+        } else if (jDateChooserIni.getCalendar().after(jDateChooserFim.getCalendar())) {
+            JOptionPane.showMessageDialog(null, "A data inicial é posterior a data final!");
+            jdcAmarelo(jDateChooserIni);
+            jdcAmarelo(jDateChooserFim);
         } else {
             jdcBranco(jDateChooserIni);
             jdcBranco(jDateChooserFim);
