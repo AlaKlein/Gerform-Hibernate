@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="br.univates_GerformHibernate_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+<!--  <persistence-unit name="br.univates_GerformHibernate_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entidade.Usuario</class>
     <class>Entidade.Fornecedor</class>
     <class>Entidade.Material</class>
     <class>Entidade.Formulacao</class>
+    <class>Entidade.Auditoria</class>
+    <class>Entidade.ItemFormulacao</class>
+    <class>Entidade.Produto</class>
+    <class>Entidade.PropriedadesMaterial</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/gerform"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
@@ -13,7 +17,7 @@
       <property name="javax.persistence.jdbc.password" value="postgres"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
-  </persistence-unit>
+  </persistence-unit>-->
   <persistence-unit name="br.univates_GerformHibernate_jar_1.0-SNAPSHOTPU2" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entidade.Auditoria</class>
@@ -29,7 +33,6 @@
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="postgres"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>
