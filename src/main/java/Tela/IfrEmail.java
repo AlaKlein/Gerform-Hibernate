@@ -5,9 +5,14 @@
  */
 package Tela;
 
+import Entidade.UsuarioLogado;
+import Util.Log;
 import Util.Validacao;
 import java.awt.Color;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -199,11 +204,17 @@ public class IfrEmail extends javax.swing.JInternalFrame {
             tfdBranco(tfdAssunto);
             jtaMensagem.requestFocus();
         } else {
-            String retorno = Util.email.enviar(tfdAssunto.getText(), tfdDestinatario.getText(), jtaMensagem.getText(), anexo);
-            System.out.println("Anexo: " + anexo);
-            JOptionPane.showMessageDialog(null, retorno);
-            limparCampos();
-            Branco();
+            try {
+                String retorno = Util.email.enviar(tfdAssunto.getText(), tfdDestinatario.getText(), jtaMensagem.getText(), anexo, UsuarioLogado.getUsuarioLogadoEmail());
+                System.out.println("Anexo: " + anexo);
+                JOptionPane.showMessageDialog(null, retorno);
+                limparCampos();
+                Branco();
+            } catch (UnsupportedEncodingException ex) {
+                String retorno = ex.toString();
+                JOptionPane.showMessageDialog(null, "Não foi possível enviar o e-mail " + retorno);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrEmail", btnEnviar, retorno);
+            }
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
 

@@ -6,6 +6,7 @@
 package Util;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import java.io.UnsupportedEncodingException;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.*;
@@ -23,9 +24,8 @@ import java.util.Properties;
  */
 public class email {
 
-    public static String enviar(String assunto, String destinatario, String mensagem, String anexo) {
+    public static String enviar(String assunto, String destinatario, String mensagem, String anexo, String user) throws UnsupportedEncodingException {
 
-        //public static void sendMessage(Funcionario func, Address[] toUsers, String subject, String text, String annexPath) {
         Properties props = new Properties();
         /**
          * Parâmetros de conexão com servidor Gmail
@@ -61,7 +61,7 @@ public class email {
         try {
             // cria a mensagem
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("gerformjava@gmail.com"));
+            message.setFrom(new InternetAddress("gerformjava@gmail.com", user));
             Address[] toUser = InternetAddress.parse(destinatario);
             message.setRecipients(Message.RecipientType.TO, toUser);
             message.setSubject(assunto);
