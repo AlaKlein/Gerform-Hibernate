@@ -11,6 +11,7 @@ import Util.Validacao;
 import java.awt.Color;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -25,7 +26,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class IfrEmail extends javax.swing.JInternalFrame {
 
-    String anexo;
+    ArrayList<String> anexo = new ArrayList();
 
     public IfrEmail() {
         this.setTitle("E-mail");
@@ -154,7 +155,6 @@ public class IfrEmail extends javax.swing.JInternalFrame {
         tfdDestinatario.setText(null);
         jtaMensagem.setText(null);
         tfdAnexo.setText(null);
-        anexo = null;
     }
 
     public void Branco() {
@@ -185,7 +185,8 @@ public class IfrEmail extends javax.swing.JInternalFrame {
 
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        if (!Validacao.validarEmail(tfdDestinatario.getText())) {
+        //if (!Validacao.validarEmail(tfdDestinatario.getText())) {
+        if (tfdDestinatario.getText().isEmpty()) {
             revisar();
             tfdAmarelo(tfdDestinatario);
             tfdBranco(tfdAssunto);
@@ -204,17 +205,21 @@ public class IfrEmail extends javax.swing.JInternalFrame {
             tfdBranco(tfdAssunto);
             jtaMensagem.requestFocus();
         } else {
-            try {
-                String retorno = Util.email.enviar(tfdAssunto.getText(), tfdDestinatario.getText(), jtaMensagem.getText(), anexo, UsuarioLogado.getUsuarioLogadoEmail());
-                System.out.println("Anexo: " + anexo);
-                JOptionPane.showMessageDialog(null, retorno);
-                limparCampos();
-                Branco();
-            } catch (UnsupportedEncodingException ex) {
-                String retorno = ex.toString();
-                JOptionPane.showMessageDialog(null, "Não foi possível enviar o e-mail " + retorno);
-                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrEmail", btnEnviar, retorno);
-            }
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        String retorno = Util.email.enviar(tfdAssunto.getText(), tfdDestinatario.getText(), jtaMensagem.getText(), anexo, UsuarioLogado.getUsuarioLogadoEmail());
+                        JOptionPane.showMessageDialog(null, retorno);
+                        limparCampos();
+                        Branco();
+                    } catch (UnsupportedEncodingException ex) {
+                        String retorno = ex.toString();
+                        JOptionPane.showMessageDialog(null, "Não foi possível enviar o e-mail " + retorno);
+                        Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrEmail", btnEnviar, retorno);
+                    }
+                }
+            }.start();
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
@@ -225,12 +230,18 @@ public class IfrEmail extends javax.swing.JInternalFrame {
     private void btnAnexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnexoActionPerformed
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        jfc.setMultiSelectionEnabled(true);
         jfc.setDialogTitle("Selecione o arquivo que deseja anexar: ");
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
-            anexo = selectedFile.getAbsolutePath();
-            tfdAnexo.setText(selectedFile.getName());
+            File file = jfc.getSelectedFile();
+            anexo.add(selectedFile.getAbsolutePath());
+            if (tfdAnexo.getText().isEmpty()) {
+                tfdAnexo.setText(selectedFile.getName());
+            } else {
+                tfdAnexo.setText(tfdAnexo.getText() + ", " + selectedFile.getName());
+            }
         }
     }//GEN-LAST:event_btnAnexoActionPerformed
 

@@ -15,8 +15,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +27,7 @@ import java.util.Properties;
  */
 public class email {
 
-    public static String enviar(String assunto, String destinatario, String mensagem, String anexo, String user) throws UnsupportedEncodingException {
+    public static String enviar(String assunto, String destinatario, String mensagem, ArrayList anexo, String user) throws UnsupportedEncodingException {
 
         Properties props = new Properties();
         /**
@@ -71,20 +74,28 @@ public class email {
             mbp1.setText(mensagem);
 
             // cria a segunda parte da mensage
-            MimeBodyPart mbp2 = new MimeBodyPart();
-
-            if (anexo != null) {
-                // anexa o arquivo na mensagem
-                FileDataSource fds = new FileDataSource(anexo);
-                mbp2.setDataHandler(new DataHandler(fds));
-                mbp2.setFileName(fds.getName());
-            }
-
+//            MimeBodyPart mbp2 = new MimeBodyPart();
+//
+//            if (anexo != null) {
+//                // anexa o arquivo na mensagem
+//                FileDataSource fds = new FileDataSource(anexo);
+//                mbp2.setDataHandler(new DataHandler(fds));
+//                mbp2.setFileName(fds.getName());
+//            }
+            
             // cria a Multipart
             Multipart mp = new MimeMultipart();
             mp.addBodyPart(mbp1);
-            if (anexo != null) {
-                mp.addBodyPart(mbp2);
+            //if (anexo != null) {
+            //mp.addBodyPart(mbp2);
+            //}
+
+            for (int i = 0; i < anexo.size(); i++) {
+                MimeBodyPart messageBodyPart2 = new MimeBodyPart();
+                FileDataSource source = new FileDataSource((String) anexo.get(i));
+                messageBodyPart2.setDataHandler(new DataHandler(source));
+                messageBodyPart2.setFileName(source.getName());
+                mp.addBodyPart(messageBodyPart2);
             }
 
             // adiciona a Multipart na mensagem
