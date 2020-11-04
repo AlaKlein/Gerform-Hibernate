@@ -131,4 +131,15 @@ public class Validacao {
         }
         return true;
     }
+
+    public static boolean validarVariosEmails(String email) {
+        String[] result = email.split(",");
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i].trim());
+            if (!EmailValidator.getInstance().isValid(result[i].trim().toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

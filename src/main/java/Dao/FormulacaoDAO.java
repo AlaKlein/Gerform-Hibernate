@@ -174,7 +174,7 @@ public class FormulacaoDAO implements IDAO_T<Formulacao> {
             for (int i = 0; i < mt.size(); i++) {
                 dadosTabela[i][0] = mt.get(i).getProduto_id();
                 dadosTabela[i][1] = mt.get(i).getDescricao();
-                dadosTabela[i][2] = mt.get(i).getData();
+                dadosTabela[i][2] = Util.Formatacao.formatarDataHora(mt.get(i).getData());
 
             }
 

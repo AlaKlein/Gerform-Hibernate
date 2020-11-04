@@ -138,8 +138,6 @@ public class Formatacao {
     public static String formatarDataHora(Date data) {
         String dataFormatada = null;
         try {
-            //Date dataDMA = new SimpleDateFormat("dd/MM/yyyy").parse(data);
-            //dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);
             dataFormatada = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(data);
         } catch (Exception e) {
             System.err.println(e);
@@ -167,7 +165,7 @@ public class Formatacao {
 
     public static String getDataHoraAtual() {
         Date now = new Date();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String dataHoje = df.format(now);
 
         return dataHoje;
@@ -191,5 +189,16 @@ public class Formatacao {
         } else {
             return false;
         }
+    }
+
+    public static Date StringToDate(String dataS) {
+        Date data = new Date();
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            data = format.parse(dataS);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return data;
     }
 }

@@ -17,6 +17,7 @@ import Entidade.ItemFormulacao;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -48,8 +49,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
         tfdPercentualCond.setDocument(new SoNumerosEPonto());
         desabilitarTudo();
         new CombosDAOForm().popularCombo("produto", cmbProduto, "N");
-        Formatacao.formatarData(tffDataLancamento);
-        tffDataLancamento.setText(Formatacao.getDataAtual());
+        tffDataLancamento.setText(Formatacao.getDataHoraAtual());
         tffDataLancamento.setEditable(false);
 
         tfdSomaPercentualMP.setEditable(false);
@@ -695,8 +695,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tffDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tffDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1419,10 +1419,12 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 habilitarCriarFomulacao();
                 new CombosDAOForm().popularCombo("produto", cmbProduto, "N");
                 desabilitarTudo();
-                tffDataLancamento.setText(Formatacao.getDataAtual());
+                tffDataLancamento.setText(Formatacao.getDataHoraAtual());
                 inicializarTabelaMP();
                 inicializarTabelaCond();
                 resetCor();
+                jTabbedPane1.setEnabled(true);
+                btnFechar.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação!");
@@ -1533,17 +1535,14 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             formulacao.setProdutoID(ci1.getCodigo());
             formID = ci1.getCodigo();
 
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                java.sql.Date data = new java.sql.Date(format.parse(tffDataLancamento.getText()).getTime());
-                formulacao.setData(data);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao Converter a data: " + e);
-            }
+            formulacao.setData(Formatacao.StringToDate(tffDataLancamento.getText()));
             formulacao.setUserID(u.getUsuarioLogadoID());
             formulacao.setVersao(1);
 
             String retorno = formulacaoDAO.Salvar(formulacao);
+            jTabbedPane1.setEnabled(false);
+            btnFechar.setEnabled(false);
+            
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Formulação criada!");
