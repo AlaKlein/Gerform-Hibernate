@@ -204,10 +204,10 @@ public class Formatacao {
     
     public static void traduzirJfc() {
         UIManager.put("FileChooser.lookInLabelMnemonic", "E");
-        UIManager.put("FileChooser.lookInLabelText", "Examinar em");
+        UIManager.put("FileChooser.lookInLabelText", "Examinar em:");
 
         UIManager.put("FileChooser.saveInLabelMnemonic", "S");
-        UIManager.put("FileChooser.saveInLabelText", "Salvar em");
+        UIManager.put("FileChooser.saveInLabelText", "Salvar em:");
         UIManager.put("FileChooser.upFolderToolTipText", "Um nível acima");
         UIManager.put("FileChooser.upFolderAccessibleName", "Um nível acima");
 
@@ -223,10 +223,10 @@ public class Formatacao {
         UIManager.put("FileChooser.detailsViewButtonAccessibleName", "Detalhes");
 
         UIManager.put("FileChooser.fileNameLabelMnemonic", "N");
-        UIManager.put("FileChooser.fileNameLabelText", "Nome do arquivo");
+        UIManager.put("FileChooser.fileNameLabelText", "Nome do arquivo:");
 
         UIManager.put("FileChooser.filesOfTypeLabelMnemonic", "A");
-        UIManager.put("FileChooser.filesOfTypeLabelText", "Arquivos do tipo");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Arquivos do tipo:");
 
         UIManager.put("FileChooser.fileNameHeaderText", "Nome");
         UIManager.put("FileChooser.fileSizeHeaderText", "Tamanho");

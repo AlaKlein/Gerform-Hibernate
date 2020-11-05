@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -229,10 +230,13 @@ public class IfrEmail extends javax.swing.JInternalFrame {
         JFileChooser jfc;
         Formatacao.traduzirJfc();
         jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
+        
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         jfc.setMultiSelectionEnabled(false);
-        jfc.setDialogTitle("Selecione o arquivo que deseja anexar: ");
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("Imagens", "jpg", "png", "tif", "jpeg"));
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("Arquivos Compactados", "zip", "jar", "z", "gz", "tar", "bz2", "bz"));
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("PDF (*.PDF)", "pdf"));
+        jfc.setDialogTitle("Selecione o arquivo que deseja anexar:");
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
