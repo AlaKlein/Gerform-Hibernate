@@ -5,8 +5,8 @@
  */
 package gerform;
 
-
 import Tela.TelaLogin;
+import javax.swing.UIManager;
 
 /**
  *
@@ -18,8 +18,11 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        tela.TelaPrincipal telaprincipal = new TelaPrincipal();
-//        telaprincipal.setVisible(true);
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Tela.TelaLogin tL = new TelaLogin();
         tL.setVisible(true);
     }

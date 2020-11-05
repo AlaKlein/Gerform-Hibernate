@@ -28,6 +28,7 @@ public class IfrEmail extends javax.swing.JInternalFrame {
     ArrayList<String> anexo = new ArrayList();
 
     public IfrEmail() {
+        initComponents();
         this.setTitle("E-mail");
         initComponents();
         tfdAnexo.setEditable(false);

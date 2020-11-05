@@ -16,7 +16,11 @@ import Tela.IfrPropriedadesMaterial;
 import Tela.IfrProduto;
 import Tela.IfrRelLoginData;
 import Tela.IfrFormulacao;
+import java.awt.Color;
 import javax.swing.JInternalFrame;
+import javax.swing.SwingUtilities;
+import static javax.swing.SwingUtilities.updateComponentTreeUI;
+import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -96,6 +100,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GerForm");
+
+        jDesktopPane1.setBackground(Color.WHITE);
 
         checkBoxAuditoria.setText("Auditoria");
         checkBoxAuditoria.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +356,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-       IfrEmail ifrEmail = new IfrEmail();
+        IfrEmail ifrEmail = new IfrEmail();
         centralizarJInternalFrame(ifrEmail);
         jDesktopPane1.add(ifrEmail);
         ifrEmail.setVisible(true);

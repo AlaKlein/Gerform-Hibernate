@@ -7,11 +7,6 @@ package Dao;
 
 import Entidade.Usuario;
 import Entidade.UsuarioLogado;
-import Tela.IfrFornecedor;
-import Tela.IfrMaterial;
-import Tela.IfrProduto;
-import Tela.IfrPropriedadesMaterial;
-import Tela.IfrUsuario;
 import Util.Log;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +55,7 @@ public class LoginDAO {
             uL.setUsuarioLogadoPermissao(permissao);
 
             if (usuario.equals(email) && pw.equals(senha) && (status.equals("Ativo"))) {
-                new TelaPrincipal().setVisible(true);
+            new TelaPrincipal().setVisible(true);
             } else if (!status.equals("Ativo")) {
                 erro = "usuarioinativo";
                 return erro;

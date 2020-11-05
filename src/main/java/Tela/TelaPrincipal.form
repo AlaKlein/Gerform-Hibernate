@@ -166,6 +166,8 @@
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane()"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jDesktopPane1.setBackground(Color.WHITE);"/>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="TelaPrincipal_jDesktopPane1"/>
       </AuxValues>
 
