@@ -6,6 +6,7 @@
 package Tela;
 
 import Entidade.UsuarioLogado;
+import Util.Formatacao;
 import Util.Log;
 import Util.Validacao;
 import java.awt.Color;
@@ -181,7 +182,6 @@ public class IfrEmail extends javax.swing.JInternalFrame {
         c.setBackground(Color.white);
     }
 
-
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         if (!Validacao.validarVariosEmails(tfdDestinatario.getText())) {
             revisar();
@@ -225,9 +225,12 @@ public class IfrEmail extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnfechar1ActionPerformed
 
     private void btnAnexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnexoActionPerformed
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        JFileChooser jfc;
+        Formatacao.traduzirJfc();
+        jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        jfc.setMultiSelectionEnabled(true);
+        jfc.setMultiSelectionEnabled(false);
         jfc.setDialogTitle("Selecione o arquivo que deseja anexar: ");
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
