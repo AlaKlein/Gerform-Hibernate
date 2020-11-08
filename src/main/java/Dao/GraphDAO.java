@@ -10,6 +10,7 @@ import Entidade.FormulacaoTableGraf1;
 import Entidade.UsuarioLogado;
 import static Util.HibernateUtil.sessionFactory;
 import Util.Log;
+import java.awt.Color;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -67,6 +68,8 @@ public class GraphDAO {
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
+        
+        //barChart.getPlot().setBackgroundPaint(Color.cyan);
 
         return barChart;
     }
@@ -109,6 +112,8 @@ public class GraphDAO {
                 true, // include legend          
                 true,
                 false);
+
+        //chart.getPlot().setBackgroundPaint(Color.cyan);
 
         return chart;
     }

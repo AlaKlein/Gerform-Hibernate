@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import tela.TelaPrincipal;
 
 /**
  *
@@ -1554,7 +1555,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 formulacaoDAO.definirFormulacao(ci1.getCodigo(), "S");
                 habilitarTudo();
                 desabilitarCriarFomulacao();
-
+                
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao criar formulacao!");
             }
