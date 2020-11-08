@@ -680,6 +680,12 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Total");
 
+        tfdSomaPercentualTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdSomaPercentualTotalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1415,7 +1421,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             System.out.println(retorno);
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Itens adicionados à formulação!");
-
+                
                 limparCamposFormulacao();
                 habilitarCriarFomulacao();
                 new CombosDAOForm().popularCombo("produto", cmbProduto, "N");
@@ -1426,13 +1432,13 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 resetCor();
                 jTabbedPane1.setEnabled(true);
                 btnFechar.setEnabled(true);
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação!");
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "O percentual Total deve ser igual a 100%");
+            JOptionPane.showMessageDialog(null, "O percentual Total deve ser igual a 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -1490,10 +1496,10 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Você deve informar o percentual antes de inserir a matéria prima");
         } else if (Double.parseDouble(tfdPercentualMP.getText().replace(',', '.')) > 80.0) {
             percentualMpInvalido();
-            JOptionPane.showMessageDialog(null, "O percentual deve ser inferior a 81,00!");
+            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo 80,00%!");
         } else if (!maiorQue100(tfdPercentualMP.getText().replace(',', '.'), tfdSomaPercentualTotal.getText())) {
             percentualTotalInvalido(tfdPercentualMP);
-            JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100");
+            JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
         } else {
             // consulta o id do item selecionado na tabela esquerda
             int id = itemFormulacaoDAO.getId(String.valueOf(itemFormulacaoDAO.getSelection(tblEsquerdaMP)));
@@ -1585,10 +1591,10 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Você deve informar o percentual antes de inserir o condimento");
         } else if (Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > 10.0) {
             percentualCondInvalido();
-            JOptionPane.showMessageDialog(null, "O percentual deve ser inferior a 11,00!");
+            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo 10,00%!");
         } else if (!maiorQue100(tfdPercentualCond.getText().replace(',', '.'), tfdSomaPercentualTotal.getText())) {
             percentualTotalInvalido(tfdPercentualCond);
-            JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100");
+            JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
         } else {
             // consulta o id do item selecionado na lista
             int id = itemFormulacaoDAO.getId(String.valueOf(itemFormulacaoDAO.getSelection(tblEsquerdaCond)));
@@ -1646,6 +1652,10 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
     private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
         dispose();
     }//GEN-LAST:event_btnFechar2ActionPerformed
+
+    private void tfdSomaPercentualTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdSomaPercentualTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdSomaPercentualTotalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

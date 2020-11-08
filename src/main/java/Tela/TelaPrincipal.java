@@ -96,7 +96,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void chamaGraf() {
+    public void chamaGraf() {
         Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
         ChartPanel chartPanel = new ChartPanel(new GraphDAO().criargraficoBarras());
         chartPanel.setPreferredSize(d);
@@ -105,8 +105,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dash.add(chartPanel, null);
         SwingUtilities.updateComponentTreeUI(this);
     }
-
-    private void chamaGraf2() {
+    
+    public void chamaGraf2() {
         Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
         ChartPanel chartPanel = new ChartPanel(new GraphDAO().criargraficoPizza());
 
