@@ -5,6 +5,7 @@
  */
 package tela;
 
+import Dao.GraphDAO;
 import Dao.ReportDAO;
 import Entidade.UsuarioLogado;
 import Tela.IfrUsuario;
@@ -16,16 +17,19 @@ import Tela.IfrPropriedadesMaterial;
 import Tela.IfrProduto;
 import Tela.IfrRelLoginData;
 import Tela.IfrFormulacao;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import static javax.swing.SwingUtilities.updateComponentTreeUI;
-import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
@@ -44,6 +48,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         analista(UsuarioLogado.getUsuarioLogadoPermissao());
         this.setExtendedState(MAXIMIZED_BOTH);
         checkBoxAuditoria.setSelected(true);
+
+        chamaGraf();
+        chamaGraf2();
+        centralizarJPanelEsquerda(dash);
+        centralizarJPanelDireita(dash1);
+        this.validate();
+        
+
     }
 
     private void centralizarJInternalFrame(JInternalFrame frame) {
@@ -53,6 +65,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         int aIFrame = frame.getHeight();
 
         frame.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+    }
+
+    private void centralizarJPanelEsquerda(JPanel jPanel) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) (((dimension.getWidth() / 2) - jPanel.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - jPanel.getHeight()) / 2);
+        jPanel.setLocation(x, y);
+    }
+
+    private void centralizarJPanelDireita(JPanel jPanel) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) (((dimension.getWidth()) + (dimension.getWidth() / 2)) - jPanel.getWidth()) / 2;
+        int y = (int) ((dimension.getHeight() - jPanel.getHeight()) / 2);
+        jPanel.setLocation(x, y);
+    }
+
+    private void centralizarGraf(ChartPanel p) {
+        int lDesk = jDesktopPane1.getWidth();
+        int aDesk = jDesktopPane1.getHeight();
+        int lIFrame = p.getWidth();
+        int aIFrame = p.getHeight();
+
+        p.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
 
     public void operador(String permissao) {
@@ -69,6 +104,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void chamaGraf() {
+        Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
+        ChartPanel chartPanel = new ChartPanel(new GraphDAO().criargraficoBarras());
+        chartPanel.setPreferredSize(d);
+
+        dash.setLayout(new BorderLayout());
+        dash.add(chartPanel, null);
+        //SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    private void chamaGraf2() {
+        Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
+        ChartPanel chartPanel = new ChartPanel(new GraphDAO().criargraficoPizza());
+        chartPanel.setPreferredSize(d);
+        dash1.setLayout(new BorderLayout());
+        dash1.add(chartPanel, null);
+        //SwingUtilities.updateComponentTreeUI(this);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,6 +135,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         checkBoxAuditoria = new javax.swing.JCheckBox();
+        dash = new javax.swing.JPanel();
+        dash1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -110,21 +167,55 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout dashLayout = new javax.swing.GroupLayout(dash);
+        dash.setLayout(dashLayout);
+        dashLayout.setHorizontalGroup(
+            dashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        dashLayout.setVerticalGroup(
+            dashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 522, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout dash1Layout = new javax.swing.GroupLayout(dash1);
+        dash1.setLayout(dash1Layout);
+        dash1Layout.setHorizontalGroup(
+            dash1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        dash1Layout.setVerticalGroup(
+            dash1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 522, Short.MAX_VALUE)
+        );
+
         jDesktopPane1.setLayer(checkBoxAuditoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(dash, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(dash1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(617, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(checkBoxAuditoria)
                 .addContainerGap())
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(dash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dash1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(454, Short.MAX_VALUE)
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dash1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71)
                 .addComponent(checkBoxAuditoria)
                 .addContainerGap())
         );
@@ -361,50 +452,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(ifrEmail);
         ifrEmail.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
-    /**
-     * *
-     * /
-     *
-     **
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new TelaPrincipal().setVisible(true);
-//            }
-//        });
-//
-//    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxAuditoria;
+    private javax.swing.JPanel dash;
+    private javax.swing.JPanel dash1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
