@@ -39,7 +39,7 @@ public class GraphDAO {
         sql = "SELECT a.produto_id, p.descricao, a.custo_elaborado\n"
                 + "FROM formulacao a\n "
                 + "JOIN produto p ON a.produto_id=p.id\n"
-                + "ORDER BY a.produto_id";
+                + "ORDER BY custo_elaborado ASC";
         try {
             sessao = Util.HibernateUtil.getSessionFactory().getCurrentSession();
             transacao = sessao.beginTransaction();

@@ -18,8 +18,6 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -73,22 +71,9 @@ public class email {
             MimeBodyPart mbp1 = new MimeBodyPart();
             mbp1.setText(mensagem);
 
-            // cria a segunda parte da mensage
-//            MimeBodyPart mbp2 = new MimeBodyPart();
-//
-//            if (anexo != null) {
-//                // anexa o arquivo na mensagem
-//                FileDataSource fds = new FileDataSource(anexo);
-//                mbp2.setDataHandler(new DataHandler(fds));
-//                mbp2.setFileName(fds.getName());
-//            }
-            
             // cria a Multipart
             Multipart mp = new MimeMultipart();
             mp.addBodyPart(mbp1);
-            //if (anexo != null) {
-            //mp.addBodyPart(mbp2);
-            //}
 
             for (int i = 0; i < anexo.size(); i++) {
                 MimeBodyPart messageBodyPart2 = new MimeBodyPart();

@@ -82,7 +82,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         int y = (int) ((dimension.getHeight() - jPanel.getHeight()) / 2);
         jPanel.setLocation(400, y);
         jPanel.validate();
-        this.validateTree();
     }
 
     private void centralizarJPanelDireita(JPanel jPanel) {
@@ -496,10 +495,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        IfrEmail ifrEmail = new IfrEmail();
-        centralizarJInternalFrame(ifrEmail);
-        jDesktopPane1.add(ifrEmail);
-        ifrEmail.setVisible(true);
+//        IfrEmail ifrEmail = new IfrEmail();
+//        centralizarJInternalFrame(ifrEmail);
+//        jDesktopPane1.add(ifrEmail);
+//        ifrEmail.setVisible(true);
+        
+        centralizarJPanelEsquerda(dash);
+        centralizarJPanelDireita(dash1);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

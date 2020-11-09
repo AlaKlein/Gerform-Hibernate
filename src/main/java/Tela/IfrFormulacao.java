@@ -15,9 +15,7 @@ import Dao.ItemFormulacaoDAO;
 import Entidade.Formulacao;
 import Entidade.ItemFormulacao;
 import java.awt.Color;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -1261,7 +1259,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 somaTotais2();
                 
                 TelaPrincipal.getInstance().atualizaGraf();
-                TelaPrincipal.getInstance().atualizaGraf();
+                TelaPrincipal.getInstance().atualizaGraf2();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao excluir Formulação!");
@@ -1436,7 +1434,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 btnFechar.setEnabled(true);
                 
                 TelaPrincipal.getInstance().atualizaGraf();
-                TelaPrincipal.getInstance().atualizaGraf();
+                TelaPrincipal.getInstance().atualizaGraf2();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação!");
@@ -1567,7 +1565,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 desabilitarCriarFomulacao();
 
                 TelaPrincipal.getInstance().atualizaGraf();
-                TelaPrincipal.getInstance().atualizaGraf();
+                TelaPrincipal.getInstance().atualizaGraf2();
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao criar formulacao!");
             }
