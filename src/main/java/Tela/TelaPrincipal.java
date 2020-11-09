@@ -59,7 +59,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1.setAlignmentX(CENTER_ALIGNMENT);
         jLabel1.setAlignmentY(CENTER_ALIGNMENT);
     }
-
+        
     public static TelaPrincipal getInstance() {
         if (instance == null) {
             instance = new TelaPrincipal();
@@ -260,6 +260,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastros");
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/person-icon.png"))); // NOI18N
         jMenuItem4.setText("Usuário");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +269,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/truck-icon.png"))); // NOI18N
         jMenuItem1.setText("Fornecedor");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +278,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32381-bacon-icon.png"))); // NOI18N
         jMenuItem2.setText("Material");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,6 +287,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Atom-icon.png"))); // NOI18N
         jMenuItem3.setText("Propriedades");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,6 +296,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32378-meat-on-bone-icon.png"))); // NOI18N
         jMenuItem5.setText("Produto");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,6 +309,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Formulação");
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/3d-material-eyedropper-tool-icon.png"))); // NOI18N
         jMenuItem12.setText("Inserir");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,6 +322,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Relatórios");
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Transport-Truck-icon.png"))); // NOI18N
         jMenuItem9.setText("Fornecedores");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +331,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem9);
 
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Food-Steak-icon.png"))); // NOI18N
         jMenuItem10.setText("Material");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,6 +340,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem10);
 
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Document-Copy-icon.png"))); // NOI18N
         jMenuItem11.setText("Login por Data");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,6 +353,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Auditoria");
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SEO-icon.png"))); // NOI18N
         jMenuItem8.setText("Auditar");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,6 +366,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("E-mail");
 
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Mail-icon.png"))); // NOI18N
         jMenuItem13.setText("Enviar");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
