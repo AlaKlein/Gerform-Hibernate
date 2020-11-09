@@ -212,8 +212,9 @@ public class IfrEmail extends javax.swing.JInternalFrame {
                 @Override
                 public void run() {
                     try {
-                        String retorno = Util.email.enviar(tfdAssunto.getText(), tfdDestinatario.getText(), jtaMensagem.getText(), anexo, UsuarioLogado.getUsuarioLogadoEmail());
-                        JOptionPane.showMessageDialog(null, retorno);
+                        //String retorno = 
+                        Util.email.enviar(tfdAssunto.getText(), tfdDestinatario.getText(), jtaMensagem.getText(), anexo, UsuarioLogado.getUsuarioLogadoEmail());
+                        //JOptionPane.showMessageDialog(null, retorno);
                         limparCampos();
                         Branco();
                     } catch (UnsupportedEncodingException ex) {
@@ -223,6 +224,7 @@ public class IfrEmail extends javax.swing.JInternalFrame {
                     }
                 }
             }.start();
+            this.dispose();
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
