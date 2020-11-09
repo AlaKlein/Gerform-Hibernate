@@ -55,7 +55,7 @@ public class LoginDAO {
             uL.setUsuarioLogadoPermissao(permissao);
 
             if (usuario.equals(email) && pw.equals(senha) && (status.equals("Ativo"))) {
-            new TelaPrincipal().setVisible(true);
+            TelaPrincipal.getInstance().setVisible(true);
             } else if (!status.equals("Ativo")) {
                 erro = "usuarioinativo";
                 return erro;

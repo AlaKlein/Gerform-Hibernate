@@ -38,10 +38,14 @@ import org.jfree.chart.JFreeChart;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     public static boolean ligaAuditoria = true;
+    private static TelaPrincipal instance;
+
+    ;
 
     /**
      * Creates new form FrmPrincipal
      */
+    
     public TelaPrincipal() {
         initComponents();
         operador(UsuarioLogado.getUsuarioLogadoPermissao());
@@ -54,6 +58,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Bem-Vindo ao Gerform " + UsuarioLogado.getUsuarioLogadoEmail());
         jLabel1.setAlignmentX(CENTER_ALIGNMENT);
         jLabel1.setAlignmentY(CENTER_ALIGNMENT);
+    }
+
+    public static TelaPrincipal getInstance() {
+        if (instance == null) {
+            instance = new TelaPrincipal();
+        }
+        return instance;
     }
 
     private void centralizarJInternalFrame(JInternalFrame frame) {
@@ -474,12 +485,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-//        IfrEmail ifrEmail = new IfrEmail();
-//        centralizarJInternalFrame(ifrEmail);
-//        jDesktopPane1.add(ifrEmail);
-//        ifrEmail.setVisible(true);
-
-            atualizaGraf();
+        IfrEmail ifrEmail = new IfrEmail();
+        centralizarJInternalFrame(ifrEmail);
+        jDesktopPane1.add(ifrEmail);
+        ifrEmail.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
