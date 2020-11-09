@@ -18,6 +18,7 @@ import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -112,7 +113,6 @@ public class GraphDAO {
                 true, // include legend          
                 true,
                 false);
-
         //chart.getPlot().setBackgroundPaint(Color.cyan);
 
         return chart;

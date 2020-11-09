@@ -1311,11 +1311,11 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
             if (f != null) {
                 //atualiza
-                
+
                 new FormulacaoDAO().Excluir(getIdAtualizar());
                 for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
                     ItemFormulacao itemFormulacao = new ItemFormulacao();
-                    
+
                     itemFormulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
                     itemFormulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
                     itemFormulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
@@ -1326,7 +1326,6 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                     itemFormulacao.setProteina(Double.parseDouble(modelMP.getValueAt(lin, 8).toString()));
                     itemFormulacao.setProdutoID(getIdAtualizar());
                     itemFormulacao.setFormulacao_ver(1);
-                    
 
                     retorno = new ItemFormulacaoDAO().Salvar(itemFormulacao);
                 }
@@ -1384,7 +1383,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
                 for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
                     ItemFormulacao itemFormulacao = new ItemFormulacao();
-                    
+
                     itemFormulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
                     itemFormulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
                     itemFormulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
@@ -1401,7 +1400,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
                 for (int lin = 0; lin < modelCond.getRowCount(); lin++) {
                     ItemFormulacao itemFormulacao = new ItemFormulacao();
-                    
+
                     itemFormulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
                     itemFormulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
                     itemFormulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
@@ -1421,7 +1420,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             System.out.println(retorno);
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Itens adicionados à formulação!");
-                
+
                 limparCamposFormulacao();
                 habilitarCriarFomulacao();
                 new CombosDAOForm().popularCombo("produto", cmbProduto, "N");
@@ -1432,7 +1431,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 resetCor();
                 jTabbedPane1.setEnabled(true);
                 btnFechar.setEnabled(true);
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação!");
             }
@@ -1549,7 +1548,6 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             String retorno = formulacaoDAO.Salvar(formulacao);
             jTabbedPane1.setEnabled(false);
             btnFechar.setEnabled(false);
-            
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Formulação criada!");
@@ -1561,8 +1559,10 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 formulacaoDAO.definirFormulacao(ci1.getCodigo(), "S");
                 habilitarTudo();
                 desabilitarCriarFomulacao();
-                
-                
+
+                TelaPrincipal tp = new TelaPrincipal();
+                tp.atualizaGraf();
+                tp.atualizaGraf2();
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao criar formulacao!");
             }

@@ -23,13 +23,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 
 /**
  *
@@ -98,30 +98,45 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void chamaGraf() {
         Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
-        ChartPanel chartPanel = new ChartPanel(new GraphDAO().criargraficoBarras());
+        JFreeChart g = new GraphDAO().criargraficoBarras();
+        ChartPanel chartPanel = new ChartPanel(g);
         chartPanel.setPreferredSize(d);
-
         dash.setLayout(new BorderLayout());
         dash.add(chartPanel, null);
-        SwingUtilities.updateComponentTreeUI(this);
     }
-    
+
     public void chamaGraf2() {
         Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
-        ChartPanel chartPanel = new ChartPanel(new GraphDAO().criargraficoPizza());
-
+        JFreeChart g = new GraphDAO().criargraficoPizza();
+        ChartPanel chartPanel = new ChartPanel(g);
         chartPanel.setPreferredSize(d);
         dash1.setLayout(new BorderLayout());
         dash1.add(chartPanel, null);
-        SwingUtilities.updateComponentTreeUI(this);
 
     }
 
-    public void teste() {
-        IfrFornecedor ifrFornecedor = new IfrFornecedor();
-        jDesktopPane1.add(ifrFornecedor);
-        centralizarJInternalFrame(ifrFornecedor);
-        ifrFornecedor.setVisible(true);
+    public void atualizaGraf() {
+        dash.removeAll();
+        dash.revalidate();
+        Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
+        JFreeChart g = new GraphDAO().criargraficoBarras();
+        ChartPanel chartPanel = new ChartPanel(g);
+        chartPanel.setPreferredSize(d);
+        dash.setLayout(new BorderLayout());
+        dash.add(chartPanel);
+        dash.repaint();
+    }
+
+    public void atualizaGraf2() {
+        dash1.removeAll();
+        dash1.revalidate();
+        Dimension d = new Dimension(dash1.getWidth(), dash1.getHeight());
+        JFreeChart g = new GraphDAO().criargraficoPizza();
+        ChartPanel chartPanel = new ChartPanel(g);
+        chartPanel.setPreferredSize(d);
+        dash1.setLayout(new BorderLayout());
+        dash1.add(chartPanel);
+        dash1.repaint();
     }
 
     /**
@@ -459,10 +474,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        IfrEmail ifrEmail = new IfrEmail();
-        centralizarJInternalFrame(ifrEmail);
-        jDesktopPane1.add(ifrEmail);
-        ifrEmail.setVisible(true);
+//        IfrEmail ifrEmail = new IfrEmail();
+//        centralizarJInternalFrame(ifrEmail);
+//        jDesktopPane1.add(ifrEmail);
+//        ifrEmail.setVisible(true);
+
+            atualizaGraf();
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
