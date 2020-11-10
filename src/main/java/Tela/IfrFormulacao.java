@@ -1258,8 +1258,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 somaSubTotaisCond2();
                 somaTotais2();
                 
-                TelaPrincipal.getInstance().atualizaGraf();
-                TelaPrincipal.getInstance().atualizaGraf2();
+                TelaPrincipal.getInstance().atualizaGrafEsquerda();
+                TelaPrincipal.getInstance().atualizaGrafDireita();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao excluir Formulação!");
@@ -1433,8 +1433,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 jTabbedPane1.setEnabled(true);
                 btnFechar.setEnabled(true);
                 
-                TelaPrincipal.getInstance().atualizaGraf();
-                TelaPrincipal.getInstance().atualizaGraf2();
+                TelaPrincipal.getInstance().atualizaGrafEsquerda();
+                TelaPrincipal.getInstance().atualizaGrafDireita();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação!");
@@ -1564,8 +1564,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 habilitarTudo();
                 desabilitarCriarFomulacao();
 
-                TelaPrincipal.getInstance().atualizaGraf();
-                TelaPrincipal.getInstance().atualizaGraf2();
+                TelaPrincipal.getInstance().atualizaGrafEsquerda();
+                TelaPrincipal.getInstance().atualizaGrafDireita();
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao criar formulacao!");
             }

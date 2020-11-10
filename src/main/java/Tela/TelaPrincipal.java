@@ -40,26 +40,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static boolean ligaAuditoria = true;
     private static TelaPrincipal instance;
 
-    ;
-
     /**
      * Creates new form FrmPrincipal
      */
-    
     public TelaPrincipal() {
         initComponents();
         operador(UsuarioLogado.getUsuarioLogadoPermissao());
         analista(UsuarioLogado.getUsuarioLogadoPermissao());
-        //this.setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(MAXIMIZED_BOTH);
         checkBoxAuditoria.setSelected(true);
-
-        chamaGraf();
-        chamaGraf2();
+        jDesktopPane1.remove(dashPrincipal);
+        CentralizarJpanel(dashPrincipal);
+        chamaGrafEsquerda();
+        chamaGrafDireita();
         jLabel1.setText("Bem-Vindo ao Gerform " + UsuarioLogado.getUsuarioLogadoEmail());
-        jLabel1.setAlignmentX(CENTER_ALIGNMENT);
-        jLabel1.setAlignmentY(CENTER_ALIGNMENT);
+        jLabel1.setHorizontalAlignment((int) CENTER_ALIGNMENT);
     }
-        
+
     public static TelaPrincipal getInstance() {
         if (instance == null) {
             instance = new TelaPrincipal();
@@ -72,24 +69,60 @@ public class TelaPrincipal extends javax.swing.JFrame {
         int aDesk = jDesktopPane1.getHeight();
         int lIFrame = frame.getWidth();
         int aIFrame = frame.getHeight();
-
         frame.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
     }
 
-    private void centralizarJPanelEsquerda(JPanel jPanel) {
+    private void CentralizarJpanel(JPanel jpanel) {
+        dashPrincipal = new JPanel();
+        dashPrincipal.revalidate();
+        dashPrincipal.repaint();
+        jDesktopPane1.add(jpanel);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) (((dimension.getWidth() / 2) - jPanel.getWidth()) / 2);
-        int y = (int) ((dimension.getHeight() - jPanel.getHeight()) / 2);
-        jPanel.setLocation(400, y);
-        jPanel.validate();
+        int x = (int) ((dimension.getWidth() - jpanel.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - jpanel.getHeight()) / 2);
+        jpanel.setLocation(x, y - 50);
     }
 
-    private void centralizarJPanelDireita(JPanel jPanel) {
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) (((dimension.getWidth()) + (dimension.getWidth() / 2)) - jPanel.getWidth()) / 2;
-        int y = (int) ((dimension.getHeight() - jPanel.getHeight()) / 2);
-        jPanel.setLocation(900, y);
-        jPanel.validate();
+    public void chamaGrafEsquerda() {
+        Dimension d = new Dimension(dashEsquerda.getWidth(), dashEsquerda.getHeight());
+        JFreeChart g = new GraphDAO().criargraficoBarras();
+        ChartPanel chartPanel = new ChartPanel(g);
+        chartPanel.setPreferredSize(d);
+        dashEsquerda.setLayout(new BorderLayout());
+        dashEsquerda.add(chartPanel, null);
+    }
+
+    public void chamaGrafDireita() {
+        Dimension d = new Dimension(dashDireita.getWidth(), dashDireita.getHeight());
+        JFreeChart g = new GraphDAO().criargraficoPizza();
+        ChartPanel chartPanel = new ChartPanel(g);
+        chartPanel.setPreferredSize(d);
+        dashDireita.setLayout(new BorderLayout());
+        dashDireita.add(chartPanel, null);
+    }
+
+    public void atualizaGrafEsquerda() {
+        dashEsquerda.removeAll();
+        dashEsquerda.revalidate();
+        Dimension d = new Dimension(dashEsquerda.getWidth(), dashEsquerda.getHeight());
+        JFreeChart g = new GraphDAO().criargraficoBarras();
+        ChartPanel chartPanel = new ChartPanel(g);
+        chartPanel.setPreferredSize(d);
+        dashEsquerda.setLayout(new BorderLayout());
+        dashEsquerda.add(chartPanel);
+        dashEsquerda.repaint();
+    }
+
+    public void atualizaGrafDireita() {
+        dashDireita.removeAll();
+        dashDireita.revalidate();
+        Dimension d = new Dimension(dashDireita.getWidth(), dashDireita.getHeight());
+        JFreeChart g = new GraphDAO().criargraficoPizza();
+        ChartPanel chartPanel = new ChartPanel(g);
+        chartPanel.setPreferredSize(d);
+        dashDireita.setLayout(new BorderLayout());
+        dashDireita.add(chartPanel);
+        dashDireita.repaint();
     }
 
     public void operador(String permissao) {
@@ -106,49 +139,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void chamaGraf() {
-        Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
-        JFreeChart g = new GraphDAO().criargraficoBarras();
-        ChartPanel chartPanel = new ChartPanel(g);
-        chartPanel.setPreferredSize(d);
-        dash.setLayout(new BorderLayout());
-        dash.add(chartPanel, null);
-    }
-
-    public void chamaGraf2() {
-        Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
-        JFreeChart g = new GraphDAO().criargraficoPizza();
-        ChartPanel chartPanel = new ChartPanel(g);
-        chartPanel.setPreferredSize(d);
-        dash1.setLayout(new BorderLayout());
-        dash1.add(chartPanel, null);
-
-    }
-
-    public void atualizaGraf() {
-        dash.removeAll();
-        dash.revalidate();
-        Dimension d = new Dimension(dash.getWidth(), dash.getHeight());
-        JFreeChart g = new GraphDAO().criargraficoBarras();
-        ChartPanel chartPanel = new ChartPanel(g);
-        chartPanel.setPreferredSize(d);
-        dash.setLayout(new BorderLayout());
-        dash.add(chartPanel);
-        dash.repaint();
-    }
-
-    public void atualizaGraf2() {
-        dash1.removeAll();
-        dash1.revalidate();
-        Dimension d = new Dimension(dash1.getWidth(), dash1.getHeight());
-        JFreeChart g = new GraphDAO().criargraficoPizza();
-        ChartPanel chartPanel = new ChartPanel(g);
-        chartPanel.setPreferredSize(d);
-        dash1.setLayout(new BorderLayout());
-        dash1.add(chartPanel);
-        dash1.repaint();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,8 +150,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         checkBoxAuditoria = new javax.swing.JCheckBox();
-        dash = new javax.swing.JPanel();
-        dash1 = new javax.swing.JPanel();
+        dashPrincipal = new javax.swing.JPanel();
+        dashEsquerda = new javax.swing.JPanel();
+        dashDireita = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -193,68 +184,85 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout dashLayout = new javax.swing.GroupLayout(dash);
-        dash.setLayout(dashLayout);
-        dashLayout.setHorizontalGroup(
-            dashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dashPrincipal.setBackground(new java.awt.Color(0, 204, 204));
+        dashPrincipal.setPreferredSize(new java.awt.Dimension(1260, 670));
+        dashPrincipal.setBackground(Color.WHITE);
+
+        javax.swing.GroupLayout dashEsquerdaLayout = new javax.swing.GroupLayout(dashEsquerda);
+        dashEsquerda.setLayout(dashEsquerdaLayout);
+        dashEsquerdaLayout.setHorizontalGroup(
+            dashEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 500, Short.MAX_VALUE)
         );
-        dashLayout.setVerticalGroup(
-            dashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dashEsquerdaLayout.setVerticalGroup(
+            dashEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 522, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout dash1Layout = new javax.swing.GroupLayout(dash1);
-        dash1.setLayout(dash1Layout);
-        dash1Layout.setHorizontalGroup(
-            dash1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dashDireitaLayout = new javax.swing.GroupLayout(dashDireita);
+        dashDireita.setLayout(dashDireitaLayout);
+        dashDireitaLayout.setHorizontalGroup(
+            dashDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 500, Short.MAX_VALUE)
         );
-        dash1Layout.setVerticalGroup(
-            dash1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dashDireitaLayout.setVerticalGroup(
+            dashDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 522, Short.MAX_VALUE)
         );
 
+        jLabel1.setBackground(new java.awt.Color(0, 51, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setBackground(Color.WHITE);
+
+        javax.swing.GroupLayout dashPrincipalLayout = new javax.swing.GroupLayout(dashPrincipal);
+        dashPrincipal.setLayout(dashPrincipalLayout);
+        dashPrincipalLayout.setHorizontalGroup(
+            dashPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashPrincipalLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(dashEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addComponent(dashDireita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78))
+            .addGroup(dashPrincipalLayout.createSequentialGroup()
+                .addGap(345, 345, 345)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        dashPrincipalLayout.setVerticalGroup(
+            dashPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(dashPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dashDireita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dashEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
+        );
 
         jDesktopPane1.setLayer(checkBoxAuditoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(dash, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(dash1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(dashPrincipal, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(checkBoxAuditoria))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(dash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addComponent(dash1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(0, 435, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(450, 450, 450))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(checkBoxAuditoria))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(dashPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dash1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71)
-                .addComponent(checkBoxAuditoria)
-                .addContainerGap())
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(dashPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(checkBoxAuditoria))
         );
 
         jMenu1.setText("Cadastros");
@@ -495,19 +503,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-//        IfrEmail ifrEmail = new IfrEmail();
-//        centralizarJInternalFrame(ifrEmail);
-//        jDesktopPane1.add(ifrEmail);
-//        ifrEmail.setVisible(true);
-        
-        centralizarJPanelEsquerda(dash);
-        centralizarJPanelDireita(dash1);
+        IfrEmail ifrEmail = new IfrEmail();
+        centralizarJInternalFrame(ifrEmail);
+        jDesktopPane1.add(ifrEmail);
+        ifrEmail.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxAuditoria;
-    private javax.swing.JPanel dash;
-    private javax.swing.JPanel dash1;
+    private javax.swing.JPanel dashDireita;
+    private javax.swing.JPanel dashEsquerda;
+    private javax.swing.JPanel dashPrincipal;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
