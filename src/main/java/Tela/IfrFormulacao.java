@@ -1583,6 +1583,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
     private void btnAddCondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCondActionPerformed
         //verifica se os campos obrigatórios estão preenchidos
+        Double valor = Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond));
+        
         if (tfdBatelada.getText().isEmpty()) {
             bateladaInvalido();
             JOptionPane.showMessageDialog(null, "Você deve informar o peso da batelada");
@@ -1592,9 +1594,9 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
         } else if (tfdPercentualCond.getText().isEmpty()) {
             percentualCondInvalido();
             JOptionPane.showMessageDialog(null, "Você deve informar o percentual antes de inserir o condimento");
-        } else if (Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond))) {
+        } else if (valor != null && Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > valor) {
             percentualCondInvalido();
-            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo " + Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond) +"!"));
+            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo " + valor +"!");
         } else if (!maiorQue100(tfdPercentualCond.getText().replace(',', '.'), tfdSomaPercentualTotal.getText())) {
             percentualTotalInvalido(tfdPercentualCond);
             JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");

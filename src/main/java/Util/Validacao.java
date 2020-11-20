@@ -4,8 +4,11 @@
  */
 package Util;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -154,10 +157,11 @@ public class Validacao {
 
     public static Double validarLimites(String condimento) {
         Double valor = null;
-        File file = new File("RDC-272.pdf");
-        
+        File file;
+        try {
+            file = new java.io.File("RDC-272.pdf");
 
-        try ( PDDocument document = PDDocument.load(file)) {
+            PDDocument document = PDDocument.load(file);
 
             if (!document.isEncrypted()) {
 
@@ -181,7 +185,7 @@ public class Validacao {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Validacao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
         }
         return valor;
     }
