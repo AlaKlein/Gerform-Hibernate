@@ -1597,6 +1597,9 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
         } else if (valor != null && Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > valor) {
             percentualCondInvalido();
             JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo " + valor +"!");
+            } else if (valor == null && Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > 10) {
+            percentualCondInvalido();
+            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo 10!");
         } else if (!maiorQue100(tfdPercentualCond.getText().replace(',', '.'), tfdSomaPercentualTotal.getText())) {
             percentualTotalInvalido(tfdPercentualCond);
             JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
