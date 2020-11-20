@@ -4,8 +4,17 @@
  */
 package Util;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFormattedTextField;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  *
@@ -141,5 +150,39 @@ public class Validacao {
             }
         }
         return true;
+    }
+
+    public static Double validarLimites(String condimento) {
+        Double valor = null;
+        File file = new File("RDC-272.pdf");
+        
+
+        try ( PDDocument document = PDDocument.load(file)) {
+
+            if (!document.isEncrypted()) {
+
+                PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+                stripper.setSortByPosition(true);
+
+                PDFTextStripper tStripper = new PDFTextStripper();
+
+                String pdfFileInText = tStripper.getText(document);
+                String lines[] = pdfFileInText.split("\\r?\\n");
+                for (String line : lines) {
+                    if (line.contains(condimento)) {
+                        Pattern p = Pattern.compile("\\d+\\,\\d*");
+                        Matcher m = p.matcher(line);
+
+                        while (m.find()) {
+                            String val = m.group().replace(",", ".");
+                            valor = Double.parseDouble(val);
+                        }
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Validacao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return valor;
     }
 }

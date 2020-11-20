@@ -1592,9 +1592,9 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
         } else if (tfdPercentualCond.getText().isEmpty()) {
             percentualCondInvalido();
             JOptionPane.showMessageDialog(null, "Você deve informar o percentual antes de inserir o condimento");
-        } else if (Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > 10.0) {
+        } else if (Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond))) {
             percentualCondInvalido();
-            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo 10,00%!");
+            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo " + Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond) +"!"));
         } else if (!maiorQue100(tfdPercentualCond.getText().replace(',', '.'), tfdSomaPercentualTotal.getText())) {
             percentualTotalInvalido(tfdPercentualCond);
             JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
