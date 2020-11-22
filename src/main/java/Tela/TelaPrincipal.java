@@ -24,7 +24,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
-import java.nio.file.Files;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -38,8 +37,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import java.nio.file.StandardCopyOption;
-import static jdk.nashorn.internal.objects.NativeRegExp.source;
 
 /**
  *
@@ -139,6 +136,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (permissao.equals("Operador")) {
             jMenu2.setEnabled(false);
             checkBoxAuditoria.setEnabled(false);
+            jMenuItem14.setEnabled(false);
         }
     }
 
@@ -146,6 +144,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (permissao.equals("Analista")) {
             jMenu2.setEnabled(false);
             checkBoxAuditoria.setEnabled(false);
+            jMenuItem14.setEnabled(false);
         }
     }
 
@@ -545,12 +544,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             File selectedFile = jfc.getSelectedFile();
             URL = selectedFile.getAbsolutePath();
         }
-        retorno = MoveFile.move(URL);
+        if (!URL.equals("")) {
+            retorno = MoveFile.move(URL);
 
-        if (retorno == null) {
-            JOptionPane.showMessageDialog(null, "Arquivo movido com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Erro ao mover o arquivo: " + retorno);
+            if (retorno == null) {
+                JOptionPane.showMessageDialog(null, "Arquivo movido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao mover o arquivo: " + retorno);
+            }
         }
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
