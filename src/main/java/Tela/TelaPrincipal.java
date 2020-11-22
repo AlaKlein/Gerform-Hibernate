@@ -17,12 +17,20 @@ import Tela.IfrPropriedadesMaterial;
 import Tela.IfrProduto;
 import Tela.IfrRelLoginData;
 import Tela.IfrFormulacao;
+import Util.Formatacao;
+import Util.MoveFile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.nio.file.Files;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -30,6 +38,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import java.nio.file.StandardCopyOption;
+import static jdk.nashorn.internal.objects.NativeRegExp.source;
 
 /**
  *
@@ -163,6 +173,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -324,6 +335,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem12);
+
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/3d-material-eyedropper-tool-icon.png"))); // NOI18N
+        jMenuItem14.setText("Limites");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem14);
 
         jMenuBar1.add(jMenu3);
 
@@ -509,6 +529,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ifrEmail.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        JFileChooser jfc;
+        Formatacao.traduzirJfc();
+        String URL = "";
+        String retorno;
+        jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        jfc.setMultiSelectionEnabled(false);
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("PDF (*.PDF)", "pdf"));
+        jfc.setDialogTitle("Selecione o arquivo desejado:");
+        int returnValue = jfc.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            URL = selectedFile.getAbsolutePath();
+        }
+        retorno = MoveFile.move(URL);
+
+        if (retorno == null) {
+            JOptionPane.showMessageDialog(null, "Arquivo movido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao mover o arquivo: " + retorno);
+        }
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxAuditoria;
     private javax.swing.JPanel dashDireita;
@@ -527,6 +572,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
