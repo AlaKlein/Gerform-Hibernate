@@ -335,7 +335,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem12);
 
-        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/3d-material-eyedropper-tool-icon.png"))); // NOI18N
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Clipboard-Paste-icon.png"))); // NOI18N
         jMenuItem14.setText("Limites");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
