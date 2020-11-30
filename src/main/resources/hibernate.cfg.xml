@@ -35,6 +35,7 @@
         <mapping class="Tela.IfrMaterial"/>
         <mapping class="Tela.IfrPropriedadesMaterial"/>
         <mapping class="Tela.IfrProduto"/>
+        <mapping class="Tela.TelaPrincipal"/>
         
         <mapping class="Dao.FornecedorDAO"/>
         <mapping class="Dao.UsuarioDAO"/>
