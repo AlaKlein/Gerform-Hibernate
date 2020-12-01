@@ -11,6 +11,7 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -175,7 +176,7 @@ public class IfrRelLoginData extends javax.swing.JInternalFrame {
         } else {
             jdcBranco(jDateChooserIni);
             jdcBranco(jDateChooserFim);
-            
+
             new Thread() {
                 @Override
                 public void run() {
@@ -185,7 +186,8 @@ public class IfrRelLoginData extends javax.swing.JInternalFrame {
                         Date dteFim = sdf.parse(Formatacao.formatarJcaledar(jDateChooserFim));
 
                         // Compila o relatorio
-                        JasperReport relatorio = JasperCompileManager.compileReport("src/main/java/Relatorio/RelatorioLoginData.jrxml");
+                        File target = new java.io.File("RelatorioLoginData.jrxml");
+                        JasperReport relatorio = JasperCompileManager.compileReport(target.toString());
 
                         Map parametros = new HashMap();
 

@@ -16,7 +16,7 @@ import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import tela.TelaPrincipal;
+import Tela.TelaPrincipal;
 
 
 public class FornecedorDAO implements IDAO_T<Fornecedor>{

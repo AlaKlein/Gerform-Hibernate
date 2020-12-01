@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import tela.TelaPrincipal;
 
 /**
  *

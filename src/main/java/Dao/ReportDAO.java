@@ -16,20 +16,23 @@ public class ReportDAO {
     /*public static SessionFactory getConnection() throws HibernateException, SQLException {
         return new Configuration().configure("Hibernate.cfg.xml").buildSessionFactory();
     }*/
-
     private static ReportDAO instancia = null;
     private Connection conexao = null;
 
     public ReportDAO() {
         try {
             // Carrega informações do arquivo de propriedades
-            Properties prop = new Properties();
-            prop.load(new FileInputStream("src/main/resources/hibernate.properties"));
-            String dbdriver = prop.getProperty("db.driver");
-            String dburl = prop.getProperty("db.url");
-            System.out.println(dburl);
-            String dbuser = prop.getProperty("db.user");
-            String dbsenha = prop.getProperty("db.senha");
+//            Properties prop = new Properties();
+//            prop.load(new FileInputStream("src/main/resources/hibernate.properties"));
+//            String dbdriver = prop.getProperty("db.driver");
+//            String dburl = prop.getProperty("db.url");
+//            System.out.println(dburl);
+//            String dbuser = prop.getProperty("db.user");
+//            String dbsenha = prop.getProperty("db.senha");
+            String dbdriver = "org.postgresql.Driver";
+            String dburl = "jdbc:postgresql://26.119.30.184:5432/gerform";
+            String dbuser = "postgres";
+            String dbsenha = "postgres";
 
             // Carrega Driver do Banco de Dados
             Class.forName(dbdriver);

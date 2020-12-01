@@ -13,7 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.classic.Session;
-import tela.TelaPrincipal;
+import Tela.TelaPrincipal;
 
 /**
  *

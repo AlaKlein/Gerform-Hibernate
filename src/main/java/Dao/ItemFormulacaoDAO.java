@@ -25,7 +25,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
-import tela.TelaPrincipal;
+import Tela.TelaPrincipal;
 
 /**
  *

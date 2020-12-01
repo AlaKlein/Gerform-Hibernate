@@ -15,7 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Entidade.UsuarioLogado;
 import Util.Log;
-import tela.TelaPrincipal;
+import Tela.TelaPrincipal;
 
 
 public class UsuarioDAO implements IDAO_T<Usuario>{

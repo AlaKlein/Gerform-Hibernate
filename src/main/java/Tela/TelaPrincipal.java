@@ -3,20 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela;
+package Tela;
 
 import Dao.GraphDAO;
 import Dao.ReportDAO;
 import Entidade.UsuarioLogado;
-import Tela.IfrUsuario;
-import Tela.IfrFornecedor;
-import Tela.IfrMaterial;
-import Tela.IfrAudit;
-import Tela.IfrEmail;
-import Tela.IfrPropriedadesMaterial;
-import Tela.IfrProduto;
-import Tela.IfrRelLoginData;
-import Tela.IfrFormulacao;
 import Util.Formatacao;
 import Util.MoveFile;
 import java.awt.BorderLayout;
@@ -472,7 +463,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void run() {
                 try {
                     // Compila o relatorio
-                    JasperReport relatorio = JasperCompileManager.compileReport("src/main/java/Relatorio/RelatorioFornecedor.jrxml");
+                    File target = new java.io.File("RelatorioFornecedor.jrxml");
+                    JasperReport relatorio = JasperCompileManager.compileReport(target.toString());
                     // Executa relatoio
                     JasperPrint impressao = JasperFillManager.fillReport(relatorio, null, ReportDAO.getInstance().getConnection());
 
@@ -492,8 +484,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void run() {
                 try {
                     // Compila o relatorio
-                    JasperReport relatorio = JasperCompileManager.compileReport("src/main/java/Relatorio/RelatorioMaterial.jrxml");
+                    File target = new java.io.File("RelatorioMaterial.jrxml");
+                    JasperReport relatorio = JasperCompileManager.compileReport(target.toString());
                     // Executa relatoio
+
                     JasperPrint impressao = JasperFillManager.fillReport(relatorio, null, ReportDAO.getInstance().getConnection());
 
                     // Exibe resultado em video
