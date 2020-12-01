@@ -1436,7 +1436,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 TelaPrincipal.getInstance().atualizaGrafDireita();
 
             } else {
-                JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação!");
+                JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação: " + retorno);
             }
 
         } else {
