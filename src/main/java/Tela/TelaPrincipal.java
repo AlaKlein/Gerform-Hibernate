@@ -531,7 +531,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         jfc.setMultiSelectionEnabled(false);
-        jfc.addChoosableFileFilter(new FileNameExtensionFilter("PDF (*.PDF)", "pdf"));
+        jfc.setAcceptAllFileFilterUsed(false); 
+        FileNameExtensionFilter restrict = new FileNameExtensionFilter("PDF (*.PDF)", "pdf");
+        jfc.addChoosableFileFilter(restrict);
         jfc.setDialogTitle("Selecione o arquivo desejado:");
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
