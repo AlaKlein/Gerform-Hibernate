@@ -32,18 +32,18 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             transacao = sessao.beginTransaction();
 
             sessao.save(pm);
-            
+
             if (TelaPrincipal.ligaAuditoria) {
                 Audita.salvarAuditoria("Insert", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
             }
-            
+
         } catch (HibernateException hibEx) {
             transacao.rollback();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
             hibEx.printStackTrace();
             return hibEx.toString();
         } finally {
-            
+
             transacao.commit();
             sessao.close();
         }
@@ -73,11 +73,11 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 sessao.update(pmat);
                 transacao.commit();
             }
-            
+
             if (TelaPrincipal.ligaAuditoria) {
                 Audita.salvarAuditoria("Update", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
             }
-            
+
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
             transacao.rollback();
@@ -106,11 +106,11 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                 sessao.update(pm);
                 transacao.commit();
             }
-            
+
             if (TelaPrincipal.ligaAuditoria) {
                 Audita.salvarAuditoria("Inactivate", "propriedades_material", UsuarioLogado.getUsuarioLogadoID());
             }
-            
+
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -158,7 +158,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         }
         return pmat;
     }
-    
+
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
@@ -175,7 +175,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
                     + "INNER JOIN Usuario u ON u.id=pm.usuario_id "
                     + "WHERE m.descricao ILIKE '%" + criterio + "%' AND pm.status='Ativo' ORDER BY pm.id";
         }*/
-        
+
         sql = "SELECT * FROM show_propriedades('" + criterio + "', " + box + ");";
 
         int lin = 0;
@@ -184,7 +184,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
 
         // cabecalho da tabela
         Object[] cabecalho = new Object[7];
-        cabecalho[0] = "Código";
+        cabecalho[0] = "ID";
         cabecalho[1] = "Material";
         cabecalho[2] = "Umidade";
         cabecalho[3] = "Gordura";
@@ -198,12 +198,12 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             //sessao = Util.HibernateUtil.getSessionFactory().openSession();
             sessao = Util.HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction transacao = sessao.beginTransaction();
-            
+
             List<PropriedadesMaterialTable> pmt = (List<PropriedadesMaterialTable>) sessionFactory
-            .getCurrentSession()
-            .createSQLQuery(sql)
-            .setResultTransformer(Transformers.aliasToBean(PropriedadesMaterialTable.class))
-            .list();
+                    .getCurrentSession()
+                    .createSQLQuery(sql)
+                    .setResultTransformer(Transformers.aliasToBean(PropriedadesMaterialTable.class))
+                    .list();
 
             /*org.hibernate.Query query = sessao.createSQLQuery(sql);
             resultado = query.list();
@@ -214,7 +214,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
 
             dadosTabela = new Object[resultado.size()][7];*/
             dadosTabela = new Object[pmt.size()][7];
-            
+
             for (int i = 0; i < pmt.size(); i++) {
                 //System.out.println(pmt.get(i).getDescricao());
                 dadosTabela[i][0] = pmt.get(i).getId();
@@ -227,7 +227,7 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             }
 
         } catch (HibernateException hibEx) {
-           hibEx.printStackTrace();
+            hibEx.printStackTrace();
             Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "query", hibEx.toString());
         } finally {
             sessao.close();
@@ -270,15 +270,18 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             column = tabela.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
-                    column.setPreferredWidth(17);
+                    column.setPreferredWidth(30);
                     break;
                 case 1:
                     column.setPreferredWidth(140);
                     break;
+                case 6:
+                    column.setPreferredWidth(17);
+                    break;
             }
         }
     }
-    
+
     /*public void popularTabela1(JTable tabela, String criterio, boolean box) {
 
         List<PropriedadesMaterialTable> resultado = new ArrayList();

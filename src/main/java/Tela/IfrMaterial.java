@@ -42,6 +42,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
         jComboBoxTpMat.addItem("Condimento");
         new CombosDAOMaterial().popularCombo(jComboBoxFornecedor);
         tfdPrecokg.setDocument(new SoNumerosEPonto());
+        new MaterialDAO().popularTabela(tblMat, "", jCheckBoxInativos.isSelected());
         Formatacao.limparjtable(tblMat);
     }
 
@@ -490,12 +491,11 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
                     tfdPrecokg.setText(String.valueOf(material.getPrecokg()));
 
                     ComboItem item = new ComboItem();
-                    //item.setCodigo(material.getTipoMaterialId());
-                    //new CombosDAOMaterial().definirItemCombo(jComboBoxTpMat, item);
-
-                    if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Matéria Prima")) {
+                    item.setCodigo(material.getTipoMaterialId());
+                    
+                    if (material.getTipoMaterialId() == 1) {
                         jComboBoxTpMat.setSelectedIndex(1);
-                    } else if (String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 3)).equals("Condimento")) {
+                    }else if (material.getTipoMaterialId() == 2) {
                         jComboBoxTpMat.setSelectedIndex(2);
                     }
 
@@ -565,7 +565,7 @@ public class IfrMaterial extends javax.swing.JInternalFrame {
             jCheckBoxInativos.setSelected(false);
         }
 
-        //Formatacao.limparjtable(tblMat);
+        Formatacao.limparjtable(tblMat);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void CkbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CkbStatusActionPerformed

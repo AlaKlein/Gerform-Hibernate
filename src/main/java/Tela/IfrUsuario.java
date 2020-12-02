@@ -40,6 +40,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jComboBox1.addItem("Operador");
         jCheckBox2.setSelected(true);
         Formatacao.limparjtable(tblUsuario);
+        new UsuarioDAO().popularTabela(tblUsuario, "", jCheckBox1.isSelected());
     }
     
     public final void UserOperador(String permissao) {

@@ -1,4 +1,3 @@
-
 package Dao;
 
 import Entidade.Produto;
@@ -23,9 +22,8 @@ import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import Tela.TelaPrincipal;
 
+public class ProdutoDAO implements IDAO_T<Produto> {
 
-public class ProdutoDAO implements IDAO_T<Produto>{
-    
     @Override
     public Produto consultarId(int id) {
         Produto produto = null;
@@ -59,7 +57,7 @@ public class ProdutoDAO implements IDAO_T<Produto>{
         }
         return produto;
     }
-    
+
     @Override
     public String Salvar(Produto p) {
         Session sessao = null;
@@ -72,11 +70,11 @@ public class ProdutoDAO implements IDAO_T<Produto>{
 
             sessao.save(p);
             transacao.commit();
-            
+
             if (TelaPrincipal.ligaAuditoria) {
                 Audita.salvarAuditoria("Insert", "produto", UsuarioLogado.getUsuarioLogadoID());
             }
-            
+
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -106,15 +104,15 @@ public class ProdutoDAO implements IDAO_T<Produto>{
                 produto.setTipo_produto_id(p.getTipo_produto_id());
                 produto.setTem_formulacao(p.getTem_formulacao());
                 produto.setStatus(p.getStatus());
-              
+
                 sessao.update(produto);
                 transacao.commit();
             }
-            
+
             if (TelaPrincipal.ligaAuditoria) {
                 Audita.salvarAuditoria("Update", "produto", UsuarioLogado.getUsuarioLogadoID());
             }
-            
+
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -143,11 +141,11 @@ public class ProdutoDAO implements IDAO_T<Produto>{
                 sessao.update(prod);
                 transacao.commit();
             }
-            
+
             if (TelaPrincipal.ligaAuditoria) {
                 Audita.salvarAuditoria("Inactivate", "produto", UsuarioLogado.getUsuarioLogadoID());
             }
-            
+
         } catch (HibernateException hibEx) {
             transacao.rollback();
             hibEx.printStackTrace();
@@ -158,8 +156,8 @@ public class ProdutoDAO implements IDAO_T<Produto>{
         }
         return null;
     }
-    
-    public boolean checkExist (Produto p) {
+
+    public boolean checkExist(Produto p) {
         boolean a = false;
         List resultado = null;
         Session sessao = null;
@@ -167,8 +165,8 @@ public class ProdutoDAO implements IDAO_T<Produto>{
         try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Produto WHERE NOT id = " + p.getId() + 
-                    " AND descricao = '" + p.getDescricao() + "'");
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Produto WHERE NOT id = " + p.getId()
+                    + " AND descricao = '" + p.getDescricao() + "'");
             resultado = query.list();
 
             if (Integer.parseInt(resultado.get(0).toString()) > 0) {
@@ -280,7 +278,6 @@ public class ProdutoDAO implements IDAO_T<Produto>{
             }
         }
     }*/
-    
     @Override
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
@@ -299,9 +296,9 @@ public class ProdutoDAO implements IDAO_T<Produto>{
                     + "WHERE p.descricao ILIKE '%" + criterio + "%' AND p.status ILIKE 'ativo' \n"
                     + "ORDER BY p.id";
         }
-        
+
         System.out.println(sql);
-        
+
         int lin = 0;
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -332,9 +329,12 @@ public class ProdutoDAO implements IDAO_T<Produto>{
                 dadosTabela[i][0] = mt.get(i).getId();
                 dadosTabela[i][1] = mt.get(i).getDescricao();
                 dadosTabela[i][2] = mt.get(i).getTipoproduto();
-                dadosTabela[i][3] = mt.get(i).getTem_formulacao();
+                if (mt.get(i).getTem_formulacao().equals("S")) {
+                    dadosTabela[i][3] = true;
+                } else if (mt.get(i).getTem_formulacao().equals("N")) {
+                    dadosTabela[i][3] = false;
+                }
                 dadosTabela[i][4] = mt.get(i).getStatus();
-
             }
 
         } catch (HibernateException hibEx) {
@@ -357,8 +357,8 @@ public class ProdutoDAO implements IDAO_T<Produto>{
             public Class
                     getColumnClass(int column) {
 
-                if (column == 2) {
-//                    return ImageIcon.class;
+                if (column == 3) {
+                   return Boolean.class;
                 }
                 return Object.class;
             }
@@ -372,7 +372,9 @@ public class ProdutoDAO implements IDAO_T<Produto>{
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
 
         for (int i = 0; i < tabela.getColumnCount(); i++) {
+            if (i!=3) {
             tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            }
         }
 
         // redimensiona as colunas de uma tabela

@@ -27,6 +27,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         jComboBoxTpProd.addItem("Congelado");
         jComboBoxTpProd.addItem("Resfriado");
         CkbStatus.setSelected(true);
+        new ProdutoDAO().popularTabela(tblProd, "", jCheckBoxInativos.isSelected());
         Formatacao.limparjtable(tblProd);
         tfdDescricao.requestFocus();
     }

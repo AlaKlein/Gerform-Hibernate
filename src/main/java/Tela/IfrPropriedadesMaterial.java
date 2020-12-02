@@ -31,6 +31,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         tfdGordura.setDocument(new SoNumerosEPonto());
         tfdProteina.setDocument(new SoNumerosEPonto());
         jCheckBox1.setSelected(true);
+        new PropriedadesMaterialDAO().popularTabela(tblMat, "", jCheckBoxInativos.isSelected());
         Formatacao.limparjtable(tblMat);
     }
 

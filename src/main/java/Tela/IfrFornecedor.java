@@ -20,6 +20,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
         FornecOperador(UsuarioLogado.getUsuarioLogadoPermissao());
         Formatacao.formatarCnpj(tffCNPJ);
         Formatacao.formatarTelefone(tffTelefone);
+        new FornecedorDAO().popularTabela(tblFornec, "", jCheckBoxInativos.isSelected());
         Formatacao.limparjtable(tblFornec);
     }
     
