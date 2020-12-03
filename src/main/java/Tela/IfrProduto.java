@@ -17,7 +17,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
 
     int codigo = 0;
     boolean temForm = false;
-    private static IfrProduto tela;
+    private static IfrProduto instance;
 
     public IfrProduto() {
         initComponents();
@@ -32,12 +32,13 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         tfdDescricao.requestFocus();
     }
     
-    public static IfrProduto getInstancia() {
-        if (tela == null) {
-            tela = new IfrProduto();
+    public static IfrProduto getInstance() {
+        if (instance == null) {
+            instance = new IfrProduto();
         }
-        return tela;
+        return instance;
     }
+    
 
     @SuppressWarnings("unchecked")
 

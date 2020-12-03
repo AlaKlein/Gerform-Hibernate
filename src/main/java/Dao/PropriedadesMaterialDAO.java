@@ -1,5 +1,6 @@
 package Dao;
 
+import Entidade.Material;
 import Entidade.PropriedadesMaterial;
 import Entidade.PropriedadesMaterialTable;
 import Entidade.UsuarioLogado;
@@ -216,7 +217,6 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
             dadosTabela = new Object[pmt.size()][7];
 
             for (int i = 0; i < pmt.size(); i++) {
-                //System.out.println(pmt.get(i).getDescricao());
                 dadosTabela[i][0] = pmt.get(i).getId();
                 dadosTabela[i][1] = pmt.get(i).getDescricao();
                 dadosTabela[i][2] = pmt.get(i).getUmidade();
@@ -282,110 +282,51 @@ public class PropriedadesMaterialDAO implements IDAO_T<PropriedadesMaterial> {
         }
     }
 
-    /*public void popularTabela1(JTable tabela, String criterio, boolean box) {
-
-        List<PropriedadesMaterialTable> resultado = new ArrayList();
-        String sql = "";
-        if (box) {
-            sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
-                    + "FROM PropriedadesMaterial pm, Material m, "
-                    + "Usuario u "
-                    + "WHERE u.id=pm.usuario_id AND m.id = pm.material_id AND m.descricao LIKE '%" + criterio + "%' ORDER BY m.descricao";
-        } else {
-            sql = "SELECT pm.id, m.descricao, pm.umidade, pm.gordura, pm.proteina, u.email, pm.status "
-                    + "FROM PropriedadesMaterial pm, Material m, "
-                    + "Usuario u "
-                    + "WHERE u.id=pm.usuario_id AND m.id = pm.material_id AND m.descricao LIKE '%" + criterio + "%' AND pm.status='Ativo' ORDER BY m.descricao";
-        }
-
-        int lin = 0;
-        // dados da tabela
-        Object[][] dadosTabela = null;
-
-        // cabecalho da tabela
-        Object[] cabecalho = new Object[7];
-        cabecalho[0] = "Código";
-        cabecalho[1] = "Material";
-        cabecalho[2] = "Umidade";
-        cabecalho[3] = "Gordura";
-        cabecalho[4] = "Proteína";
-        cabecalho[5] = "Cadastrado por";
-        cabecalho[6] = "Status";
-
+     public boolean checkExistProp (int id) {
+        boolean a = false;
+        List resultado = null;
         Session sessao = null;
-        
-        try {
 
+        try {
             sessao = Util.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
-            
-            System.out.println(sql);
-            
-            org.hibernate.Query query = sessao.createQuery(sql);
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(tempropriedades) FROM Material WHERE id = " + id + " AND tempropriedades = 'S'");
             resultado = query.list();
-            
-            dadosTabela = new Object[resultado.size()][7];
-            
-            for (int i = 0; i < resultado.size(); i++) {
-                PropriedadesMaterialTable pmt = resultado.get(i);
-                dadosTabela[i][0] = pmt.getId();
-                dadosTabela[i][1] = pmt.getDescricao();
-                dadosTabela[i][2] = pmt.getUmidade();
-                dadosTabela[i][3] = pmt.getGordura();
-                dadosTabela[i][4] = pmt.getProteina();
-                dadosTabela[i][5] = pmt.getEmail();
-                dadosTabela[i][6] = pmt.getStatus();
+
+            if (Integer.parseInt(resultado.get(0).toString()) > 0) {
+                a = true;
             }
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "query", hibEx.toString());
         } finally {
             sessao.close();
         }
+        return a;
+    }
+     
+     public String removerProps(PropriedadesMaterial pm) {
+        Session sessao = null;
+        sessao = Util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
 
-        // configuracoes adicionais no componente tabela
-        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
-            @Override
-            // quando retorno for FALSE, a tabela nao é editavel
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+        try {
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            transacao = sessao.beginTransaction();
 
-            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
-            @Override
-            public Class
-                    getColumnClass(int column) {
+            sessao.delete(pm);
 
-                if (column == 2) {
-//                    return ImageIcon.class;
-                }
-                return Object.class;
-            }
-        });
-
-        // permite seleção de apenas uma linha da tabela
-        tabela.setSelectionMode(0);
-
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-
-        for (int i = 0; i < tabela.getColumnCount(); i++) {
-            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+        } catch (HibernateException hibEx) {
+            transacao.rollback();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Insert", hibEx.toString());
+            hibEx.printStackTrace();
+            return hibEx.toString();
+        } finally {
+            transacao.commit();
+            sessao.close();
         }
-
-        // redimensiona as colunas de uma tabela
-        TableColumn column = null;
-        for (int i = 0; i < tabela.getColumnCount(); i++) {
-            column = tabela.getColumnModel().getColumn(i);
-            switch (i) {
-                case 0:
-                    column.setPreferredWidth(17);
-                    break;
-                case 1:
-                    column.setPreferredWidth(140);
-                    break;
-            }
-        }
-    }*/
+        return null;
+    }
+    
 }

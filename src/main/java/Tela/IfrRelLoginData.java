@@ -33,10 +33,20 @@ public class IfrRelLoginData extends javax.swing.JInternalFrame {
     /**
      * Creates new form IfrMaterial
      */
+    
+    private static IfrRelLoginData instance;
+    
     public IfrRelLoginData() {
         initComponents();
         desabilitarEdicaoJDC(jDateChooserIni);
         desabilitarEdicaoJDC(jDateChooserFim);
+    }
+    
+    public static IfrRelLoginData getInstance() {
+        if (instance == null) {
+            instance = new IfrRelLoginData();
+        }
+        return instance;
     }
 
     /**

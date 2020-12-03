@@ -68,6 +68,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         int lIFrame = frame.getWidth();
         int aIFrame = frame.getHeight();
         frame.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        frame.toFront();
     }
 
     private void CentralizarJpanel(JPanel jpanel) {
@@ -412,38 +413,58 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        IfrUsuario ifrUsuario = new IfrUsuario();
-        jDesktopPane1.add(ifrUsuario);
+        IfrUsuario ifrUsuario = IfrUsuario.getInstance();
         centralizarJInternalFrame(ifrUsuario);
-        ifrUsuario.setVisible(true);
+        if (ifrUsuario.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrUsuario);
+            ifrUsuario.setVisible(true);
+        }
+
+//        IfrUsuario ifrUsuario = new IfrUsuario();
+//        jDesktopPane1.add(ifrUsuario);
+//        centralizarJInternalFrame(ifrUsuario);
+//        ifrUsuario.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        IfrFornecedor ifrFornecedor = new IfrFornecedor();
-        jDesktopPane1.add(ifrFornecedor);
+        IfrFornecedor ifrFornecedor = IfrFornecedor.getInstance();
         centralizarJInternalFrame(ifrFornecedor);
-        ifrFornecedor.setVisible(true);
+        if (ifrFornecedor.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrFornecedor);
+            ifrFornecedor.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        IfrMaterial ifrMaterial = new IfrMaterial();
-        jDesktopPane1.add(ifrMaterial);
+        IfrMaterial ifrMaterial = IfrMaterial.getInstance();
         centralizarJInternalFrame(ifrMaterial);
-        ifrMaterial.setVisible(true);
+        if (ifrMaterial.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrMaterial);
+            ifrMaterial.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        IfrPropriedadesMaterial ifrPropriedadesMaterial = new IfrPropriedadesMaterial();
-        jDesktopPane1.add(ifrPropriedadesMaterial);
+        IfrPropriedadesMaterial ifrPropriedadesMaterial = IfrPropriedadesMaterial.getInstance();
         centralizarJInternalFrame(ifrPropriedadesMaterial);
-        ifrPropriedadesMaterial.setVisible(true);
+        if (ifrPropriedadesMaterial.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrPropriedadesMaterial);
+            ifrPropriedadesMaterial.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        IfrAudit ifrAudit = new IfrAudit();
-        jDesktopPane1.add(ifrAudit);
+        IfrAudit ifrAudit = IfrAudit.getInstance();
         centralizarJInternalFrame(ifrAudit);
-        ifrAudit.setVisible(true);
+        if (ifrAudit.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrAudit);
+            ifrAudit.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void checkBoxAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAuditoriaActionPerformed
@@ -451,10 +472,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxAuditoriaActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        IfrProduto ifrProduto = new IfrProduto();
-        jDesktopPane1.add(ifrProduto);
+        IfrProduto ifrProduto = IfrProduto.getInstance();
         centralizarJInternalFrame(ifrProduto);
-        ifrProduto.setVisible(true);
+        if (ifrProduto.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrProduto);
+            ifrProduto.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -501,25 +525,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        IfrRelLoginData ld = new IfrRelLoginData();
+        IfrRelLoginData ld = IfrRelLoginData.getInstance();
         centralizarJInternalFrame(ld);
-        jDesktopPane1.add(ld);
-        ld.setVisible(true);
+        if (ld.isVisible()) {
+        } else {
+            jDesktopPane1.add(ld);
+            ld.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        IfrFormulacao tf = new IfrFormulacao();
+        IfrFormulacao tf = IfrFormulacao.getInstance();
         tf.setSize(1260, 670);
         centralizarJInternalFrame(tf);
-        jDesktopPane1.add(tf);
-        tf.setVisible(true);
+        if (tf.isVisible()) {
+        } else {
+            jDesktopPane1.add(tf);
+            tf.setVisible(true);
+        }
+        
+//        IfrFormulacao tf = new IfrFormulacao();
+//        tf.setSize(1260, 670);
+//        centralizarJInternalFrame(tf);
+//        jDesktopPane1.add(tf);
+//        tf.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        IfrEmail ifrEmail = new IfrEmail();
+        IfrEmail ifrEmail = IfrEmail.getInstance();
         centralizarJInternalFrame(ifrEmail);
-        jDesktopPane1.add(ifrEmail);
-        ifrEmail.setVisible(true);
+        if (ifrEmail.isVisible()) {
+        } else {
+            jDesktopPane1.add(ifrEmail);
+            ifrEmail.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -531,7 +570,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         jfc.setMultiSelectionEnabled(false);
-        jfc.setAcceptAllFileFilterUsed(false); 
+        jfc.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter restrict = new FileNameExtensionFilter("PDF (*.PDF)", "pdf");
         jfc.addChoosableFileFilter(restrict);
         jfc.setDialogTitle("Selecione o arquivo desejado:");

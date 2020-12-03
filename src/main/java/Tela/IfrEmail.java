@@ -27,6 +27,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class IfrEmail extends javax.swing.JInternalFrame {
 
+    private static IfrEmail instance;
     ArrayList<String> anexo = new ArrayList();
 
     public IfrEmail() {
@@ -35,6 +36,13 @@ public class IfrEmail extends javax.swing.JInternalFrame {
         initComponents();
         tfdAnexo.setEditable(false);
         tfdAnexo.setVisible(false);
+    }
+    
+    public static IfrEmail getInstance() {
+        if (instance == null) {
+            instance = new IfrEmail();
+        }
+        return instance;
     }
 
     /**

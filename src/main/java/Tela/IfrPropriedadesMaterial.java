@@ -1,4 +1,3 @@
-
 package Tela;
 
 import Dao.CombosDAOPropriedades;
@@ -17,11 +16,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.hibernate.HibernateException;
 
-
 public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
     int codigo = 0;
-
+    private static IfrPropriedadesMaterial instance;
     
     public IfrPropriedadesMaterial() {
         initComponents();
@@ -35,7 +33,6 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         Formatacao.limparjtable(tblMat);
     }
 
-    
     @SuppressWarnings("unchecked")
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -274,6 +271,13 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         }
     }
     
+    public static IfrPropriedadesMaterial getInstance() {
+        if (instance == null) {
+            instance = new IfrPropriedadesMaterial();
+        }
+        return instance;
+    }
+
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         limparCampos();
@@ -347,11 +351,13 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String retorno = null;
+        PropriedadesMaterialDAO propriedadesMaterialDAO = new PropriedadesMaterialDAO();
         PropriedadesMaterial pm = new PropriedadesMaterial();
         MaterialDAO mat = new MaterialDAO();
         UsuarioLogado u = new UsuarioLogado();
         ComboItem ci = (ComboItem) jComboBoxMat.getSelectedItem();
-        
+
         if ((jComboBoxMat.getSelectedIndex() == 0) && (jComboBoxMat.isEnabled())) {
             revisar();
             materialInvalido();
@@ -364,26 +370,27 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
         } else if (!Validacao.validarPreco(tfdProteina.getText())) {
             revisar();
             proteinaInvalido();
+        } else if (propriedadesMaterialDAO.checkExistProp(mat.consultarSomenteId(ci.getDescricao()))) {
+            JOptionPane.showMessageDialog(null, "Já existe o registro de Propriedades deste material!");
         } else {
+
             pm.setId(codigo);
             pm.setUsuario_id(u.getUsuarioLogadoID());
             pm.setMaterial_id(mat.consultarSomenteId(ci.getDescricao()));
             pm.setUmidade(Double.parseDouble(tfdUmidade.getText().replace(',', '.')));
             pm.setGordura(Double.parseDouble(tfdGordura.getText().replace(',', '.')));
             pm.setProteina(Double.parseDouble(tfdProteina.getText().replace(',', '.')));
-            
+
             if (jCheckBox1.isSelected()) {
                 pm.setStatus("Ativo");
             } else {
                 pm.setStatus("Inativo");
             }
 
-            PropriedadesMaterialDAO propriedadesMaterialDAO = new PropriedadesMaterialDAO();
-            String retorno = null;
-
             if (codigo == 0) {
                 retorno = propriedadesMaterialDAO.Salvar(pm);
                 mat.definirPropriedades(mat.consultarSomenteId(ci.getDescricao()), "S");
+
             } else {
                 retorno = propriedadesMaterialDAO.Atualizar(pm);
             }
@@ -407,8 +414,8 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
             } else {
                 retorno = "Impossível salvar Propriedades do Material: " + retorno;
-                    JOptionPane.showMessageDialog(null, retorno);
-                    Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrPropriedadesMaterial", btnSalvar, retorno);
+                JOptionPane.showMessageDialog(null, retorno);
+                Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrPropriedadesMaterial", btnSalvar, retorno);
             }
 
         }
@@ -426,9 +433,9 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
             try {
                 int id = Integer.parseInt(String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 0)));
                 PropriedadesMaterial pm = new PropriedadesMaterialDAO().consultarId(id);
-
+                
                 if (pm != null) {
-                    new CombosDAOPropriedades().popularComboPropriedadesEditar(jComboBoxMat, 
+                    new CombosDAOPropriedades().popularComboPropriedadesEditar(jComboBoxMat,
                             String.valueOf(tblMat.getValueAt(tblMat.getSelectedRow(), 1)));
                     jTabbedPane1.setSelectedIndex(0);
                     jComboBoxMat.setEnabled(false);
@@ -440,7 +447,6 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
                     } else {
                         jCheckBox1.setSelected(false);
                     }
-
                     tfdUmidade.requestFocus();
                     codigo = id;
                 } else {
@@ -470,7 +476,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
 
                 //atualiza tabela
                 new PropriedadesMaterialDAO().popularTabela(tblMat, tfdBusca.getText(), jCheckBoxInativos.isSelected());
-            }else{
+            } else {
                 String erro = "Impossível Inativar Propriedades do Material: " + retorno;
                 JOptionPane.showMessageDialog(null, erro);
                 Log.geraLogIfr(UsuarioLogado.getUsuarioLogadoEmail(), "IfrPropriedadesMaterial", btnExcluir, erro);
@@ -494,7 +500,7 @@ public class IfrPropriedadesMaterial extends javax.swing.JInternalFrame {
             btnExcluir.setEnabled(true);
             //limparCampos();
         }
-        
+
         Formatacao.limparjtable(tblMat);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 

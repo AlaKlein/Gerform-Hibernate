@@ -27,6 +27,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
     int codigo = 0;
     String dataIni = "01/01/0001";
     String dataFim = "01/01/5000";
+    private static IfrAudit instance;
 
     /**
      * Creates new form IfrMaterial
@@ -43,6 +44,13 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         desabilitarEdicaoJDC(jDateChooserIni);
         desabilitarEdicaoJDC(jDateChooserFim);
 
+    }
+
+    public static IfrAudit getInstance() {
+        if (instance == null) {
+            instance = new IfrAudit();
+        }
+        return instance;
     }
 
     /**

@@ -25,6 +25,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
     int codigo = 0;
     String erro = null;
+    private static IfrUsuario instance;
     
     /**
      * Creates new form IfrUsuario
@@ -61,6 +62,13 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             btnExcluir.setEnabled(false);
             btnSalvar.setEnabled(false);
         }
+    }
+    
+    public static IfrUsuario getInstance() {
+        if (instance == null) {
+            instance = new IfrUsuario();
+        }
+        return instance;
     }
 
     /**

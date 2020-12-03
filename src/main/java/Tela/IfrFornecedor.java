@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 public class IfrFornecedor extends javax.swing.JInternalFrame {
 
     int codigo = 0;
+    private static IfrFornecedor instance;
 
     public IfrFornecedor() {
         initComponents();
@@ -32,6 +33,13 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
             btnExcluir.setEnabled(false);
             btnSalvar.setEnabled(false);
         }
+    }
+    
+    public static IfrFornecedor getInstance() {
+        if (instance == null) {
+            instance = new IfrFornecedor();
+        }
+        return instance;
     }
 
     /**
@@ -334,7 +342,7 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
     public static void tfdAmarelo(JTextField c) {
         c.setBackground(Color.yellow);
     }
-
+    
     public static void tfdBranco(JTextField c) {
         c.setBackground(Color.white);
     }
@@ -375,7 +383,8 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
             }
 
             if (fornecedorDAO.checkExist(f)) {
-                JOptionPane.showMessageDialog(null, "Campo já existe no registro!");
+                JOptionPane.showMessageDialog(null, "Campo CNPJ já existe no registro!");
+                tffCNPJ.requestFocus();
             } else {
 
                 if (codigo != 0) {

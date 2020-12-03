@@ -34,6 +34,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
     private DefaultListModel modeloListaEsquerdaMP = new DefaultListModel<String>();
     int idAtualizar;
     int formID;
+    private static IfrFormulacao instance;
 
     /**
      * Creates new form IfrMaterial
@@ -114,6 +115,13 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
         tfdPercentualCond.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tffDataLancamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+    }
+    
+    public static IfrFormulacao getInstance() {
+        if (instance == null) {
+            instance = new IfrFormulacao();
+        }
+        return instance;
     }
 
     public int getIdAtualizar() {
@@ -1256,7 +1264,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 somaSubTotaisMP2();
                 somaSubTotaisCond2();
                 somaTotais2();
-                
+
                 TelaPrincipal.getInstance().atualizaGrafEsquerda();
                 TelaPrincipal.getInstance().atualizaGrafDireita();
 
@@ -1298,11 +1306,15 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPopularTBLActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
-        if (Double.parseDouble(tfdSomaPercentualTotal.getText()) == 100.0) {
-
-            DefaultTableModel modelMP = (DefaultTableModel) tblFormulacaoMP.getModel();
-            DefaultTableModel modelCond = (DefaultTableModel) tblFormulacaoCond.getModel();
+        DefaultTableModel modelMP = (DefaultTableModel) tblFormulacaoMP.getModel();
+        DefaultTableModel modelCond = (DefaultTableModel) tblFormulacaoCond.getModel();
+        if (Double.parseDouble(tfdSomaPercentualTotal.getText()) != 100.0) {
+            JOptionPane.showMessageDialog(null, "O percentual Total deve ser igual a 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
+        } else if (modelMP.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "É necessário inserir pelo menos 1 Matéria Prima!");
+        } else if (modelCond.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "É necessário inserir pelo menos 1 condimento!");
+        } else {
 
             String retorno = "gerform";
             // populado objeto
@@ -1312,7 +1324,9 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             if (f != null) {
                 //atualiza
 
-                new FormulacaoDAO().Excluir(getIdAtualizar());
+                //new FormulacaoDAO().Excluir(getIdAtualizar());
+                new ItemFormulacaoDAO().Excluir(getIdAtualizar());
+
                 for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
                     ItemFormulacao itemFormulacao = new ItemFormulacao();
 
@@ -1431,16 +1445,13 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 resetCor();
                 jTabbedPane1.setEnabled(true);
                 btnFechar.setEnabled(true);
-                
+
                 TelaPrincipal.getInstance().atualizaGrafEsquerda();
                 TelaPrincipal.getInstance().atualizaGrafDireita();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar os itens à formulação: " + retorno);
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "O percentual Total deve ser igual a 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -1549,11 +1560,12 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             formulacao.setVersao(1);
 
             String retorno = formulacaoDAO.Salvar(formulacao);
-            jTabbedPane1.setEnabled(false);
-            btnFechar.setEnabled(false);
 
             if (retorno == null) {
                 JOptionPane.showMessageDialog(null, "Formulação criada!");
+
+                jTabbedPane1.setEnabled(false);
+                btnFechar.setEnabled(false);
 
                 tffDataLancamento.setText("");
                 cmbProduto.setSelectedIndex(0);
@@ -1566,7 +1578,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
                 TelaPrincipal.getInstance().atualizaGrafEsquerda();
                 TelaPrincipal.getInstance().atualizaGrafDireita();
             } else {
-                JOptionPane.showMessageDialog(null, "Erro ao criar formulacao!");
+                JOptionPane.showMessageDialog(null, "Erro ao criar formulacao: " + retorno);
             }
         }
     }//GEN-LAST:event_btnCriarFormulacaoActionPerformed
@@ -1583,7 +1595,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
     private void btnAddCondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCondActionPerformed
         //verifica se os campos obrigatórios estão preenchidos
         Double valor = Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond));
-        
+
         if (tfdBatelada.getText().isEmpty()) {
             bateladaInvalido();
             JOptionPane.showMessageDialog(null, "Você deve informar o peso da batelada");
@@ -1595,8 +1607,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Você deve informar o percentual antes de inserir o condimento");
         } else if (valor != null && Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > valor) {
             percentualCondInvalido();
-            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo " + valor +"!");
-            } else if (valor == null && Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > 10) {
+            JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo " + valor + "!");
+        } else if (valor == null && Double.parseDouble(tfdPercentualCond.getText().replace(',', '.')) > 10) {
             percentualCondInvalido();
             JOptionPane.showMessageDialog(null, "O percentual deve ser no máximo 10!");
         } else if (!maiorQue100(tfdPercentualCond.getText().replace(',', '.'), tfdSomaPercentualTotal.getText())) {
