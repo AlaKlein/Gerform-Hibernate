@@ -1457,6 +1457,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
+        instance = null;
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnRemMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemMPActionPerformed

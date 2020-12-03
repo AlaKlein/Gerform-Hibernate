@@ -420,6 +420,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jDesktopPane1.add(ifrUsuario);
             ifrUsuario.setVisible(true);
         }
+        
+        
+//        IfrUsuario ifrUsuario = IfrUsuario.getInstance();
+//        centralizarJInternalFrame(ifrUsuario);
+//        if (ifrUsuario.isVisible()) {
+//        } else {
+//            jDesktopPane1.add(ifrUsuario);
+//            ifrUsuario.setVisible(true);
+//        }
 
 //        IfrUsuario ifrUsuario = new IfrUsuario();
 //        jDesktopPane1.add(ifrUsuario);

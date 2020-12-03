@@ -321,6 +321,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
 
     private void btnfechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfechar1ActionPerformed
         dispose();
+        instance = null;
     }//GEN-LAST:event_btnfechar1ActionPerformed
 
     private void btnLimparSelecoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparSelecoesActionPerformed

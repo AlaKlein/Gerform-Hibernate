@@ -70,7 +70,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         }
         return instance;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,7 +304,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
-        limparCampos();
+        instance = null;
     }//GEN-LAST:event_btnFecharActionPerformed
 
     public void limparCampos() {

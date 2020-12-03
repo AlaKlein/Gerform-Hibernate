@@ -221,6 +221,7 @@ public class IfrRelLoginData extends javax.swing.JInternalFrame {
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
+        instance = null;
     }//GEN-LAST:event_btnFecharActionPerformed
 
 
