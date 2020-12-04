@@ -1595,7 +1595,13 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
     private void btnAddCondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCondActionPerformed
         //verifica se os campos obrigatórios estão preenchidos
-        Double valor = Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond));
+        Double valor = null;
+        if (tblEsquerdaCond.getSelectedRow() == -1) {
+            TabelaEsqCondInvalido();
+            JOptionPane.showMessageDialog(null, "Você deve selecionar um item da lista antes de inserir");
+        } else {
+            valor = Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond));
+        }
 
         if (tfdBatelada.getText().isEmpty()) {
             bateladaInvalido();
@@ -1616,6 +1622,8 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             percentualTotalInvalido(tfdPercentualCond);
             JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
         } else {
+            
+            //Double valor = Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond));
             // consulta o id do item selecionado na lista
             int id = itemFormulacaoDAO.getId(String.valueOf(itemFormulacaoDAO.getSelection(tblEsquerdaCond)));
 
