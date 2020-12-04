@@ -544,20 +544,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        IfrFormulacao tf = IfrFormulacao.getInstance();
-        tf.setSize(1260, 670);
-        centralizarJInternalFrame(tf);
-        if (tf.isVisible()) {
+        IfrFormulacao IfrForm = IfrFormulacao.getInstance();
+        IfrForm.setSize(1260, 670);
+        centralizarJInternalFrame(IfrForm);
+        if (IfrForm.isVisible()) {
         } else {
-            jDesktopPane1.add(tf);
-            tf.setVisible(true);
+            jDesktopPane1.add(IfrForm);
+            IfrForm.setVisible(true);
         }
         
-//        IfrFormulacao tf = new IfrFormulacao();
-//        tf.setSize(1260, 670);
-//        centralizarJInternalFrame(tf);
-//        jDesktopPane1.add(tf);
-//        tf.setVisible(true);
+//        IfrFormulacao IfrForm = new IfrFormulacao();
+//        IfrForm.setSize(1260, 670);
+//        centralizarJInternalFrame(IfrForm);
+//        jDesktopPane1.add(IfrForm);
+//        IfrForm.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed

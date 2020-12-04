@@ -29,12 +29,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class IfrFormulacao extends javax.swing.JInternalFrame {
 
+    private static IfrFormulacao instanceF;
     FormulacaoDAO formulacaoDAO = new FormulacaoDAO();
     ItemFormulacaoDAO itemFormulacaoDAO = new ItemFormulacaoDAO();
     private DefaultListModel modeloListaEsquerdaMP = new DefaultListModel<String>();
     int idAtualizar;
     int formID;
-    private static IfrFormulacao instance;
+
+    public static IfrFormulacao getInstance() {
+        if (instanceF == null) {
+            instanceF = new IfrFormulacao();
+        }
+        return instanceF;
+    }
 
     /**
      * Creates new form IfrMaterial
@@ -115,13 +122,6 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
         tfdPercentualCond.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tffDataLancamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-    }
-    
-    public static IfrFormulacao getInstance() {
-        if (instance == null) {
-            instance = new IfrFormulacao();
-        }
-        return instance;
     }
 
     public int getIdAtualizar() {
@@ -1359,37 +1359,6 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
                     retorno = new ItemFormulacaoDAO().Salvar(itemFormulacao);
                 }
-//                for (int lin = 0; lin < modelMP.getRowCount(); lin++) {
-//
-//                    itemFormulacao.setMaterialID(Integer.parseInt(modelMP.getValueAt(lin, 0).toString()));
-//                    itemFormulacao.setPercentual(Double.parseDouble(modelMP.getValueAt(lin, 2).toString()));
-//                    itemFormulacao.setKg(Double.parseDouble(modelMP.getValueAt(lin, 3).toString()));
-//                    itemFormulacao.setPrecoKg(Double.parseDouble(modelMP.getValueAt(lin, 4).toString()));
-//                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelMP.getValueAt(lin, 5).toString()));
-//                    itemFormulacao.setUmidade(Double.parseDouble(modelMP.getValueAt(lin, 6).toString()));
-//                    itemFormulacao.setGordura(Double.parseDouble(modelMP.getValueAt(lin, 7).toString()));
-//                    itemFormulacao.setProteina(Double.parseDouble(modelMP.getValueAt(lin, 8).toString()));
-//                    itemFormulacao.setProdutoID(getIdAtualizar());
-//                    itemFormulacao.setFormulacao_ver(1);
-//
-//                    retorno = itemFormulacaoDAO.atualizar(itemFormulacao, 1);
-//                }
-//
-//                for (int lin = 0; lin < modelCond.getRowCount(); lin++) {
-//                    itemFormulacao.setMaterialID(Integer.parseInt(modelCond.getValueAt(lin, 0).toString()));
-//                    itemFormulacao.setPercentual(Double.parseDouble(modelCond.getValueAt(lin, 2).toString()));
-//                    itemFormulacao.setKg(Double.parseDouble(modelCond.getValueAt(lin, 3).toString()));
-//                    itemFormulacao.setPrecoKg(Double.parseDouble(modelCond.getValueAt(lin, 4).toString()));
-//                    itemFormulacao.setPrecoKgProd(Double.parseDouble(modelCond.getValueAt(lin, 5).toString()));
-//                    itemFormulacao.setUmidade(Double.parseDouble(modelCond.getValueAt(lin, 6).toString()));
-//                    itemFormulacao.setGordura(Double.parseDouble(modelCond.getValueAt(lin, 7).toString()));
-//                    itemFormulacao.setProteina(Double.parseDouble(modelCond.getValueAt(lin, 8).toString()));
-//                    itemFormulacao.setProdutoID(getIdAtualizar());
-//                    itemFormulacao.setFormulacao_ver(1);
-//
-//                    retorno = itemFormulacaoDAO.atualizar(itemFormulacao, 2);
-//                }
-
                 formulacaoDAO.adicionarCusto(getIdAtualizar(), Double.parseDouble(tfdSomaR$KgProdTotal.getText()));
 
             } else {
@@ -1457,7 +1426,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
-        instance = null;
+        instanceF = null;
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnRemMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemMPActionPerformed
@@ -1622,7 +1591,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
             percentualTotalInvalido(tfdPercentualCond);
             JOptionPane.showMessageDialog(null, "O percentual total não deve ser maior que 100%!\n\nPercentual atual: " + tfdSomaPercentualTotal.getText() + "%!");
         } else {
-            
+
             //Double valor = Util.Validacao.validarLimites(itemFormulacaoDAO.getSelection(tblEsquerdaCond));
             // consulta o id do item selecionado na lista
             int id = itemFormulacaoDAO.getId(String.valueOf(itemFormulacaoDAO.getSelection(tblEsquerdaCond)));
@@ -1679,6 +1648,7 @@ public class IfrFormulacao extends javax.swing.JInternalFrame {
 
     private void btnFechar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar2ActionPerformed
         dispose();
+        instanceF = null;
     }//GEN-LAST:event_btnFechar2ActionPerformed
 
     private void tfdSomaPercentualTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdSomaPercentualTotalActionPerformed
