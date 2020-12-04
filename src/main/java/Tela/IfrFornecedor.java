@@ -382,9 +382,15 @@ public class IfrFornecedor extends javax.swing.JInternalFrame {
                 f.setStatus("Inativo");
             }
 
-            if (fornecedorDAO.checkExist(f)) {
+            if (fornecedorDAO.checkExistNome(f)) {
+                JOptionPane.showMessageDialog(null, "Campo Razão Social já existe no registro!");
+                tfdRazaoSocial.requestFocus();
+            } else if (fornecedorDAO.checkExistCNPJ(f)) {
                 JOptionPane.showMessageDialog(null, "Campo CNPJ já existe no registro!");
                 tffCNPJ.requestFocus();
+            } else if (fornecedorDAO.checkExistTelefone(f)) {
+                JOptionPane.showMessageDialog(null, "Campo Telefone já existe no registro!");
+                tffTelefone.requestFocus();
             } else {
 
                 if (codigo != 0) {

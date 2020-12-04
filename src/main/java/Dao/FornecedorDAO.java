@@ -155,7 +155,7 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
         return null;
     }
     
-    public boolean checkExist (Fornecedor f) {
+    public boolean checkExistNome (Fornecedor f) {
         boolean a = false;
         List resultado = null;
         Session sessao = null;
@@ -165,9 +165,61 @@ public class FornecedorDAO implements IDAO_T<Fornecedor>{
             Transaction transacao = sessao.beginTransaction();
             org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Fornecedor WHERE NOT id = " + f.getId() +
                     " AND "
-                    + " (razao_social = '" + f.getRazao_social() + "' OR "
-                            + "cnpj = '" + f.getCnpj() + "' OR "
-                                    + "telefone = '" + f.getTelefone() + "')");
+                    + " razao_social = '" + f.getRazao_social() + "'");
+            resultado = query.list();
+
+            if (Integer.parseInt(resultado.get(0).toString()) > 0) {
+                a = true;
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+            hibEx.toString();
+        } finally {
+            sessao.close();
+        }
+        return a;
+    }
+    
+    public boolean checkExistCNPJ (Fornecedor f) {
+        boolean a = false;
+        List resultado = null;
+        Session sessao = null;
+
+        try {
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Fornecedor WHERE NOT id = " + f.getId() +
+                    " AND "
+                            + "cnpj = '" + f.getCnpj() + "'");
+            resultado = query.list();
+
+            if (Integer.parseInt(resultado.get(0).toString()) > 0) {
+                a = true;
+            }
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+            Log.geraLogBD(UsuarioLogado.getUsuarioLogadoEmail(), "Query", hibEx.toString());
+            hibEx.toString();
+        } finally {
+            sessao.close();
+        }
+        return a;
+    }
+    
+    public boolean checkExistTelefone (Fornecedor f) {
+        boolean a = false;
+        List resultado = null;
+        Session sessao = null;
+
+        try {
+            sessao = Util.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            org.hibernate.Query query = sessao.createQuery("SELECT COUNT(*) FROM Fornecedor WHERE NOT id = " + f.getId() +
+                    " AND "
+                                    + "telefone = '" + f.getTelefone() + "'");
             resultado = query.list();
 
             if (Integer.parseInt(resultado.get(0).toString()) > 0) {
