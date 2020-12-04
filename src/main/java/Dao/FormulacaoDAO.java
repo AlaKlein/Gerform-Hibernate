@@ -125,7 +125,7 @@ public class FormulacaoDAO implements IDAO_T<Formulacao> {
             transacao.commit();
 
             if (TelaPrincipal.ligaAuditoria) {
-                Audita.salvarAuditoria("Update", "Formulacao", UsuarioLogado.getUsuarioLogadoID());
+                Audita.salvarAuditoria("Update", "formulacao", UsuarioLogado.getUsuarioLogadoID());
             }
             
         } catch (HibernateException hibEx) {
