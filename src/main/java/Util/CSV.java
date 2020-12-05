@@ -19,7 +19,7 @@ public class CSV {
     public void geraCSV(JTable table) {
         try {
             TableModel model = table.getModel();
-            String filename = "teste.csv";
+            String filename = "CSV.csv";
             FileWriter excel = new FileWriter(filename);
 
             for (int i = 0; i < model.getColumnCount(); i++) {

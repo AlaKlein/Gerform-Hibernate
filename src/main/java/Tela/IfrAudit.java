@@ -354,7 +354,7 @@ public class IfrAudit extends javax.swing.JInternalFrame {
         try {
             CSV csv = new CSV();
             csv.geraCSV(tblAuditoria);
-            Desktop.getDesktop().open(new java.io.File("teste.csv"));
+            Desktop.getDesktop().open(new java.io.File("CSV.csv"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo solicitado: " + e);
         }

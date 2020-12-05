@@ -216,6 +216,8 @@ public class IfrRelLoginData extends javax.swing.JInternalFrame {
                     }
                 }
             }.start();
+            dispose();
+            instance = null;
         }
     }//GEN-LAST:event_btnGerarActionPerformed
 
