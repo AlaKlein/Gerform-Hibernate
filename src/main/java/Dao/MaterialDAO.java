@@ -257,22 +257,6 @@ public class MaterialDAO implements IDAO_T<Material> {
     public void popularTabela(JTable tabela, String criterio, boolean box) {
 
         String sql = "";
-        /*if (box) {
-
-            sql = "SELECT m.id, m.descricao , m.precokg, m.status, t.descricao as tipo_material, a.razao_social\n"
-                    + "FROM material m JOIN tipo_material t ON m.tipo_material_id=t.id\n"
-                    + "JOIN fornecedor a ON m.fornecedor_id=a.id\n"
-                    + "WHERE m.descricao ILIKE '%" + criterio + "%' AND m.status <> 'Excluído'\n"
-                    + "ORDER BY m.id";
-
-        } else {
-
-            sql = "SELECT m.id, m.descricao, m.precokg, m.status, t.descricao as tipo_material, a.razao_social\n"
-                    + "FROM material m JOIN tipo_material t ON m.tipo_material_id=t.id\n"
-                    + "JOIN fornecedor a ON m.fornecedor_id=a.id\n"
-                    + "WHERE m.descricao ILIKE '%" + criterio + "%' AND m.status ILIKE 'ativo'\n"
-                    + "ORDER BY m.id";
-        }*/
         
         sql = "SELECT * FROM show_material('" + criterio + "', " + box + ");";
         
